@@ -19,7 +19,7 @@ public class enemyRange : MonoBehaviour
 
     public void GetPlayersInCollider()
     {
-        Collider[] collidersdetected = Physics.OverlapSphere(transform.position, transform.localScale.magnitude);
+        Collider[] collidersdetected = Physics.OverlapSphere(transform.position, 20f);
 
         foreach (Collider collider in collidersdetected)
         {

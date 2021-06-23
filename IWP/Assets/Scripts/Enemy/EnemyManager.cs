@@ -43,7 +43,7 @@ public class EnemyManager : MonoBehaviour
         int num = 1;
         for(int i = 0; i < 3; ++i)
         {
-            // Instantiate(soldierEnemy, new Vector3(5, 5, 5), Quaternion.identity);
+           
             Vector3 spawnPos = getSpawnPos();
 
             spawnPos.y += 100f;
@@ -52,7 +52,7 @@ public class EnemyManager : MonoBehaviour
 
             RaycastHit hitinfo;
 
-            if (Physics.Raycast(ray, out hitinfo, 100f, ~ignore))
+            if (Physics.Raycast(ray, out hitinfo, 200f, ~ignore))
             {
                 spawnPos = hitinfo.point;
             }
@@ -60,18 +60,16 @@ public class EnemyManager : MonoBehaviour
             if(choice == 0)
             {
                 enemytype = Instantiate(soldierEnemy, spawnPos, Quaternion.identity);
+                //Debug.Log(enemytype.transform.position);
                 enemytype.name = "Soldier " + num;
             }
             else if(choice == 1)
             {
                 enemytype = Instantiate(archerEnemy, spawnPos, Quaternion.identity);
+                //Debug.Log(enemytype.transform.position);
                 enemytype.name = "Archer " + num;
             }
-            //spawnPos.y += 0.5f;
-            //soldierEnemy.name = "soldier" + num;
-            //num++;
-            //enemytype = Instantiate(soldierEnemy, spawnPos, Quaternion.identity);
-            //enemytype.GetComponent<Rigidbody>().AddForce(new Vector3(0f,3f,0f),ForceMode.Impulse);
+            num++;
             enemies.Add(enemytype);
         }
     }
@@ -106,16 +104,18 @@ public class EnemyManager : MonoBehaviour
         Debug.Log(enemies[range].name);
         enemies[range].GetComponent<EnemyBehaviour>().setSwitch(true);
         enemies[range].GetComponent<EnemyBehaviour>().chooseAction();
-
+        enemies[range].GetComponent<EnemyBehaviour>().ignoreself = ignore;
         string name = enemies[range].name.Split(' ')[0];
        
         if(name == "Archer")
         {
             enemies[range].GetComponent<EnemyBehaviour>().namechck = name;
+            Debug.Log("its an archer");
         }
         else if(name == "Soldier")
         {
             enemies[range].GetComponent<EnemyBehaviour>().namechck = name;
+            Debug.Log("its a soldier");
         }
     }
 }

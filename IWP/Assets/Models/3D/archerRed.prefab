@@ -669,6 +669,7 @@ GameObject:
   - component: {fileID: 1155179773944753708}
   - component: {fileID: 619114986863442916}
   - component: {fileID: 3075762017227547844}
+  - component: {fileID: 3708814211204608729}
   m_Layer: 8
   m_Name: archerRed
   m_TagString: Enemy
@@ -738,6 +739,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersInRange: []
+--- !u!114 &3708814211204608729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8097883373613306570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c1bf5563136c545a84339a92494ac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eneHealth: 0
+  eneMP: 0
+  eneAtk: 0
+  namechck: 
+  range: {fileID: 0}
+  moving: 0
+  attacking: 0
+  ignoreself:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &8959979265459528710
 GameObject:
   m_ObjectHideFlags: 0

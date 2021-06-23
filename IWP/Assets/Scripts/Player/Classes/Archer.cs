@@ -189,7 +189,7 @@ public class Archer : MonoBehaviour
     private GameObject searchNearestEnemyinRange()
     {
         List<GameObject> enemiesinrange = new List<GameObject>();
-        enemiesinrange = GameObject.Find("collider_archerB").GetComponent<PlayerRanges>().enemies;
+        enemiesinrange = GetComponentInChildren<PlayerRanges>().enemies;
         if (enemiesinrange.Count > 0)
         {
             Debug.Log("there is an enemy");
@@ -198,7 +198,7 @@ public class Archer : MonoBehaviour
         GameObject closestEnemy;
         closestEnemy = null;
 
-        float distance = float.MaxValue;
+        float distance = Mathf.Infinity;
         Vector3 PlayerPos = transform.position;
 
 

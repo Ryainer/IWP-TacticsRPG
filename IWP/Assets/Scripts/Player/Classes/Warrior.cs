@@ -189,7 +189,7 @@ public class Warrior : MonoBehaviour
         GameObject closestEnemy;
         closestEnemy = null;
 
-        float distance = float.MaxValue;
+        float distance = Mathf.Infinity;
         Vector3 PlayerPos = transform.position;
         
 

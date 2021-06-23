@@ -22,6 +22,7 @@ public class EnemyBehaviour : MonoBehaviour
    
     public bool attacking = false;
 
+    public LayerMask ignoreself;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +74,7 @@ public class EnemyBehaviour : MonoBehaviour
         turns = GameObject.Find("TurnManager");
         //players = GameObject.FindGameObjectsWithTag("Player");
         dmgindicator = GameObject.Find("EnemyDmg");
+        gameObject.GetComponent<enemyRange>().GetPlayersInCollider();
         playersinRange = gameObject.GetComponent<enemyRange>().playersInRange;
         if (switchOn && !turns.GetComponent<TurnsManager>().getTurn())
         {
@@ -98,7 +100,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 moving = true;
                 switchOn = false;
-                Debug.Log("Moving");
+                Debug.Log("Moving due to no enemies");
                 Debug.Log("moving bool" + moving);
             }
         }
@@ -123,7 +125,16 @@ public class EnemyBehaviour : MonoBehaviour
             }
             else if(range > hitchance)
             {
-                playerToHit.GetComponent<Warrior>().health -= eneAtk;
+                
+                if(playerToHit.gameObject.name == "archerBlue")
+                {
+                    playerToHit.GetComponent<Archer>().health -= eneAtk;
+                }
+                else if(playerToHit.gameObject.name == "knightBlue")
+                {
+                    playerToHit.GetComponent<Warrior>().health -= eneAtk;
+                }
+
                 dmgindicator.GetComponent<Text>().text = "Enemy warrior dealt " + eneAtk + " to " + playerToHit.name;
             }
             turns.GetComponent<TurnsManager>().setTurn(true);
@@ -238,7 +249,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         RaycastHit hitinfo;
 
-        if (Physics.Raycast(ray, out hitinfo, 150f))
+        if (Physics.Raycast(ray, out hitinfo, 150f, ~ignoreself))
         {
             newPosition = hitinfo.point;
         }
