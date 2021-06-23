@@ -33,6 +33,7 @@ public class EnemyManager : MonoBehaviour
                 enemies.Remove(enemy);
                 GameObject.Destroy(enemy);
             }
+           
         }
     }
 

@@ -34,8 +34,7 @@ public class Warrior : MonoBehaviour
         health = 50;
         attack = 5;
         MP = 15;
-        healthbar = GameObject.Find("healthbar");
-        healthbar.GetComponent<healthbar>().setMaxHealth(health);
+        gameObject.GetComponentInChildren<healthbar>().setMaxHealth(health);
     }
 
     // Update is called once per frame
@@ -48,7 +47,7 @@ public class Warrior : MonoBehaviour
         }
         else
         {
-            healthbar.GetComponent<healthbar>().setHealth(health);
+            gameObject.GetComponentInChildren<healthbar>().setHealth(health);
         }
     }
 

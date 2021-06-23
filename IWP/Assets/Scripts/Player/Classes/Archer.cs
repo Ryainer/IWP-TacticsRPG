@@ -36,6 +36,10 @@ public class Archer : MonoBehaviour
             GameObject playerManager = GameObject.Find("PlayerManager");
             playerManager.GetComponent<Player>().RemoveGO(gameObject);
         }
+        else
+        {
+            gameObject.GetComponentInChildren<healthbar>().setHealth(health);
+        }
     }
 
     public void Attack()

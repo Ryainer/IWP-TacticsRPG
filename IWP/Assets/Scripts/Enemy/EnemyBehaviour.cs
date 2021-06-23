@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     public string namechck;
     private GameObject turns;
     private GameObject dmgindicator;
+    private GameObject healthBar;
     public SameAbilityRange range;
     GameObject board;
     UnitTilePos pos;
@@ -31,7 +32,7 @@ public class EnemyBehaviour : MonoBehaviour
         eneMP = 10;
         eneAtk = 5;
         switchOn = false;
-        
+        gameObject.GetComponentInChildren<healthbar>().setMaxHealth(eneHealth);
     }
 
     
@@ -59,6 +60,11 @@ public class EnemyBehaviour : MonoBehaviour
             moveAround();
             
        }
+
+       if(eneHealth > 0)
+       {
+            gameObject.GetComponentInChildren<healthbar>().setHealth(eneHealth);
+        }
     }
 
     public void chooseAction()
