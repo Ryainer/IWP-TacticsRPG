@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.EnhancedTouch;
-using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
-using TouchPhase = UnityEngine.InputSystem.TouchPhase;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        EnhancedTouchSupport.Enable();
+        
         
     }
 
