@@ -61,12 +61,14 @@ public class Archer : MonoBehaviour
 
                     if (range < hitchance)
                     {
+                        FindObjectOfType<AudioManager>().Player("miss");
                         dmgindicator.GetComponent<Text>().text = "Archer Missed";
                         turns.GetComponent<TurnsManager>().setTurn(false);
                         turns.GetComponent<TurnsManager>().swapControls();
                     }
                     else if (range > hitchance)
                     {
+                        FindObjectOfType<AudioManager>().Player("thwack");
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= attack;
                         dmgindicator.GetComponent<Text>().text = "Archer dealt " + attack + " to " + enemyToHit.name;

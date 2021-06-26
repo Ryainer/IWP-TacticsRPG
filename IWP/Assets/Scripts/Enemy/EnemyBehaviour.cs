@@ -121,12 +121,13 @@ public class EnemyBehaviour : MonoBehaviour
 
             if(range < hitchance)
             {
+                FindObjectOfType<AudioManager>().Player("miss");
                 dmgindicator.GetComponent<Text>().text = "Enemy warrior Missed";
             }
             else if(range > hitchance)
             {
-                
-                if(playerToHit.gameObject.name == "archerBlue")
+                FindObjectOfType<AudioManager>().Player("slash");
+                if (playerToHit.gameObject.name == "archerBlue")
                 {
                     playerToHit.GetComponent<Archer>().health -= eneAtk;
                 }
@@ -158,11 +159,20 @@ public class EnemyBehaviour : MonoBehaviour
 
             if (range < hitchance)
             {
+                FindObjectOfType<AudioManager>().Player("miss");
                 dmgindicator.GetComponent<Text>().text = "Enemy archer Missed";
             }
             else if (range > hitchance)
             {
-                playerToHit.GetComponent<Warrior>().health -= eneAtk;
+                FindObjectOfType<AudioManager>().Player("thwack");
+                if (playerToHit.gameObject.name == "archerBlue")
+                {
+                    playerToHit.GetComponent<Archer>().health -= eneAtk;
+                }
+                else if (playerToHit.gameObject.name == "knightBlue")
+                {
+                    playerToHit.GetComponent<Warrior>().health -= eneAtk;
+                }
                 dmgindicator.GetComponent<Text>().text = "Enemy archer dealt " + eneAtk + " to " + playerToHit.name;
             }
             turns.GetComponent<TurnsManager>().setTurn(true);

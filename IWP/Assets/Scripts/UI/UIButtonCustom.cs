@@ -7,6 +7,9 @@ public class UIButtonCustom : MonoBehaviour
 {
     private Camera camera;
     public GameObject cameraRig;
+
+   
+
     float rotatingspeed;
 
     public float movementSpeed;
@@ -45,6 +48,7 @@ public class UIButtonCustom : MonoBehaviour
         camRotation *= Quaternion.Euler(Vector3.up * -rotationamt);
     }
 
+   
 }
    
 

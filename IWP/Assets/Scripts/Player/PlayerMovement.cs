@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        controller = Player.GetComponent<CharacterController>();
-        move = Player.transform.position;
+       // controller = Player.GetComponent<CharacterController>();
+        //move = Player.transform.position;
     }
 
     // Update is called once per frame
@@ -143,52 +143,30 @@ public class PlayerMovement : MonoBehaviour
     //    controller.Move(moveDown);
     //}
 
-    private void Move(Vector2 dir)
-    {
-        foward = (dir.y > 0);
-        backward = (dir.y < 0);
-        left = (dir.x < -0.5);
-        right = (dir.x > 0.5);
+    //private void Move(Vector2 dir)
+    //{
+    //    foward = (dir.y > 0);
+    //    backward = (dir.y < 0);
+    //    left = (dir.x < -0.5);
+    //    right = (dir.x > 0.5);
 
-        Vector3 nxtMove = Vector3.zero;
+    //    Vector3 nxtMove = Vector3.zero;
 
-        if (foward)
-            nxtMove += Vector3.forward * Time.deltaTime * speed;
-        if (backward)
-            nxtMove += Vector3.back * Time.deltaTime * speed;
-        if (right)
-            nxtMove += Vector3.right * Time.deltaTime * speed;
-        if (left)
-            nxtMove += Vector3.left * Time.deltaTime * speed;
+    //    if (foward)
+    //        nxtMove += Vector3.forward * Time.deltaTime * speed;
+    //    if (backward)
+    //        nxtMove += Vector3.back * Time.deltaTime * speed;
+    //    if (right)
+    //        nxtMove += Vector3.right * Time.deltaTime * speed;
+    //    if (left)
+    //        nxtMove += Vector3.left * Time.deltaTime * speed;
 
-        nxtMove.y -= gravity * Time.deltaTime;
+    //    nxtMove.y -= gravity * Time.deltaTime;
 
-        nxtMove.Normalize();
+    //    nxtMove.Normalize();
 
-        controller.Move(nxtMove);
-    }
+    //    controller.Move(nxtMove);
+    //}
 
-    GameObject closestTile()
-    {
-        GameObject[] closestTiles;
-
-        closestTiles = GameObject.FindGameObjectsWithTag("Tiles");
-        GameObject theClosest = null;
-        float distance = Mathf.Infinity;
-        Vector3 position = Player.transform.position;
-
-        foreach(GameObject indiviTile in closestTiles)
-        {
-            Vector3 diff = indiviTile.transform.position - position;
-            float currentDist = diff.sqrMagnitude;
-
-            if(currentDist < distance)
-            {
-                theClosest = indiviTile;
-                distance = currentDist;
-            }
-        }
-
-        return theClosest;
-    }
+    
 }

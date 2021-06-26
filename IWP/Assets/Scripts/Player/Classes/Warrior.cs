@@ -70,12 +70,14 @@ public class Warrior : MonoBehaviour
 
                     if (range < hitchance)
                     {
+                        FindObjectOfType<AudioManager>().Player("miss");
                         dmgindicator.GetComponent<Text>().text = "Warrior Missed";
                         turns.GetComponent<TurnsManager>().setTurn(false);
                         turns.GetComponent<TurnsManager>().swapControls();
                     }
                     else if (range > hitchance)
                     {
+                        FindObjectOfType<AudioManager>().Player("slash");
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= attack;
                         dmgindicator.GetComponent<Text>().text = "Warrior dealt " + attack + " to " + enemyToHit.name;
