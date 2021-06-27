@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public GameObject movements;
     public GameObject joystick;
     public GameObject menu;
+    public GameObject combatScreen;
     public LayerMask ignore;
     private GameObject clone;
     GameObject[] Tiles;
@@ -83,6 +84,7 @@ public class Player : MonoBehaviour
         int range = Random.Range(0, crewmembers.Count);
         movements.GetComponent<PlayerMovement>().Player = crewmembers[range];
         joystick.GetComponent<LockPlayerPos>().Player = crewmembers[range];
+        combatScreen.GetComponent<PlayerChooseTarget>().user = crewmembers[range];
         if (crewmembers[range].name == "archerBlue")
         {
             menu.GetComponent<Menu>().archer = crewmembers[range];

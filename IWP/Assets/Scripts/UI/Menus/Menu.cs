@@ -7,6 +7,7 @@ public class Menu : MonoBehaviour
     public GameObject warriorMenu;
     public GameObject healerMenu;
     public GameObject archerMenu;
+    public GameObject atkConfirmation;
     public GameObject warrior;
     public GameObject archer;
     public GameObject turns;
@@ -27,11 +28,13 @@ public class Menu : MonoBehaviour
     {
         if(warrior != null)
         {
-            warrior.GetComponent<Warrior>().Attack();
+            atkConfirmation.SetActive(true);
+            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack", 100);
         }
         else if(archer != null)
         {
-            archer.GetComponent<Archer>().Attack();
+            atkConfirmation.SetActive(true);
+            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack", 100);
         }
     }
 

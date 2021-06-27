@@ -10,7 +10,8 @@ public class PlayerRanges : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
-            if(!enemies.Exists(x => x = other.gameObject))
+            var results = enemies.FindAll(s => s.Equals(other.gameObject.name));
+            if(results.Count <= 0)
             {
                 enemies.Add(other.gameObject);
                 Debug.Log("ADDED");

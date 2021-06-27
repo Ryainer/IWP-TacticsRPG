@@ -5,7 +5,7 @@ using UnityEngine;
 public class WarriorMenu : MonoBehaviour
 {
     public GameObject warrior;
-  
+    public GameObject atkConfirmation;
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +15,18 @@ public class WarriorMenu : MonoBehaviour
 
     public void AtkButtonPress()
     {
-        warrior.GetComponent<Warrior>().DoubleSwing();
+        //warrior.GetComponent<Warrior>().DoubleSwing();
+
+        atkConfirmation.SetActive(true);
+        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("DoubleSwing", 75);
     }
 
     public void DblSwing()
     {
-        warrior.GetComponent<Warrior>().ChargeSmash();
+        //warrior.GetComponent<Warrior>().ChargeSmash();
+
+        atkConfirmation.SetActive(true);
+        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("ChargeSmash", 65);
     }
 
     public void Cancel()
