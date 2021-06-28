@@ -10,7 +10,8 @@ public class Archer : MonoBehaviour
 
     public Player playerStats;
     public int health;
-    int attack;
+    public int atkstat;
+    public int skillstat;
     int jump;
     int def;
     int MP;
@@ -18,7 +19,8 @@ public class Archer : MonoBehaviour
     private void Awake()
     {
         health = 35;
-        attack = 3;
+        atkstat = 13;
+        skillstat = 50;
         MP = 15;
     }
 
@@ -42,7 +44,7 @@ public class Archer : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public void Attack(GameObject target)
     {
         turns = GameObject.Find("TurnManager");
         dmgindicator = GameObject.Find("PlayerDmg");
@@ -51,7 +53,7 @@ public class Archer : MonoBehaviour
             if (turns.GetComponent<TurnsManager>().getTurn())
             {
 
-                GameObject enemyToHit = searchNearestEnemyinRange();
+                GameObject enemyToHit = target;
                 if (enemyToHit != null)
                 {
                     Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
@@ -70,8 +72,8 @@ public class Archer : MonoBehaviour
                     {
                         FindObjectOfType<AudioManager>().Player("thwack");
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
-                        enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= attack;
-                        dmgindicator.GetComponent<Text>().text = "Archer dealt " + attack + " to " + enemyToHit.name;
+                        enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
+                        dmgindicator.GetComponent<Text>().text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
                         turns.GetComponent<TurnsManager>().setTurn(false);
                         turns.GetComponent<TurnsManager>().swapControls();
                         Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
@@ -117,8 +119,8 @@ public class Archer : MonoBehaviour
                     else if (range > hitchance)
                     {
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
-                        enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= attack * 2;
-                        dmgindicator.GetComponent<Text>().text = "Archer dealt " + attack + " to " + enemyToHit.name;
+                        enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 2;
+                        dmgindicator.GetComponent<Text>().text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
                         turns.GetComponent<TurnsManager>().setTurn(false);
                         turns.GetComponent<TurnsManager>().swapControls();
                         Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
@@ -165,8 +167,8 @@ public class Archer : MonoBehaviour
                         else if (range > hitchance)
                         {
                             Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
-                            enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= attack;
-                            dmgindicator.GetComponent<Text>().text = "Archer dealt " + attack + " to " + enemyToHit.name;
+                            enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
+                            dmgindicator.GetComponent<Text>().text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
                             
                             Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         }

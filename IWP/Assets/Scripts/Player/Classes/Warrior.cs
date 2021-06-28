@@ -15,24 +15,26 @@ public class Warrior : MonoBehaviour
 
     private GameObject healthbar;
 
-    int attack;
+    public int atkstat;
     int jump;
     int def;
     int MP;
     int timer;
+    public float skillstat;
 
     private void Awake()
     {
        // turns = new TurnsManager();
         health = 50;
-        attack = 5;
+        atkstat = 40;
         MP = 15;
+        skillstat = 5;
     }
 
     private void Start()
     {
         health = 50;
-        attack = 5;
+        atkstat = 5;
         MP = 15;
         gameObject.GetComponentInChildren<healthbar>().setMaxHealth(health);
     }
@@ -51,7 +53,7 @@ public class Warrior : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public void Attack(GameObject target)
     {
 
         turns = GameObject.Find("TurnManager");
@@ -61,7 +63,7 @@ public class Warrior : MonoBehaviour
             if (turns.GetComponent<TurnsManager>().getTurn())
             {
 
-                GameObject enemyToHit = searchNearestEnemyinRange();
+                GameObject enemyToHit = target;
                 if (enemyToHit != null)
                 {
                     Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
@@ -80,8 +82,8 @@ public class Warrior : MonoBehaviour
                     {
                         FindObjectOfType<AudioManager>().Player("slash");
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
-                        enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= attack;
-                        dmgindicator.GetComponent<Text>().text = "Warrior dealt " + attack + " to " + enemyToHit.name;
+                        enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
+                        dmgindicator.GetComponent<Text>().text = "Warrior dealt " + atkstat + " to " + enemyToHit.name;
                         turns.GetComponent<TurnsManager>().setTurn(false);
                         turns.GetComponent<TurnsManager>().swapControls();
                         Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
@@ -126,8 +128,8 @@ public class Warrior : MonoBehaviour
             {
                 MP -= 4;
                 Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
-                enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= attack * 2;
-                dmgindicator.GetComponent<Text>().text = "Warrior dealt " + (attack * 2) + " to " + enemyToHit.name;
+                enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 2;
+                dmgindicator.GetComponent<Text>().text = "Warrior dealt " + (atkstat * 2) + " to " + enemyToHit.name;
                 turns.GetComponent<TurnsManager>().setTurn(false);
                 turns.GetComponent<TurnsManager>().swapControls();
                 Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
@@ -166,8 +168,8 @@ public class Warrior : MonoBehaviour
             {
                 MP -= 5;
                 Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
-                enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= attack * 4;
-                dmgindicator.GetComponent<Text>().text = "Warrior dealt " + (attack * 4) + " to " + enemyToHit.name;
+                enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 4;
+                dmgindicator.GetComponent<Text>().text = "Warrior dealt " + (atkstat * 4) + " to " + enemyToHit.name;
                 turns.GetComponent<TurnsManager>().setTurn(false);
                 turns.GetComponent<TurnsManager>().swapControls();
                 Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
