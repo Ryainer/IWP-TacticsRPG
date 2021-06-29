@@ -34,7 +34,7 @@ public class Warrior : MonoBehaviour
     private void Start()
     {
         health = 50;
-        atkstat = 5;
+        //atkstat = 5;
         MP = 15;
         gameObject.GetComponentInChildren<healthbar>().setMaxHealth(health);
     }
