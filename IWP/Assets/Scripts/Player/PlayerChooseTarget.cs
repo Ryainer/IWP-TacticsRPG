@@ -8,7 +8,7 @@ public class PlayerChooseTarget : MonoBehaviour
     //[HideInInspector]
     public GameObject user;
     private string skill;
-    private int hitchance;
+    private float hitchance;
     private List<GameObject> choices = new List<GameObject>();
     public Text enemy;
     int num = 0;
@@ -49,23 +49,24 @@ public class PlayerChooseTarget : MonoBehaviour
     {
         executeCommand(choices[num], skill);
     }
-    public void targetsSelect(string move, int chance)
+    public void targetsSelect(string move)
     {
         if (user != null)
         {
             choices = user.GetComponentInChildren<PlayerRanges>().enemies;
         }
         skill = move;
-        hitchance = chance;
+        hitchance = hitrate();
         enemy.text = "Name: " + choices[0].name + "\n" + "Health: " + choices[0].GetComponent<EnemyBehaviour>().eneHealth
-            + "\n" + "Hitchance" + (chance * heightCheck(user.transform.position.y, choices[0].transform.position.y)) + "%";
+            + "\n" + "Hitchance" + hitrate() + "%";
 
     }
 
     public void targetsSelect(int choice)
     {
+        hitchance = hitrate();
         enemy.text = "Name: " + choices[choice].name + "\n" + "Health: " + choices[0].GetComponent<EnemyBehaviour>().eneHealth
-            + "\n" + "Hitchance" + (hitchance * heightCheck(user.transform.position.y, choices[choice].transform.position.y)) + "%";
+            + "\n" + "Hitchance" + hitrate() + "%";
     }
 
     public void executeCommand(GameObject enemy, string actionused)
@@ -77,7 +78,7 @@ public class PlayerChooseTarget : MonoBehaviour
                 {
                     if (user.name == "archerBlue")
                     {
-                        user.GetComponent<Archer>().Attack(enemy);
+                        user.GetComponent<Archer>().Attack(enemy, hitchance);
                         if (gameObject.activeInHierarchy)
                         {
                             gameObject.SetActive(false);
@@ -85,7 +86,7 @@ public class PlayerChooseTarget : MonoBehaviour
                     }
                     else if (user.name == "knightBlue")
                     {
-                        user.GetComponent<Warrior>().Attack(enemy);
+                        user.GetComponent<Warrior>().Attack(enemy, hitchance);
                         if (gameObject.activeInHierarchy)
                         {
                             gameObject.SetActive(false);
@@ -94,27 +95,39 @@ public class PlayerChooseTarget : MonoBehaviour
                 }
                 break;
             case "DoubleSwing":
-                if (gameObject.activeInHierarchy)
                 {
-                    gameObject.SetActive(false);
+                    user.GetComponent<Warrior>().DoubleSwing(enemy);
+                    if (gameObject.activeInHierarchy)
+                    {
+                        gameObject.SetActive(false);
+                    }
                 }
                 break;
             case "ChargeSmash":
-                if (gameObject.activeInHierarchy)
                 {
-                    gameObject.SetActive(false);
+                    user.GetComponent<Warrior>().ChargeSmash(enemy);
+                    if (gameObject.activeInHierarchy)
+                    {
+                        gameObject.SetActive(false);
+                    }
                 }
                 break;
             case "chargedshot":
-                if (gameObject.activeInHierarchy)
                 {
-                    gameObject.SetActive(false);
+                    user.GetComponent<Archer>().chargedShotAtk(enemy);
+                    if (gameObject.activeInHierarchy)
+                    {
+                        gameObject.SetActive(false);
+                    }
                 }
                 break;
             case "repeatedshot":
-                if (gameObject.activeInHierarchy)
                 {
-                    gameObject.SetActive(false);
+                    user.GetComponent<Archer>().repeatedShotAtk(enemy);
+                    if (gameObject.activeInHierarchy)
+                    {
+                        gameObject.SetActive(false);
+                    }
                 }
                 break;
         }
@@ -143,11 +156,13 @@ public class PlayerChooseTarget : MonoBehaviour
 
         if(user.name == "archerBlue")
         {
-            rate = user.GetComponent<Archer>().atkstat + user.GetComponent<Archer>().skillstat;
+            rate = (user.GetComponent<Archer>().atkstat + user.GetComponent<Archer>().skillstat)
+                - choices[num].GetComponent<EnemyBehaviour>().eneskill;
         }
         else if (user.name == "knightBlue")
         {
-            rate = user.GetComponent<Warrior>().atkstat + user.GetComponent<Warrior>().skillstat;
+            rate = (user.GetComponent<Warrior>().atkstat + user.GetComponent<Warrior>().skillstat)
+                - choices[num].GetComponent<EnemyBehaviour>().eneskill;
         }
 
         return rate;

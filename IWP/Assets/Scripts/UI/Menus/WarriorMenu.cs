@@ -18,7 +18,7 @@ public class WarriorMenu : MonoBehaviour
         //warrior.GetComponent<Warrior>().DoubleSwing();
 
         atkConfirmation.SetActive(true);
-        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("DoubleSwing", 75);
+        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("DoubleSwing");
     }
 
     public void DblSwing()
@@ -26,7 +26,7 @@ public class WarriorMenu : MonoBehaviour
         //warrior.GetComponent<Warrior>().ChargeSmash();
 
         atkConfirmation.SetActive(true);
-        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("ChargeSmash", 65);
+        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("ChargeSmash");
     }
 
     public void Cancel()

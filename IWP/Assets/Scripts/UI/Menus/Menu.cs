@@ -29,12 +29,12 @@ public class Menu : MonoBehaviour
         if(warrior != null)
         {
             atkConfirmation.SetActive(true);
-            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack", 100);
+            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
         }
         else if(archer != null)
         {
             atkConfirmation.SetActive(true);
-            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack", 100);
+            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
         }
     }
 

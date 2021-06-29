@@ -8,6 +8,7 @@ public class EnemyBehaviour : MonoBehaviour
     public int eneHealth;
     public int eneMP;
     public int eneAtk;
+    public int eneskill;
     public string namechck;
     private GameObject turns;
     private GameObject dmgindicator;
@@ -32,6 +33,7 @@ public class EnemyBehaviour : MonoBehaviour
         eneHealth = 50;
         eneMP = 10;
         eneAtk = 5;
+        eneskill = Random.Range(10, 20);
         switchOn = false;
         gameObject.GetComponentInChildren<healthbar>().setMaxHealth(eneHealth);
     }

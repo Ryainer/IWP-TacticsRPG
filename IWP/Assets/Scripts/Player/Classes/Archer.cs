@@ -44,7 +44,7 @@ public class Archer : MonoBehaviour
         }
     }
 
-    public void Attack(GameObject target)
+    public void Attack(GameObject target, float chance)
     {
         turns = GameObject.Find("TurnManager");
         dmgindicator = GameObject.Find("PlayerDmg");
@@ -93,7 +93,7 @@ public class Archer : MonoBehaviour
 
     }
 
-    public void chargedShotAtk()
+    public void chargedShotAtk(GameObject target)
     {
         turns = GameObject.Find("TurnManager");
         dmgindicator = GameObject.Find("PlayerDmg");
@@ -140,7 +140,7 @@ public class Archer : MonoBehaviour
 
     }
 
-    public void repeatedShotAtk()
+    public void repeatedShotAtk(GameObject target)
     {
         turns = GameObject.Find("TurnManager");
         dmgindicator = GameObject.Find("PlayerDmg");

@@ -11,7 +11,7 @@ public class ArcherMenu : MonoBehaviour
         //Archer.GetComponent<Archer>().chargedShotAtk();
 
         atkConfirmation.SetActive(true);
-        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("chargedshot", 75);
+        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("chargedshot");
     }
 
     public void repeatedShot()
@@ -19,7 +19,7 @@ public class ArcherMenu : MonoBehaviour
         //Archer.GetComponent<Archer>().repeatedShotAtk();
 
         atkConfirmation.SetActive(true);
-        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("repeatedshot", 75);
+        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("repeatedshot");
     }
 
     public void Cancel()

@@ -28,7 +28,7 @@ public class Warrior : MonoBehaviour
         health = 50;
         atkstat = 40;
         MP = 15;
-        skillstat = 5;
+        skillstat = 25;
     }
 
     private void Start()
@@ -53,7 +53,7 @@ public class Warrior : MonoBehaviour
         }
     }
 
-    public void Attack(GameObject target)
+    public void Attack(GameObject target, float chance)
     {
 
         turns = GameObject.Find("TurnManager");
@@ -62,23 +62,21 @@ public class Warrior : MonoBehaviour
         {
             if (turns.GetComponent<TurnsManager>().getTurn())
             {
-
                 GameObject enemyToHit = target;
                 if (enemyToHit != null)
                 {
                     Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
-                    float hitchance = 100 / heightCheck(transform.position.y, enemyToHit.transform.position.y);
-
+                    
                     float range = Random.Range(0, 100);
 
-                    if (range < hitchance)
+                    if (range < chance)
                     {
                         FindObjectOfType<AudioManager>().Player("miss");
                         dmgindicator.GetComponent<Text>().text = "Warrior Missed";
                         turns.GetComponent<TurnsManager>().setTurn(false);
                         turns.GetComponent<TurnsManager>().swapControls();
                     }
-                    else if (range > hitchance)
+                    else if (range > chance)
                     {
                         FindObjectOfType<AudioManager>().Player("slash");
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
@@ -103,7 +101,7 @@ public class Warrior : MonoBehaviour
 
     }
 
-    public void DoubleSwing()
+    public void DoubleSwing(GameObject target)
     {
 
         turns = GameObject.Find("TurnManager");
@@ -111,7 +109,7 @@ public class Warrior : MonoBehaviour
         if (turns.GetComponent<TurnsManager>().getTurn() && MP > 0)
         {
 
-            GameObject enemyToHit = searchNearestEnemyinRange();
+            GameObject enemyToHit = target;
 
             float hitchance = 55 / heightCheck(transform.position.y, enemyToHit.transform.position.y);
 
@@ -145,14 +143,14 @@ public class Warrior : MonoBehaviour
         }
     }
 
-    public void ChargeSmash()
+    public void ChargeSmash(GameObject target)
     {
         turns = GameObject.Find("TurnManager");
         dmgindicator = GameObject.Find("PlayerDmg");
         if (turns.GetComponent<TurnsManager>().getTurn() && MP > 0)
         {
 
-            GameObject enemyToHit = searchNearestEnemyinRange();
+            GameObject enemyToHit = target;
 
             float hitchance = 65 / heightCheck(transform.position.y, enemyToHit.transform.position.y);
             float range = Random.Range(0, 100);
@@ -183,51 +181,7 @@ public class Warrior : MonoBehaviour
         Debug.Log("ChargeSmash");
     }
 
-    private GameObject searchNearestEnemyinRange()
-    {
-        List<GameObject> enemiesinrange = new List<GameObject>();
-        enemiesinrange = GameObject.Find("collider_knightB").GetComponent<PlayerRanges>().enemies;
-        if(enemiesinrange.Count <= 0)
-        {
-            Debug.Log("there is an enemy");
-        }
-       // enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject closestEnemy;
-        closestEnemy = null;
-
-        float distance = Mathf.Infinity;
-        Vector3 PlayerPos = transform.position;
-        
-
-        foreach(GameObject enemy in enemiesinrange)
-        {
-            if(enemy == null)
-            {
-                Debug.Log("nulled");
-            }
-            else
-            {
-                Vector3 diff = enemy.transform.position - PlayerPos;
-                float currentDist = diff.sqrMagnitude;
-
-                if (currentDist < distance)
-                {
-                    closestEnemy = enemy;
-                    distance = currentDist;
-                    Debug.Log("checked");
-                }
-            }
-            
-        }
-
-        if(closestEnemy == null)
-        {
-            Debug.Log("closest enemy error");
-        }
-
-        return closestEnemy;
-    }
-
+    
     float heightCheck(float a, float b)
     {
         float heightFound = 0;
