@@ -12,6 +12,10 @@ public class Menu : MonoBehaviour
     public GameObject archer;
     public GameObject turns;
 
+    public GameObject combatControlButtons;
+    public GameObject actionButtons;
+    public GameObject joycon;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,11 +32,23 @@ public class Menu : MonoBehaviour
     {
         if(warrior != null)
         {
+            warrior.GetComponent<Warrior>().state = "attack";
+
+            actionButtons.SetActive(false);
+            joycon.SetActive(false);
+
+            combatControlButtons.SetActive(true);
             atkConfirmation.SetActive(true);
             atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
         }
         else if(archer != null)
         {
+            archer.GetComponent<Archer>().state = "attack";
+
+            actionButtons.SetActive(false);
+            joycon.SetActive(false);
+
+            combatControlButtons.SetActive(true);
             atkConfirmation.SetActive(true);
             atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
         }

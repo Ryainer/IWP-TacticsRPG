@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject SkillButton;
     public GameObject CancelButton;
 
+    public GameObject actionButtons;
+
     public Joystick joystick;
 
     private Vector2 touchStart, touchEnd, touchNew, joystickDir;
@@ -38,88 +40,36 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (Touch.activeTouches.Count > 0) //check how many touches
-        {
-            theTouch = Touch.activeTouches[0];
-
-            if (theTouch.phase == TouchPhase.Began || restart) //check if began or it went over the screen
-            {
-                restart = false;
-                touchStart = theTouch.screenPosition;
-
-                if (touchStart.x > Screen.width * 0.5f || touchStart.y > Screen.height * 0.7f)
-                {
-                    Move(Vector2.zero);
-                    return;
-                }
-            }
-            else if (theTouch.phase == TouchPhase.Moved || theTouch.phase == TouchPhase.Ended) //when we move joystick
-            {
-                if (AtkButton.activeInHierarchy && SkillButton.activeInHierarchy && CancelButton.activeInHierarchy)
-                {
-                    AtkButton.SetActive(false);
-                    SkillButton.SetActive(false);
-                    CancelButton.SetActive(false);
-                }
-
-                touchEnd = theTouch.screenPosition;
-
-                Vector2 offset = touchEnd - touchNew;
-
-                if (offset.sqrMagnitude > (Screen.width / 4) * (Screen.height / 4))
-                {
-                    restart = true;
-                }
-                touchNew = touchEnd; //store the previous end position into a new variable;
-
-                joystickDir = (touchEnd - touchStart) / 2;
-
-                Move(joystickDir);
-            }
-            if (theTouch.phase == TouchPhase.Ended)
-            {
-                GameObject snap = closestTile();
-                Vector3 changes = Player.transform.position;
-
-                changes.x = snap.transform.position.x;
-                changes.z = snap.transform.position.z;
-
-                Player.transform.position = changes;
-
-                if (!AtkButton.activeInHierarchy && !SkillButton.activeInHierarchy && !CancelButton.activeInHierarchy)
-                {
-                    AtkButton.SetActive(true);
-                    SkillButton.SetActive(true);
-                    CancelButton.SetActive(true);
-                }
-            }
-        }*/
+        
         controller = Player.GetComponent<CharacterController>();
         controller.Move(new Vector3(joystick.Horizontal * 0.2f, -(gravity * Time.deltaTime), joystick.Vertical * 0.2f));
         if (controller.velocity != Vector3.zero)
         {
-            if (AtkButton.activeInHierarchy && SkillButton.activeInHierarchy && CancelButton.activeInHierarchy)
+            if (actionButtons.activeInHierarchy)
             {
-                AtkButton.SetActive(false);
-                SkillButton.SetActive(false);
-                CancelButton.SetActive(false);
+                actionButtons.SetActive(false);
             }
           
         }
         else if (controller.velocity == Vector3.zero )
         {
-            if (!AtkButton.activeInHierarchy && !SkillButton.activeInHierarchy && !CancelButton.activeInHierarchy)
+            if (!actionButtons.activeInHierarchy)
             {
-                AtkButton.SetActive(true);
-                SkillButton.SetActive(true);
-                CancelButton.SetActive(true);
+               // actionButtons.SetActive(true);
+
+                if (Player.GetComponent<Warrior>() != null && Player.GetComponent<Warrior>().state != "attack")
+                {
+                    actionButtons.SetActive(true);
+                }
+                else if (Player.GetComponent<Archer>() != null && Player.GetComponent<Archer>().state != "attack")
+                {
+                    actionButtons.SetActive(true);
+                }
             }
             
         }
 
-        //move.y -= gravity * Time.deltaTime;
-        //move.Normalize();
-        //controller.Move(move);
+        
     }
 
    

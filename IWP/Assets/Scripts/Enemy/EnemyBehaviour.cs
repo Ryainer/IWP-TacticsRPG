@@ -46,7 +46,7 @@ public class EnemyBehaviour : MonoBehaviour
        // Debug.Log(attacking + "Sweda " + moving);
        if(attacking == true)
        {
-            Debug.Log("Enetering Attack");
+            Debug.Log("Entering Attack");
             if(namechck == "Soldier")
             {
                 enemyAttack();

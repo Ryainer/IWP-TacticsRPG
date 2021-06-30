@@ -9,11 +9,13 @@ public class Warrior : MonoBehaviour
 
     public GameObject turns;
     public GameObject dmgindicator;
-
+    public string state;
     public Player playerStats;
     public int health ;
 
     private GameObject healthbar;
+
+    private TurnsManager turnsystem;
 
     public int atkstat;
     int jump;
@@ -37,6 +39,7 @@ public class Warrior : MonoBehaviour
         //atkstat = 5;
         MP = 15;
         gameObject.GetComponentInChildren<healthbar>().setMaxHealth(health);
+        turnsystem = GameObject.Find("TurnManager").GetComponent<TurnsManager>();
     }
 
     // Update is called once per frame
@@ -73,8 +76,8 @@ public class Warrior : MonoBehaviour
                     {
                         FindObjectOfType<AudioManager>().Player("miss");
                         dmgindicator.GetComponent<Text>().text = "Warrior Missed";
-                        turns.GetComponent<TurnsManager>().setTurn(false);
-                        turns.GetComponent<TurnsManager>().swapControls();
+                        turnsystem.setTurn(false);
+                        turnsystem.swapControls();
                     }
                     else if (range > chance)
                     {
@@ -82,8 +85,8 @@ public class Warrior : MonoBehaviour
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
                         dmgindicator.GetComponent<Text>().text = "Warrior dealt " + atkstat + " to " + enemyToHit.name;
-                        turns.GetComponent<TurnsManager>().setTurn(false);
-                        turns.GetComponent<TurnsManager>().swapControls();
+                        turnsystem.setTurn(false);
+                        turnsystem.swapControls();
                         Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                     }
                 }
@@ -101,7 +104,7 @@ public class Warrior : MonoBehaviour
 
     }
 
-    public void DoubleSwing(GameObject target)
+    public void DoubleSwing(GameObject target, float chance)
     {
 
         turns = GameObject.Find("TurnManager");
@@ -143,7 +146,7 @@ public class Warrior : MonoBehaviour
         }
     }
 
-    public void ChargeSmash(GameObject target)
+    public void ChargeSmash(GameObject target, float chance)
     {
         turns = GameObject.Find("TurnManager");
         dmgindicator = GameObject.Find("PlayerDmg");

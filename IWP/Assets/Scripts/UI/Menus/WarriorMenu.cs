@@ -6,6 +6,9 @@ public class WarriorMenu : MonoBehaviour
 {
     public GameObject warrior;
     public GameObject atkConfirmation;
+    public GameObject combatControlButtons;
+    public GameObject actionButtons;
+    public GameObject joycon;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +20,10 @@ public class WarriorMenu : MonoBehaviour
     {
         //warrior.GetComponent<Warrior>().DoubleSwing();
 
+        actionButtons.SetActive(false);
+        joycon.SetActive(false);
+
+        combatControlButtons.SetActive(true);
         atkConfirmation.SetActive(true);
         atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("DoubleSwing");
     }
@@ -24,7 +31,10 @@ public class WarriorMenu : MonoBehaviour
     public void DblSwing()
     {
         //warrior.GetComponent<Warrior>().ChargeSmash();
+        actionButtons.SetActive(false);
+        joycon.SetActive(false);
 
+        combatControlButtons.SetActive(true);
         atkConfirmation.SetActive(true);
         atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("ChargeSmash");
     }

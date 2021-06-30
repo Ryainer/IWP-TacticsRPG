@@ -7,7 +7,7 @@ public class Archer : MonoBehaviour
 {
     public GameObject turns;
     public GameObject dmgindicator;
-
+    public string state;
     public Player playerStats;
     public int health;
     public int atkstat;
@@ -57,18 +57,18 @@ public class Archer : MonoBehaviour
                 if (enemyToHit != null)
                 {
                     Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
-                    float hitchance = 75 / heightCheck(transform.position.y, enemyToHit.transform.position.y);
+                  
 
                     float range = Random.Range(0, 100);
 
-                    if (range < hitchance)
+                    if (range < chance)
                     {
                         FindObjectOfType<AudioManager>().Player("miss");
                         dmgindicator.GetComponent<Text>().text = "Archer Missed";
                         turns.GetComponent<TurnsManager>().setTurn(false);
                         turns.GetComponent<TurnsManager>().swapControls();
                     }
-                    else if (range > hitchance)
+                    else if (range > chance)
                     {
                         FindObjectOfType<AudioManager>().Player("thwack");
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
@@ -93,7 +93,7 @@ public class Archer : MonoBehaviour
 
     }
 
-    public void chargedShotAtk(GameObject target)
+    public void chargedShotAtk(GameObject target, float chance)
     {
         turns = GameObject.Find("TurnManager");
         dmgindicator = GameObject.Find("PlayerDmg");
@@ -102,21 +102,21 @@ public class Archer : MonoBehaviour
             if (turns.GetComponent<TurnsManager>().getTurn())
             {
 
-                GameObject enemyToHit = searchNearestEnemyinRange();
+                GameObject enemyToHit = target;
                 if (enemyToHit != null)
                 {
                     Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
-                    float hitchance = 55 / heightCheck(transform.position.y, enemyToHit.transform.position.y);
+                    
 
                     float range = Random.Range(0, 100);
 
-                    if (range < hitchance)
+                    if (range < chance)
                     {
                         dmgindicator.GetComponent<Text>().text = "Archer Missed";
                         turns.GetComponent<TurnsManager>().setTurn(false);
                         turns.GetComponent<TurnsManager>().swapControls();
                     }
-                    else if (range > hitchance)
+                    else if (range > chance)
                     {
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 2;
@@ -140,7 +140,7 @@ public class Archer : MonoBehaviour
 
     }
 
-    public void repeatedShotAtk(GameObject target)
+    public void repeatedShotAtk(GameObject target, float chance)
     {
         turns = GameObject.Find("TurnManager");
         dmgindicator = GameObject.Find("PlayerDmg");
@@ -149,22 +149,22 @@ public class Archer : MonoBehaviour
             if (turns.GetComponent<TurnsManager>().getTurn())
             {
 
-                GameObject enemyToHit = searchNearestEnemyinRange();
+                GameObject enemyToHit = target;
                 if (enemyToHit != null)
                 {
                     Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
-                    float hitchance = 55 / heightCheck(transform.position.y, enemyToHit.transform.position.y);
+                   
                     int shots = 0;
                     while(shots < 5)
                     {
                         float range = Random.Range(0, 100);
 
-                        if (range < hitchance)
+                        if (range < chance)
                         {
                             dmgindicator.GetComponent<Text>().text = "Archer Missed";
                             
                         }
-                        else if (range > hitchance)
+                        else if (range > chance)
                         {
                             Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                             enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
@@ -188,67 +188,5 @@ public class Archer : MonoBehaviour
             Debug.Log("NULL");
         }
 
-    }
-
-    private GameObject searchNearestEnemyinRange()
-    {
-        List<GameObject> enemiesinrange = new List<GameObject>();
-        enemiesinrange = GetComponentInChildren<PlayerRanges>().enemies;
-        if (enemiesinrange.Count > 0)
-        {
-            Debug.Log("there is an enemy");
-        }
-        // enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject closestEnemy;
-        closestEnemy = null;
-
-        float distance = Mathf.Infinity;
-        Vector3 PlayerPos = transform.position;
-
-
-        foreach (GameObject enemy in enemiesinrange)
-        {
-            if (enemy == null)
-            {
-                Debug.Log("nulled");
-            }
-            else
-            {
-                Vector3 diff = enemy.transform.position - PlayerPos;
-                float currentDist = diff.sqrMagnitude;
-
-                if (currentDist < distance)
-                {
-                    closestEnemy = enemy;
-                    distance = currentDist;
-                    Debug.Log("checked");
-                }
-            }
-
-        }
-
-        if (closestEnemy == null)
-        {
-            Debug.Log("closest enemy error");
-        }
-
-        return closestEnemy;
-    }
-
-    float heightCheck(float a, float b)
-    {
-        float heightFound = 0;
-
-        if (a > b)
-        {
-            heightFound = a - b;
-        }
-        else if (a < b)
-        {
-            heightFound = b - a;
-        }
-
-
-        return heightFound;
     }
 }

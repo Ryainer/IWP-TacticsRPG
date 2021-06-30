@@ -7,6 +7,11 @@ public class PlayerChooseTarget : MonoBehaviour
 {
     //[HideInInspector]
     public GameObject user;
+
+    public GameObject camerarig;
+
+    private Vector3 OGCameraPOS;
+
     private string skill;
     private float hitchance;
     private List<GameObject> choices = new List<GameObject>();
@@ -16,7 +21,7 @@ public class PlayerChooseTarget : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        OGCameraPOS = camerarig.transform.position;
     }
 
     public void nxtTarget()
@@ -55,6 +60,15 @@ public class PlayerChooseTarget : MonoBehaviour
         {
             choices = user.GetComponentInChildren<PlayerRanges>().enemies;
         }
+
+        Vector3 position ;
+        position.x = choices[0].transform.position.x;
+        position.y = choices[0].transform.position.y;
+        position.z = choices[0].transform.position.z;
+
+        camerarig.transform.LookAt(position);
+
+
         skill = move;
         hitchance = hitrate();
         enemy.text = "Name: " + choices[0].name + "\n" + "Health: " + choices[0].GetComponent<EnemyBehaviour>().eneHealth
@@ -96,7 +110,7 @@ public class PlayerChooseTarget : MonoBehaviour
                 break;
             case "DoubleSwing":
                 {
-                    user.GetComponent<Warrior>().DoubleSwing(enemy);
+                    user.GetComponent<Warrior>().DoubleSwing(enemy, hitchance);
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
@@ -105,7 +119,7 @@ public class PlayerChooseTarget : MonoBehaviour
                 break;
             case "ChargeSmash":
                 {
-                    user.GetComponent<Warrior>().ChargeSmash(enemy);
+                    user.GetComponent<Warrior>().ChargeSmash(enemy, hitchance);
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
@@ -114,7 +128,7 @@ public class PlayerChooseTarget : MonoBehaviour
                 break;
             case "chargedshot":
                 {
-                    user.GetComponent<Archer>().chargedShotAtk(enemy);
+                    user.GetComponent<Archer>().chargedShotAtk(enemy, hitchance);
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
@@ -123,7 +137,7 @@ public class PlayerChooseTarget : MonoBehaviour
                 break;
             case "repeatedshot":
                 {
-                    user.GetComponent<Archer>().repeatedShotAtk(enemy);
+                    user.GetComponent<Archer>().repeatedShotAtk(enemy, hitchance);
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);

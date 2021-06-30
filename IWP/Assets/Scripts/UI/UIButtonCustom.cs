@@ -5,13 +5,10 @@ using UnityEngine.UI;
 
 public class UIButtonCustom : MonoBehaviour
 {
-    private Camera camera;
+    
     public GameObject cameraRig;
 
-   
-
-    float rotatingspeed;
-
+  
     public float movementSpeed;
     public float movementTime;
     public float rotationamt;
@@ -22,10 +19,10 @@ public class UIButtonCustom : MonoBehaviour
     void Start()
     {
         movementTime = 4f;
-        rotatingspeed = 5f;
+
         rotationamt = 7f;
         this.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.2f;
-        camera = Camera.main;
+      
 
         camPosition = cameraRig.transform.position;
         camRotation = cameraRig.transform.rotation;
