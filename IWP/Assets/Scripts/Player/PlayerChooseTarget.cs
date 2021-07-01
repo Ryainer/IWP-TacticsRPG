@@ -61,10 +61,8 @@ public class PlayerChooseTarget : MonoBehaviour
             choices = user.GetComponentInChildren<PlayerRanges>().enemies;
         }
 
-        Vector3 position ;
-        position.x = choices[0].transform.position.x;
-        position.y = choices[0].transform.position.y;
-        position.z = choices[0].transform.position.z;
+        Vector3 position = choices[0].transform.position;
+        
 
         camerarig.transform.LookAt(position);
 
@@ -78,6 +76,12 @@ public class PlayerChooseTarget : MonoBehaviour
 
     public void targetsSelect(int choice)
     {
+        Vector3 position = choices[choice].transform.position;
+
+
+        camerarig.transform.LookAt(position);
+
+
         hitchance = hitrate();
         enemy.text = "Name: " + choices[choice].name + "\n" + "Health: " + choices[0].GetComponent<EnemyBehaviour>().eneHealth
             + "\n" + "Hitchance" + hitrate() + "%";
@@ -145,23 +149,6 @@ public class PlayerChooseTarget : MonoBehaviour
                 }
                 break;
         }
-    }
-
-    float heightCheck(float a, float b)
-    {
-        float heightFound = 0;
-
-        if (a > b)
-        {
-            heightFound = a - b;
-        }
-        else if (a < b)
-        {
-            heightFound = b - a;
-        }
-
-
-        return heightFound;
     }
 
     float hitrate()

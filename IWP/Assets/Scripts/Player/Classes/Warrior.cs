@@ -7,7 +7,6 @@ public class Warrior : MonoBehaviour
 {
     public Tiles tile { get; protected set; }
 
-    public GameObject turns;
     public GameObject dmgindicator;
     public string state;
     public Player playerStats;
@@ -15,7 +14,8 @@ public class Warrior : MonoBehaviour
 
     private GameObject healthbar;
 
-    private TurnsManager turnsystem;
+    public TurnsManager turnsystem;
+    public Text dmgTxt;
 
     public int atkstat;
     int jump;
@@ -40,6 +40,7 @@ public class Warrior : MonoBehaviour
         MP = 15;
         gameObject.GetComponentInChildren<healthbar>().setMaxHealth(health);
         turnsystem = GameObject.Find("TurnManager").GetComponent<TurnsManager>();
+        dmgTxt = GameObject.Find("PlayerDmg").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -59,40 +60,38 @@ public class Warrior : MonoBehaviour
     public void Attack(GameObject target, float chance)
     {
 
-        turns = GameObject.Find("TurnManager");
-        dmgindicator = GameObject.Find("PlayerDmg");
-        if (turns != null)
+        if (turnsystem != null)
         {
-            if (turns.GetComponent<TurnsManager>().getTurn())
+            if (turnsystem.getTurn())
             {
                 GameObject enemyToHit = target;
                 if (enemyToHit != null)
                 {
-                    Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
+                    //Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
                     
                     float range = Random.Range(0, 100);
 
                     if (range < chance)
                     {
                         FindObjectOfType<AudioManager>().Player("miss");
-                        dmgindicator.GetComponent<Text>().text = "Warrior Missed";
+                        dmgTxt.text = "Warrior Missed";
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
                     }
                     else if (range > chance)
                     {
                         FindObjectOfType<AudioManager>().Player("slash");
-                        Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
+                        //Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
-                        dmgindicator.GetComponent<Text>().text = "Warrior dealt " + atkstat + " to " + enemyToHit.name;
+                        dmgTxt.text = "Warrior dealt " + atkstat + " to " + enemyToHit.name;
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
-                        Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
+                       // Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                     }
                 }
                 else
                 {
-                    dmgindicator.GetComponent<Text>().text = "No enemy in range";
+                    dmgTxt.text = "No enemy in range";
                 }
 
             }
@@ -106,80 +105,73 @@ public class Warrior : MonoBehaviour
 
     public void DoubleSwing(GameObject target, float chance)
     {
-
-        turns = GameObject.Find("TurnManager");
-        dmgindicator = GameObject.Find("PlayerDmg");
-        if (turns.GetComponent<TurnsManager>().getTurn() && MP > 0)
+        if (turnsystem.getTurn() && MP > 0)
         {
 
             GameObject enemyToHit = target;
 
-            float hitchance = 55 / heightCheck(transform.position.y, enemyToHit.transform.position.y);
-
             float range = Random.Range(0, 100);
 
-            if (range < hitchance)
+            if (range < chance)
             {
-                dmgindicator.GetComponent<Text>().text = "Warrior missed double swing";
+                dmgTxt.text = "Warrior missed double swing";
                 MP -= 4;
-                turns.GetComponent<TurnsManager>().setTurn(false);
-                turns.GetComponent<TurnsManager>().swapControls();
+                turnsystem.setTurn(false);
+                turnsystem.swapControls();
             }
-            else if (range > hitchance)
+            else if (range > chance)
             {
                 MP -= 4;
-                Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
+                //Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                 enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 2;
-                dmgindicator.GetComponent<Text>().text = "Warrior dealt " + (atkstat * 2) + " to " + enemyToHit.name;
-                turns.GetComponent<TurnsManager>().setTurn(false);
-                turns.GetComponent<TurnsManager>().swapControls();
-                Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
+                dmgTxt.text = "Warrior dealt " + (atkstat * 2) + " to " + enemyToHit.name;
+                turnsystem.setTurn(false);
+                turnsystem.swapControls();
+               // Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
             }
 
 
 
-            Debug.Log("DoubleSwing");
+           // Debug.Log("DoubleSwing");
         }
         else if (MP <= 0)
         {
-            dmgindicator.GetComponent<Text>().text = "Not Enough MP!!";
+            dmgTxt.text = "Not Enough MP!!";
         }
     }
 
     public void ChargeSmash(GameObject target, float chance)
     {
-        turns = GameObject.Find("TurnManager");
-        dmgindicator = GameObject.Find("PlayerDmg");
-        if (turns.GetComponent<TurnsManager>().getTurn() && MP > 0)
+   
+        if (turnsystem.getTurn() && MP > 0)
         {
 
             GameObject enemyToHit = target;
 
-            float hitchance = 65 / heightCheck(transform.position.y, enemyToHit.transform.position.y);
             float range = Random.Range(0, 100);
 
-            if (range < hitchance)
+            if (range < chance)
             {
                 MP -= 5;
-                dmgindicator.GetComponent<Text>().text = "Warrior missed charge swing";
-                turns.GetComponent<TurnsManager>().setTurn(false);
-                turns.GetComponent<TurnsManager>().swapControls();
+                dmgTxt.text = "Warrior missed charge swing";
+                turnsystem.setTurn(false);
+                turnsystem.swapControls();
             }
-            else if (range > hitchance)
+            else if (range > chance)
             {
                 MP -= 5;
-                Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
+                //Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                 enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 4;
-                dmgindicator.GetComponent<Text>().text = "Warrior dealt " + (atkstat * 4) + " to " + enemyToHit.name;
-                turns.GetComponent<TurnsManager>().setTurn(false);
-                turns.GetComponent<TurnsManager>().swapControls();
-                Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
+                dmgTxt.text = "Warrior dealt " + (atkstat * 4) + " to " + enemyToHit.name;
+                turnsystem.setTurn(false);
+                turnsystem.swapControls();
+                //Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
             }
 
         }
         else if (MP <= 0)
         {
-            dmgindicator.GetComponent<Text>().text = "Not Enough MP!!";
+            dmgTxt.text = "Not Enough MP!!";
         }
         Debug.Log("ChargeSmash");
     }

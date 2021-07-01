@@ -18643,7 +18643,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1201919184}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1601585557}
+        m_TargetAssemblyTypeName: PlayerChooseTarget, AssemblyDefinition
+        m_MethodName: confirmButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1201919184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34216,11 +34228,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warrior: {fileID: 0}
   atkConfirmation: {fileID: 1601585553}
-  nxtButtonConfirm: {fileID: 475950217}
-  prevButtonConfirm: {fileID: 1150924034}
-  atkButton: {fileID: 2053332562}
-  skillButton: {fileID: 418309368}
-  endTurnButton: {fileID: 1228597027}
+  combatControlButtons: {fileID: 0}
+  actionButtons: {fileID: 0}
   joycon: {fileID: 93857080}
 --- !u!1 &2092123579
 GameObject:

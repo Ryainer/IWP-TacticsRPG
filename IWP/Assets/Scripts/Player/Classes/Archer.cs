@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Archer : MonoBehaviour
 {
-    public GameObject turns;
+    
     public GameObject dmgindicator;
     public string state;
     public Player playerStats;
@@ -15,6 +15,8 @@ public class Archer : MonoBehaviour
     int jump;
     int def;
     int MP;
+
+    public TurnsManager turnsystem;
 
     private void Awake()
     {
@@ -27,7 +29,7 @@ public class Archer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        turnsystem = GameObject.Find("TurnManager").GetComponent<TurnsManager>();
     }
 
     // Update is called once per frame
@@ -46,11 +48,11 @@ public class Archer : MonoBehaviour
 
     public void Attack(GameObject target, float chance)
     {
-        turns = GameObject.Find("TurnManager");
+        
         dmgindicator = GameObject.Find("PlayerDmg");
-        if (turns != null)
+        if (turnsystem != null)
         {
-            if (turns.GetComponent<TurnsManager>().getTurn())
+            if (turnsystem.getTurn())
             {
 
                 GameObject enemyToHit = target;
@@ -65,8 +67,8 @@ public class Archer : MonoBehaviour
                     {
                         FindObjectOfType<AudioManager>().Player("miss");
                         dmgindicator.GetComponent<Text>().text = "Archer Missed";
-                        turns.GetComponent<TurnsManager>().setTurn(false);
-                        turns.GetComponent<TurnsManager>().swapControls();
+                        turnsystem.setTurn(false);
+                        turnsystem.swapControls();
                     }
                     else if (range > chance)
                     {
@@ -74,8 +76,8 @@ public class Archer : MonoBehaviour
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
                         dmgindicator.GetComponent<Text>().text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
-                        turns.GetComponent<TurnsManager>().setTurn(false);
-                        turns.GetComponent<TurnsManager>().swapControls();
+                        turnsystem.setTurn(false);
+                        turnsystem.swapControls();
                         Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                     }
                 }
@@ -95,11 +97,11 @@ public class Archer : MonoBehaviour
 
     public void chargedShotAtk(GameObject target, float chance)
     {
-        turns = GameObject.Find("TurnManager");
+       
         dmgindicator = GameObject.Find("PlayerDmg");
-        if (turns != null)
+        if (turnsystem != null)
         {
-            if (turns.GetComponent<TurnsManager>().getTurn())
+            if (turnsystem.getTurn())
             {
 
                 GameObject enemyToHit = target;
@@ -113,16 +115,16 @@ public class Archer : MonoBehaviour
                     if (range < chance)
                     {
                         dmgindicator.GetComponent<Text>().text = "Archer Missed";
-                        turns.GetComponent<TurnsManager>().setTurn(false);
-                        turns.GetComponent<TurnsManager>().swapControls();
+                        turnsystem.setTurn(false);
+                        turnsystem.swapControls();
                     }
                     else if (range > chance)
                     {
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 2;
                         dmgindicator.GetComponent<Text>().text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
-                        turns.GetComponent<TurnsManager>().setTurn(false);
-                        turns.GetComponent<TurnsManager>().swapControls();
+                        turnsystem.setTurn(false);
+                        turnsystem.swapControls();
                         Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                     }
                 }
@@ -142,11 +144,10 @@ public class Archer : MonoBehaviour
 
     public void repeatedShotAtk(GameObject target, float chance)
     {
-        turns = GameObject.Find("TurnManager");
         dmgindicator = GameObject.Find("PlayerDmg");
-        if (turns != null)
+        if (turnsystem != null)
         {
-            if (turns.GetComponent<TurnsManager>().getTurn())
+            if (turnsystem.getTurn())
             {
 
                 GameObject enemyToHit = target;
@@ -173,8 +174,8 @@ public class Archer : MonoBehaviour
                             Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         }
                     }
-                    turns.GetComponent<TurnsManager>().setTurn(false);
-                    turns.GetComponent<TurnsManager>().swapControls();
+                    turnsystem.setTurn(false);
+                    turnsystem.swapControls();
                 }
                 else
                 {
