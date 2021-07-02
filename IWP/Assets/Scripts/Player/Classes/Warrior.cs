@@ -20,7 +20,7 @@ public class Warrior : MonoBehaviour
     public int atkstat;
     int jump;
     int def;
-    int MP;
+    public int MP;
     int timer;
     public float skillstat;
 
@@ -56,37 +56,40 @@ public class Warrior : MonoBehaviour
             gameObject.GetComponentInChildren<healthbar>().setHealth(health);
         }
     }
-
+    //attack execution
     public void Attack(GameObject target, float chance)
     {
 
         if (turnsystem != null)
         {
-            if (turnsystem.getTurn())
+            if (turnsystem.getTurn()) //double check if its the correct turn
             {
                 GameObject enemyToHit = target;
-                if (enemyToHit != null)
+                if (enemyToHit != null) //confirms if enemy isnt null
                 {
                     //Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
-                    
-                    float range = Random.Range(0, 100);
 
-                    if (range < chance)
+                    float range = 100;//Random.Range(0, 100); //range for the chance to see
+
+                    if (range < chance) // if the range is below the hit chance number, miss
                     {
                         FindObjectOfType<AudioManager>().Player("miss");
                         dmgTxt.text = "Warrior Missed";
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
+                        transform.GetChild(5).gameObject.SetActive(false);
                     }
-                    else if (range > chance)
+                    else if (range > chance) //if higher, hits
                     {
                         FindObjectOfType<AudioManager>().Player("slash");
                         //Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
                         dmgTxt.text = "Warrior dealt " + atkstat + " to " + enemyToHit.name;
+                        //once done passes turn to enemy
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
-                       // Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
+                        transform.GetChild(5).gameObject.SetActive(false);
+                        // Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                     }
                 }
                 else
@@ -110,7 +113,7 @@ public class Warrior : MonoBehaviour
 
             GameObject enemyToHit = target;
 
-            float range = Random.Range(0, 100);
+            float range = 100;//Random.Range(0, 100);
 
             if (range < chance)
             {
@@ -118,6 +121,7 @@ public class Warrior : MonoBehaviour
                 MP -= 4;
                 turnsystem.setTurn(false);
                 turnsystem.swapControls();
+                transform.GetChild(5).gameObject.SetActive(false);
             }
             else if (range > chance)
             {
@@ -127,7 +131,8 @@ public class Warrior : MonoBehaviour
                 dmgTxt.text = "Warrior dealt " + (atkstat * 2) + " to " + enemyToHit.name;
                 turnsystem.setTurn(false);
                 turnsystem.swapControls();
-               // Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
+                transform.GetChild(5).gameObject.SetActive(false);
+                // Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
             }
 
 
@@ -148,7 +153,7 @@ public class Warrior : MonoBehaviour
 
             GameObject enemyToHit = target;
 
-            float range = Random.Range(0, 100);
+            float range = 100;//Random.Range(0, 100);
 
             if (range < chance)
             {
@@ -156,6 +161,7 @@ public class Warrior : MonoBehaviour
                 dmgTxt.text = "Warrior missed charge swing";
                 turnsystem.setTurn(false);
                 turnsystem.swapControls();
+                transform.GetChild(5).gameObject.SetActive(false);
             }
             else if (range > chance)
             {
@@ -165,6 +171,7 @@ public class Warrior : MonoBehaviour
                 dmgTxt.text = "Warrior dealt " + (atkstat * 4) + " to " + enemyToHit.name;
                 turnsystem.setTurn(false);
                 turnsystem.swapControls();
+                transform.GetChild(5).gameObject.SetActive(false);
                 //Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
             }
 
@@ -177,20 +184,5 @@ public class Warrior : MonoBehaviour
     }
 
     
-    float heightCheck(float a, float b)
-    {
-        float heightFound = 0;
-
-        if(a > b)
-        {
-            heightFound = a - b;
-        }
-        else if(a < b)
-        {
-            heightFound = b - a;
-        }
-
-
-        return heightFound;
-    }
+   
 }

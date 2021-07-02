@@ -27,4 +27,13 @@ public class PlayerRanges : MonoBehaviour
             Debug.Log("Removed");
         
     }
+
+    private void Update()
+    {
+        for (var i = enemies.Count - 1; i > -1; i--)
+        {
+            if (enemies[i] == null)
+                enemies.RemoveAt(i);
+        }
+    }
 }

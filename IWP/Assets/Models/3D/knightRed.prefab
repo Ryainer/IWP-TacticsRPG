@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8078468985387365047}
   m_Layer: 8
   m_Name: collider_knightR
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 6334630700586010527}
   m_Layer: 8
   m_Name: right_2
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 9210733629381214476}
   m_Layer: 8
   m_Name: knightRed_8angles
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -579,10 +579,14 @@ MonoBehaviour:
   eneHealth: 0
   eneMP: 0
   eneAtk: 0
+  eneskill: 0
   namechck: 
   range: {fileID: 0}
   moving: 0
   attacking: 0
+  ignoreself:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &5077575354730527039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,7 +613,7 @@ GameObject:
   - component: {fileID: 7456711495816789850}
   m_Layer: 8
   m_Name: left_2
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -765,7 +769,7 @@ GameObject:
   - component: {fileID: 7440469356883119697}
   m_Layer: 8
   m_Name: head_2
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

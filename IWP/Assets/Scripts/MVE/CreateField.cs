@@ -182,7 +182,7 @@ public class CreateField : MonoBehaviour
         }
         tiles.Clear();
     }
-
+#if UNITY_EDITOR
     //to save the level data
     public void save()
     {
@@ -229,6 +229,7 @@ public class CreateField : MonoBehaviour
 
         AssetDatabase.Refresh();
     }
+#endif
     //loads an existing level
     public void Load()
     {

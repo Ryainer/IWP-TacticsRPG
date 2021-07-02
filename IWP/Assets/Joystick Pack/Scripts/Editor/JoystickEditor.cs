@@ -6,6 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(Joystick), true)]
 public class JoystickEditor : Editor
 {
+#if UNITY_EDITOR
     private SerializedProperty handleRange;
     private SerializedProperty deadZone;
     private SerializedProperty axisOptions;
@@ -61,4 +62,5 @@ public class JoystickEditor : Editor
         EditorGUILayout.ObjectField(background, new GUIContent("Background", "The background's RectTransform component."));
         EditorGUILayout.ObjectField(handle, new GUIContent("Handle", "The handle's RectTransform component."));
     }
+#endif
 }

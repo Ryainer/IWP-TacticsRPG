@@ -7,11 +7,14 @@ public class TurnsManager : MonoBehaviour
 {
     public Text turns;
     public bool turnCounter/* { get; set; }*/ ;
-    GameObject[] players;
-    GameObject[] enemy;
+    public GameObject[] players;
+    public GameObject[] enemy;
     public GameObject Plamanage;
     public GameObject Enemanage;
     public bool whostarts;
+
+    public List<GameObject> currentPlayers = new List<GameObject>();
+    public List<GameObject> currentEnemy = new List<GameObject>();
   
     private void Awake()
     {
@@ -22,16 +25,21 @@ public class TurnsManager : MonoBehaviour
     void Start()
     {
         whostarts = true;
+        currentPlayers = Plamanage.GetComponent<Player>().crewmembers;
+        currentEnemy = Enemanage.GetComponent<EnemyManager>().enemies;
     }
 
     // Update is called once per frame
     void Update()
     {
+       
+
         //Debug.Log(turnCounter);
         if (whostarts)
         {
             int range = Random.Range(0, 10);
-
+            enemy = GameObject.FindGameObjectsWithTag("Enemy");
+            players = GameObject.FindGameObjectsWithTag("Player");
             if (range < 5)
             {
                 turnCounter = true;
@@ -56,6 +64,14 @@ public class TurnsManager : MonoBehaviour
             
         }
 
+        if(players.Length <= 0)
+        {
+            turns.text = "enemy wins";
+        }
+        else if(enemy.Length <= 0)
+        {
+            turns.text = "player wins";
+        }
        
     }
 

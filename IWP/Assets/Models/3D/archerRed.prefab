@@ -709,7 +709,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 32
   m_CollisionDetection: 0
@@ -754,6 +754,7 @@ MonoBehaviour:
   eneHealth: 0
   eneMP: 0
   eneAtk: 0
+  eneskill: 0
   namechck: 
   range: {fileID: 0}
   moving: 0

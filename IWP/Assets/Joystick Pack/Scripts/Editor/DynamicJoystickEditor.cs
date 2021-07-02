@@ -6,6 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(DynamicJoystick))]
 public class DynamicJoystickEditor : JoystickEditor
 {
+#if UNITY_EDITOR
     private SerializedProperty moveThreshold;
 
     protected override void OnEnable()
@@ -32,4 +33,5 @@ public class DynamicJoystickEditor : JoystickEditor
         base.DrawValues();
         EditorGUILayout.PropertyField(moveThreshold, new GUIContent("Move Threshold", "The distance away from the center input has to be before the joystick begins to move."));
     }
+#endif
 }

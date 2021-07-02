@@ -30,22 +30,22 @@ public class UIButtonCustom : MonoBehaviour
 
     private void Update()
     {
-        //cameraRig.transform.rotation = Quaternion.Lerp(cameraRig.transform.rotation, 
-        //    camRotation, Time.deltaTime * movementTime);
+        cameraRig.transform.rotation = Quaternion.Lerp(cameraRig.transform.rotation,
+            camRotation, Time.deltaTime * movementTime);
     }
 
     public void onLeftArrow()
     {
         camRotation *= Quaternion.Euler(Vector3.up * rotationamt);
-        cameraRig.transform.rotation = Quaternion.Lerp(cameraRig.transform.rotation,
-            camRotation, Time.deltaTime * movementTime);
+        //cameraRig.transform.rotation = Quaternion.Lerp(cameraRig.transform.rotation,
+        //    camRotation, Time.deltaTime * movementTime);
     }
 
     public void onRightArrow()
     {
         camRotation *= Quaternion.Euler(Vector3.up * -rotationamt);
-        cameraRig.transform.rotation = Quaternion.Lerp(cameraRig.transform.rotation,
-            camRotation, Time.deltaTime * movementTime);
+        //cameraRig.transform.rotation = Quaternion.Lerp(cameraRig.transform.rotation,
+        //    camRotation, Time.deltaTime * movementTime);
     }
 
    

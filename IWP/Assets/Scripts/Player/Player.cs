@@ -20,11 +20,14 @@ public class Player : MonoBehaviour
     public GameObject menu;
     public GameObject combatScreen;
     public LayerMask ignore;
+    public GameObject cameraRig;
+    public Menu menuselection;
     private GameObject clone;
     GameObject[] Tiles;
     void Start()
     {
         Tiles = GameObject.FindGameObjectsWithTag("Tiles");
+        menuselection = menu.GetComponent<Menu>();
         createPlayers();
     }
 
@@ -85,15 +88,9 @@ public class Player : MonoBehaviour
         movements.GetComponent<PlayerMovement>().Player = crewmembers[range];
         joystick.GetComponent<LockPlayerPos>().Player = crewmembers[range];
         combatScreen.GetComponent<PlayerChooseTarget>().user = crewmembers[range];
-        if (crewmembers[range].name == "archerBlue")
-        {
-            menu.GetComponent<Menu>().archer = crewmembers[range];
-        }
-        else if(crewmembers[range].name == "knightBlue")
-        {
-            menu.GetComponent<Menu>().warrior = crewmembers[range];
-        }
-
+        crewmembers[range].transform.GetChild(5).gameObject.SetActive(true);
+        cameraRig.transform.LookAt(crewmembers[range].transform.position);
+        menuselection.character = crewmembers[range];
     }
 
     public void RemoveGO(GameObject GO2Remove)

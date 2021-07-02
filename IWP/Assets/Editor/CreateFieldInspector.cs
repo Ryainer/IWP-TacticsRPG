@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(CreateField))]
 
 public class CreateFieldInspector : Editor
 {
-   public CreateField current//casts the targeted object correctly
+#if UNITY_EDITOR
+    public CreateField current//casts the targeted object correctly
    {
         get
         {
@@ -37,5 +36,5 @@ public class CreateFieldInspector : Editor
         if (GUI.changed)
             current.updateIndicator();
     }
-
+#endif
 }

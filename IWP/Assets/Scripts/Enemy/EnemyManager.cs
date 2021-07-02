@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [HideInInspector]
+    //[HideInInspector]
     public List<GameObject> enemies = new List<GameObject>();
     public GameObject soldierEnemy;
     public GameObject archerEnemy;
@@ -26,15 +26,22 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach(GameObject enemy in enemies)
-        { 
-            if(enemy.GetComponent<EnemyBehaviour>().eneHealth <= 0)
+        if(enemies.Count > 0)
+        {
+            for (int i = 0; i < enemies.Count; i++)
             {
-                enemies.Remove(enemy);
-                GameObject.Destroy(enemy);
+                if (enemies[i].GetComponent<EnemyBehaviour>().eneHealth <= 0)
+                {
+                    GameObject enemytodestroy = enemies[i];
+                    enemies.Remove(enemies[i]);
+                    Destroy(enemytodestroy);
+                    //Destroy(enemies[i]);
+                    
+                }
             }
-           
+            GameObject.Find("TurnManager").GetComponent<TurnsManager>().currentEnemy = enemies;
         }
+      
     }
 
     public void createEnemies()
@@ -52,7 +59,7 @@ public class EnemyManager : MonoBehaviour
 
             RaycastHit hitinfo;
 
-            if (Physics.Raycast(ray, out hitinfo, 200f, ~ignore))
+            if (Physics.Raycast(ray, out hitinfo, 350f, ~ignore))
             {
                 spawnPos = hitinfo.point;
             }

@@ -7,6 +7,7 @@ using UnityEditor;
 [CustomEditor(typeof(VariableJoystick))]
 public class VariableJoystickEditor : JoystickEditor
 {
+#if UNITY_EDITOR
     private SerializedProperty moveThreshold;
     private SerializedProperty joystickType;
 
@@ -34,4 +35,5 @@ public class VariableJoystickEditor : JoystickEditor
         EditorGUILayout.PropertyField(moveThreshold, new GUIContent("Move Threshold", "The distance away from the center input has to be before the joystick begins to move."));
         EditorGUILayout.PropertyField(joystickType, new GUIContent("Joystick Type", "The type of joystick the variable joystick is current using."));
     }
+#endif
 }

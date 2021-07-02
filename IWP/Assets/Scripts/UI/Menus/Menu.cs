@@ -8,7 +8,7 @@ public class Menu : MonoBehaviour
     public GameObject healerMenu;
     public GameObject archerMenu;
     public GameObject atkConfirmation;
-    public GameObject warrior;
+    public GameObject character;
     public GameObject archer;
     public GameObject turns;
 
@@ -30,36 +30,30 @@ public class Menu : MonoBehaviour
 
     public void onAtkBtnPress()
     {
-        if(warrior != null)
+        
+        if(character.name == "archerBlue")
         {
-            warrior.GetComponent<Warrior>().state = "attack";
-
-            actionButtons.SetActive(false);
-            joycon.SetActive(false);
-
-            combatControlButtons.SetActive(true);
-            atkConfirmation.SetActive(true);
-            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
+            character.GetComponent<Archer>().state = "attack";
         }
-        else if(archer != null)
+        else if(character.name == "knightBlue")
         {
-            archer.GetComponent<Archer>().state = "attack";
-
-            actionButtons.SetActive(false);
-            joycon.SetActive(false);
-
-            combatControlButtons.SetActive(true);
-            atkConfirmation.SetActive(true);
-            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
+            character.GetComponent<Warrior>().state = "attack";
         }
+
+        actionButtons.SetActive(false);
+        joycon.SetActive(false);
+
+        combatControlButtons.SetActive(true);
+        atkConfirmation.SetActive(true);
+        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
     }
 
     public void onSkillBtnPress()
     {
-        if(!warriorMenu.activeInHierarchy && warrior != null)
+        if(!warriorMenu.activeInHierarchy && character != null)
         {
             warriorMenu.SetActive(true);
-            warriorMenu.GetComponent<WarriorMenu>().warrior = warrior;
+            warriorMenu.GetComponent<WarriorMenu>().warrior = character;
         }
         else if(!archerMenu.activeInHierarchy && archer != null)
         {
@@ -74,6 +68,16 @@ public class Menu : MonoBehaviour
         {
             turns.GetComponent<TurnsManager>().setTurn(false);
             turns.GetComponent<TurnsManager>().swapControls();
+            if(character != null)
+            {
+                character.transform.GetChild(5).gameObject.SetActive(false);
+                character = null;
+            }
+            else if(archer != null)
+            {
+                archer.transform.GetChild(5).gameObject.SetActive(false);
+                archer = null;
+            }
         }
     }
 

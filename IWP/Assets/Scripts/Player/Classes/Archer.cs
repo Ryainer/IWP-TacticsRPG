@@ -14,7 +14,7 @@ public class Archer : MonoBehaviour
     public int skillstat;
     int jump;
     int def;
-    int MP;
+   public int MP;
 
     public TurnsManager turnsystem;
 
@@ -59,9 +59,9 @@ public class Archer : MonoBehaviour
                 if (enemyToHit != null)
                 {
                     Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
-                  
 
-                    float range = Random.Range(0, 100);
+
+                    float range = 100;//Random.Range(0, 100);
 
                     if (range < chance)
                     {
@@ -69,6 +69,7 @@ public class Archer : MonoBehaviour
                         dmgindicator.GetComponent<Text>().text = "Archer Missed";
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
+                        transform.GetChild(5).gameObject.SetActive(false);
                     }
                     else if (range > chance)
                     {
@@ -78,6 +79,7 @@ public class Archer : MonoBehaviour
                         dmgindicator.GetComponent<Text>().text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
+                        transform.GetChild(5).gameObject.SetActive(false);
                         Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                     }
                 }
@@ -101,32 +103,40 @@ public class Archer : MonoBehaviour
         dmgindicator = GameObject.Find("PlayerDmg");
         if (turnsystem != null)
         {
-            if (turnsystem.getTurn())
+            if (turnsystem.getTurn() && MP > 0)
             {
 
                 GameObject enemyToHit = target;
                 if (enemyToHit != null)
                 {
                     Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
-                    
 
-                    float range = Random.Range(0, 100);
+
+                    float range = 100;//Random.Range(0, 100);
 
                     if (range < chance)
                     {
+                        MP -= 5;
                         dmgindicator.GetComponent<Text>().text = "Archer Missed";
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
+                        transform.GetChild(5).gameObject.SetActive(false);
                     }
                     else if (range > chance)
                     {
+                        MP -= 5;
                         Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 2;
                         dmgindicator.GetComponent<Text>().text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
+                        transform.GetChild(5).gameObject.SetActive(false);
                         Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                     }
+                }
+                else if(MP <= 0)
+                {
+                    dmgindicator.GetComponent<Text>().text = "not enough MP!";
                 }
                 else
                 {
@@ -147,7 +157,7 @@ public class Archer : MonoBehaviour
         dmgindicator = GameObject.Find("PlayerDmg");
         if (turnsystem != null)
         {
-            if (turnsystem.getTurn())
+            if (turnsystem.getTurn() && MP > 0)
             {
 
                 GameObject enemyToHit = target;
@@ -158,24 +168,30 @@ public class Archer : MonoBehaviour
                     int shots = 0;
                     while(shots < 5)
                     {
-                        float range = Random.Range(0, 100);
+                        float range = 100;//Random.Range(0, 100);
 
                         if (range < chance)
                         {
                             dmgindicator.GetComponent<Text>().text = "Archer Missed";
-                            
+                            shots++;
                         }
                         else if (range > chance)
                         {
                             Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                             enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
                             dmgindicator.GetComponent<Text>().text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
-                            
+                            shots++;
                             Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         }
                     }
+                    MP -= 6;
                     turnsystem.setTurn(false);
                     turnsystem.swapControls();
+                    transform.GetChild(5).gameObject.SetActive(false);
+                }
+                else if (MP <= 0)
+                {
+                    dmgindicator.GetComponent<Text>().text = "not enough MP!";
                 }
                 else
                 {

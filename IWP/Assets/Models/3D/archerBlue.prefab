@@ -296,7 +296,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 3
   m_SlopeLimit: 45
-  m_StepOffset: 0.7
+  m_StepOffset: 0.8
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 2.5, z: 0}
@@ -312,12 +312,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 452e4fb36c4a1054780d9faa23b42a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turns: {fileID: 0}
   dmgindicator: {fileID: 0}
+  state: 
   playerStats: {fileID: 0}
   health: 0
   atkstat: 0
   skillstat: 0
+  MP: 0
+  turnsystem: {fileID: 0}
 --- !u!1 &4405231055597750300
 GameObject:
   m_ObjectHideFlags: 0

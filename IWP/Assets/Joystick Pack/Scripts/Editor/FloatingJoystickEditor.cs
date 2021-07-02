@@ -6,6 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(FloatingJoystick))]
 public class FloatingJoystickEditor : JoystickEditor
 {
+#if UNITY_EDITOR
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -18,4 +19,5 @@ public class FloatingJoystickEditor : JoystickEditor
             backgroundRect.pivot = center;
         }
     }
+#endif
 }

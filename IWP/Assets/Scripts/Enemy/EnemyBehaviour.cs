@@ -18,6 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
     UnitTilePos pos;
     private bool switchOn;
     private List<GameObject> playersinRange = new List<GameObject>();
+    private Rigidbody rigidbody;
 
     public bool moving = false;
    
@@ -29,7 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         board = GameObject.Find("Board");
-        
+        rigidbody = gameObject.GetComponent<Rigidbody>();
         eneHealth = 50;
         eneMP = 10;
         eneAtk = 5;
@@ -67,7 +68,8 @@ public class EnemyBehaviour : MonoBehaviour
        if(eneHealth > 0)
        {
             gameObject.GetComponentInChildren<healthbar>().setHealth(eneHealth);
-        }
+       }
+       
     }
 
     public void chooseAction()
@@ -271,9 +273,12 @@ public class EnemyBehaviour : MonoBehaviour
         //transform.position = newPosition;
         //Debug.Log(controller.enabled);
 
+        //Vector3 travellingpos = transform.position;
+        //travellingpos.y += 30;
+        //transform.position = travellingpos;
 
+        // rigidbody.MovePosition(newPosition * Time.deltaTime * 5f);
         transform.position = newPosition;
-        
 
         Debug.Log(gameObject.name + " New Position: " + newPosition);
         turns.GetComponent<TurnsManager>().setTurn(true);

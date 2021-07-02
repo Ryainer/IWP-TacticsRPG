@@ -11,11 +11,13 @@ public class PlayerChooseTarget : MonoBehaviour
     public GameObject camerarig;
 
     private Vector3 OGCameraPOS;
-
+    public GameObject combatControls;
+    public GameObject joycon;
     private string skill;
     private float hitchance;
     private List<GameObject> choices = new List<GameObject>();
     public Text enemy;
+    public Text playerMP;
     int num = 0;
 
     // Start is called before the first frame update
@@ -42,35 +44,67 @@ public class PlayerChooseTarget : MonoBehaviour
         }
     }
 
-    public void cancelButton()
-    {
-        if (gameObject.activeInHierarchy)
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
     public void confirmButton()
     {
         executeCommand(choices[num], skill);
     }
+
+    public void cancelAttackButton()
+    {
+        gameObject.SetActive(false);
+        combatControls.SetActive(false);
+        joycon.SetActive(true);
+        if (user.name == "archerBlue")
+        {
+            user.GetComponent<Archer>().state = "";
+        }
+        else if (user.name == "knightBlue")
+        {
+            user.GetComponent<Warrior>().state = "";
+        }
+    }
+
     public void targetsSelect(string move)
     {
-        if (user != null)
+        if (user != null )
         {
             choices = user.GetComponentInChildren<PlayerRanges>().enemies;
+            Vector3 position = choices[0].transform.position;
+
+            camerarig.transform.LookAt(position);
+
+            skill = move;
+            hitchance = hitrate();
+            enemy.text = "Name: " + choices[0].name + "\n" + "Health: " + choices[0].GetComponent<EnemyBehaviour>().eneHealth
+                + "\n" + "Hitchance" + hitrate() + "%";
+
+            if (move != "attack")
+            {
+                if (user.name == "archerBlue")
+                {
+                    playerMP.text = "Player MP: " + user.GetComponent<Archer>().MP;
+                }
+                else if (user.name == "knightBlue")
+                {
+                    playerMP.text = "Player MP: " + user.GetComponent<Warrior>().MP;
+                }
+            }
         }
-
-        Vector3 position = choices[0].transform.position;
+        else
+        {
+            gameObject.SetActive(false);
+            combatControls.SetActive(false);
+            joycon.SetActive(true);
+            if (user.name == "archerBlue")
+            {
+                user.GetComponent<Archer>().state = "";
+            }
+            else if (user.name == "knightBlue")
+            {
+                user.GetComponent<Warrior>().state = "";
+            }
+        }
         
-
-        camerarig.transform.LookAt(position);
-
-
-        skill = move;
-        hitchance = hitrate();
-        enemy.text = "Name: " + choices[0].name + "\n" + "Health: " + choices[0].GetComponent<EnemyBehaviour>().eneHealth
-            + "\n" + "Hitchance" + hitrate() + "%";
 
     }
 
@@ -78,13 +112,24 @@ public class PlayerChooseTarget : MonoBehaviour
     {
         Vector3 position = choices[choice].transform.position;
 
-
         camerarig.transform.LookAt(position);
-
 
         hitchance = hitrate();
         enemy.text = "Name: " + choices[choice].name + "\n" + "Health: " + choices[0].GetComponent<EnemyBehaviour>().eneHealth
             + "\n" + "Hitchance" + hitrate() + "%";
+
+        if (skill != "attack")
+        {
+            if (user.name == "archerBlue")
+            {
+                playerMP.text = "Player MP: " + user.GetComponent<Archer>().MP;
+            }
+            else if (user.name == "knightBlue")
+            {
+                playerMP.text = "Player MP: " + user.GetComponent<Warrior>().MP;
+            }
+        }
+
     }
 
     public void executeCommand(GameObject enemy, string actionused)
@@ -100,6 +145,9 @@ public class PlayerChooseTarget : MonoBehaviour
                         if (gameObject.activeInHierarchy)
                         {
                             gameObject.SetActive(false);
+                            combatControls.SetActive(false);
+                            joycon.SetActive(true);
+                            user.GetComponent<Archer>().state = "";
                         }
                     }
                     else if (user.name == "knightBlue")
@@ -108,6 +156,9 @@ public class PlayerChooseTarget : MonoBehaviour
                         if (gameObject.activeInHierarchy)
                         {
                             gameObject.SetActive(false);
+                            combatControls.SetActive(false);
+                            joycon.SetActive(true);
+                            user.GetComponent<Warrior>().state = "";
                         }
                     }
                 }
@@ -118,6 +169,9 @@ public class PlayerChooseTarget : MonoBehaviour
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
+                        combatControls.SetActive(false);
+                        joycon.SetActive(true);
+                        user.GetComponent<Warrior>().state = "";
                     }
                 }
                 break;
@@ -127,6 +181,9 @@ public class PlayerChooseTarget : MonoBehaviour
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
+                        combatControls.SetActive(false);
+                        joycon.SetActive(true);
+                        user.GetComponent<Warrior>().state = "";
                     }
                 }
                 break;
@@ -136,6 +193,9 @@ public class PlayerChooseTarget : MonoBehaviour
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
+                        combatControls.SetActive(false);
+                        joycon.SetActive(true);
+                        user.GetComponent<Archer>().state = "";
                     }
                 }
                 break;
@@ -145,6 +205,9 @@ public class PlayerChooseTarget : MonoBehaviour
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
+                        combatControls.SetActive(false);
+                        joycon.SetActive(true);
+                        user.GetComponent<Archer>().state = "";
                     }
                 }
                 break;
