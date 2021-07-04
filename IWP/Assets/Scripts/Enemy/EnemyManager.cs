@@ -35,11 +35,9 @@ public class EnemyManager : MonoBehaviour
                     GameObject enemytodestroy = enemies[i];
                     enemies.Remove(enemies[i]);
                     Destroy(enemytodestroy);
-                    //Destroy(enemies[i]);
-                    
                 }
             }
-            GameObject.Find("TurnManager").GetComponent<TurnsManager>().currentEnemy = enemies;
+            //GameObject.Find("TurnManager").GetComponent<TurnsManager>().currentEnemy = enemies;
         }
       
     }
@@ -107,22 +105,30 @@ public class EnemyManager : MonoBehaviour
 
     public void chooseAnEnemy()
     {
-        int range = Random.Range(0, enemies.Count);
-        Debug.Log(enemies[range].name);
-        enemies[range].GetComponent<EnemyBehaviour>().setSwitch(true);
-        enemies[range].GetComponent<EnemyBehaviour>().chooseAction();
-        enemies[range].GetComponent<EnemyBehaviour>().ignoreself = ignore;
-        string name = enemies[range].name.Split(' ')[0];
-       
-        if(name == "Archer")
+        Update();
+        if(enemies.Count > 0)
         {
-            enemies[range].GetComponent<EnemyBehaviour>().namechck = name;
-            Debug.Log("its an archer");
+            int range = Random.Range(0, enemies.Count);
+            Debug.Log(enemies[range].name);
+            enemies[range].GetComponent<EnemyBehaviour>().setSwitch(true);
+            enemies[range].GetComponent<EnemyBehaviour>().chooseAction();
+            enemies[range].GetComponent<EnemyBehaviour>().ignoreself = ignore;
+            string name = enemies[range].name.Split(' ')[0];
+
+            if (name == "Archer")
+            {
+                enemies[range].GetComponent<EnemyBehaviour>().namechck = name;
+                Debug.Log("its an archer");
+            }
+            else if (name == "Soldier")
+            {
+                enemies[range].GetComponent<EnemyBehaviour>().namechck = name;
+                Debug.Log("its a soldier" + enemies[range].name);
+            }
         }
-        else if(name == "Soldier")
-        {
-            enemies[range].GetComponent<EnemyBehaviour>().namechck = name;
-            Debug.Log("its a soldier");
-        }
+        //else if(enemies.Count == 0)
+        //{
+        //    GameObject.Find("TurnManager").GetComponent<TurnsManager>().endgame("enemy loss");
+        //}
     }
 }

@@ -28,7 +28,7 @@ public class PlayerChooseTarget : MonoBehaviour
 
     public void nxtTarget()
     {
-        if (num < choices.Count)
+        if (num < choices.Count -1)
         {
             num++;
             targetsSelect(num);
@@ -62,12 +62,15 @@ public class PlayerChooseTarget : MonoBehaviour
         {
             user.GetComponent<Warrior>().state = "";
         }
+        camerarig.transform.LookAt(user.transform.position);
     }
 
     public void targetsSelect(string move)
     {
+        OGCameraPOS = camerarig.transform.position;
         if (user != null )
         {
+           
             choices = user.GetComponentInChildren<PlayerRanges>().enemies;
             Vector3 position = choices[0].transform.position;
 
@@ -92,6 +95,7 @@ public class PlayerChooseTarget : MonoBehaviour
         }
         else
         {
+            camerarig.transform.LookAt(user.transform.position);
             gameObject.SetActive(false);
             combatControls.SetActive(false);
             joycon.SetActive(true);
@@ -103,6 +107,7 @@ public class PlayerChooseTarget : MonoBehaviour
             {
                 user.GetComponent<Warrior>().state = "";
             }
+            
         }
         
 
@@ -110,6 +115,7 @@ public class PlayerChooseTarget : MonoBehaviour
 
     public void targetsSelect(int choice)
     {
+       
         Vector3 position = choices[choice].transform.position;
 
         camerarig.transform.LookAt(position);

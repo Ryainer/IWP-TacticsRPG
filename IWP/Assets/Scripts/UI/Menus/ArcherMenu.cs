@@ -7,40 +7,33 @@ public class ArcherMenu : MonoBehaviour
     public GameObject Archer;
     public GameObject atkConfirmation;
 
-    public GameObject nxtButtonConfirm;
-    public GameObject prevButtonConfirm;
-    public GameObject atkButton;
-    public GameObject skillButton;
-    public GameObject endTurnButton;
+    public GameObject combatControlButtons;
+    public GameObject actionButtons;
     public GameObject joycon;
     public void chargedShotBtnPress()
     {
         //Archer.GetComponent<Archer>().chargedShotAtk();
-        atkButton.SetActive(false);
-        skillButton.SetActive(false);
-        endTurnButton.SetActive(false);
+        actionButtons.SetActive(false);
         joycon.SetActive(false);
 
-        nxtButtonConfirm.SetActive(true);
-        prevButtonConfirm.SetActive(true);
-
+        combatControlButtons.SetActive(true);
         atkConfirmation.SetActive(true);
         atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("chargedshot");
+        Archer.GetComponent<Archer>().state = "attack";
+        gameObject.SetActive(false);
     }
 
     public void repeatedShot()
     {
         //Archer.GetComponent<Archer>().repeatedShotAtk();
-        atkButton.SetActive(false);
-        skillButton.SetActive(false);
-        endTurnButton.SetActive(false);
+        actionButtons.SetActive(false);
         joycon.SetActive(false);
 
-        nxtButtonConfirm.SetActive(true);
-        prevButtonConfirm.SetActive(true);
-
+        combatControlButtons.SetActive(true);
         atkConfirmation.SetActive(true);
         atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("repeatedshot");
+        Archer.GetComponent<Archer>().state = "attack";
+        gameObject.SetActive(false);
     }
 
     public void Cancel()

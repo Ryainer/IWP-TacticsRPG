@@ -25,8 +25,7 @@ public class TurnsManager : MonoBehaviour
     void Start()
     {
         whostarts = true;
-        currentPlayers = Plamanage.GetComponent<Player>().crewmembers;
-        currentEnemy = Enemanage.GetComponent<EnemyManager>().enemies;
+        
     }
 
     // Update is called once per frame
@@ -54,25 +53,14 @@ public class TurnsManager : MonoBehaviour
             }
         }
 
-        if (turnCounter)
+        if (turnCounter && Plamanage.GetComponent<Player>().crewmembers.Count > 0)
         {
             turns.text = "Turn: Player";
         }
-        else if(!turnCounter)
+        else if(!turnCounter && Enemanage.GetComponent<EnemyManager>().enemies.Count > 0)
         {
             turns.text = "Turn: Enemy";
-            
         }
-
-        if(players.Length <= 0)
-        {
-            turns.text = "enemy wins";
-        }
-        else if(enemy.Length <= 0)
-        {
-            turns.text = "player wins";
-        }
-       
     }
 
     public bool getTurn()
@@ -88,13 +76,25 @@ public class TurnsManager : MonoBehaviour
 
     public void swapControls()
     {
-        if(turnCounter)
+        if(turnCounter && Plamanage.GetComponent<Player>().crewmembers.Count > 0)
         {
             Plamanage.GetComponent<Player>().choosePlayer();
+            Debug.Log("yeyasy player");
         }
-        else
+        else if(!turnCounter && Enemanage.GetComponent<EnemyManager>().enemies.Count > 0)
         {
+            
             Enemanage.GetComponent<EnemyManager>().chooseAnEnemy();
+            Debug.Log("yesyenemy");
+        }
+
+        if(Plamanage.GetComponent<Player>().crewmembers.Count <= 0)
+        {
+            turns.text = "enemy wins";
+        }
+        else if(Enemanage.GetComponent<EnemyManager>().enemies.Count <= 0)
+        {
+            turns.text = "player wins";
         }
     }
 
@@ -110,5 +110,18 @@ public class TurnsManager : MonoBehaviour
         return enemy;
     }
 
+    public void endgame(string lossmsg)
+    {
+        //currentPlayers = Plamanage.GetComponent<Player>().crewmembers;
+        //currentEnemy = Enemanage.GetComponent<EnemyManager>().enemies;
+        if (lossmsg == "player loss")
+        {
+            turns.text = "enemy wins";
+        }
+        else if (lossmsg == "enemy loss")
+        {
+            turns.text = "player wins";
+        }
+    }
    
 }

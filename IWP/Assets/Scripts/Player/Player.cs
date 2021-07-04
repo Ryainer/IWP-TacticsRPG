@@ -34,7 +34,25 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(crewmembers.Count > 0)
+        {
+            for(int i = 0; i < crewmembers.Count; ++i)
+            {
+                if(crewmembers[i].name == "knightBlue" && crewmembers[i].GetComponent<Warrior>().health <= 0)
+                {
+                    GameObject playertodestroy = crewmembers[i];
+                    crewmembers.Remove(crewmembers[i]);
+                    Destroy(playertodestroy);
+                }
+                else if(crewmembers[i].name == "archerBlue" && crewmembers[i].GetComponent<Archer>().health <= 0)
+                {
+                    GameObject playertodestroy = crewmembers[i];
+                    crewmembers.Remove(crewmembers[i]);
+                    Destroy(playertodestroy);
+                }
+            }
+            //GameObject.Find("TurnManager").GetComponent<TurnsManager>().currentPlayers = crewmembers;
+        }    
     }
 
     public void createPlayers()
@@ -89,6 +107,7 @@ public class Player : MonoBehaviour
         joystick.GetComponent<LockPlayerPos>().Player = crewmembers[range];
         combatScreen.GetComponent<PlayerChooseTarget>().user = crewmembers[range];
         crewmembers[range].transform.GetChild(5).gameObject.SetActive(true);
+        crewmembers[range].transform.GetChild(6).gameObject.SetActive(true);
         cameraRig.transform.LookAt(crewmembers[range].transform.position);
         menuselection.character = crewmembers[range];
     }

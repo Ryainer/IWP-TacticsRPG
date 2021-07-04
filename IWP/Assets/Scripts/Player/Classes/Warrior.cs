@@ -37,7 +37,7 @@ public class Warrior : MonoBehaviour
     {
         health = 50;
         //atkstat = 5;
-        MP = 15;
+        
         gameObject.GetComponentInChildren<healthbar>().setMaxHealth(health);
         turnsystem = GameObject.Find("TurnManager").GetComponent<TurnsManager>();
         dmgTxt = GameObject.Find("PlayerDmg").GetComponent<Text>();
@@ -46,15 +46,11 @@ public class Warrior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health <= 0)
-        {
-            GameObject playerManager = GameObject.Find("PlayerManager");
-            playerManager.GetComponent<Player>().RemoveGO(gameObject);
-        }
-        else
+        if(health > 0)
         {
             gameObject.GetComponentInChildren<healthbar>().setHealth(health);
         }
+           
     }
     //attack execution
     public void Attack(GameObject target, float chance)
@@ -69,7 +65,7 @@ public class Warrior : MonoBehaviour
                 {
                     //Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
 
-                    float range = 100;//Random.Range(0, 100); //range for the chance to see
+                    float range = Random.Range(0, 100); //range for the chance to see
 
                     if (range < chance) // if the range is below the hit chance number, miss
                     {
@@ -78,6 +74,7 @@ public class Warrior : MonoBehaviour
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
                         transform.GetChild(5).gameObject.SetActive(false);
+                        transform.GetChild(6).gameObject.SetActive(false);
                     }
                     else if (range > chance) //if higher, hits
                     {
@@ -89,6 +86,7 @@ public class Warrior : MonoBehaviour
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
                         transform.GetChild(5).gameObject.SetActive(false);
+                        transform.GetChild(6).gameObject.SetActive(false);
                         // Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                     }
                 }
@@ -113,18 +111,21 @@ public class Warrior : MonoBehaviour
 
             GameObject enemyToHit = target;
 
-            float range = 100;//Random.Range(0, 100);
+            float range = Random.Range(0, 100);
 
             if (range < chance)
             {
+                FindObjectOfType<AudioManager>().Player("miss");
                 dmgTxt.text = "Warrior missed double swing";
                 MP -= 4;
                 turnsystem.setTurn(false);
                 turnsystem.swapControls();
                 transform.GetChild(5).gameObject.SetActive(false);
+                transform.GetChild(6).gameObject.SetActive(false);
             }
             else if (range > chance)
             {
+                FindObjectOfType<AudioManager>().Player("slash");
                 MP -= 4;
                 //Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                 enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 2;
@@ -132,6 +133,7 @@ public class Warrior : MonoBehaviour
                 turnsystem.setTurn(false);
                 turnsystem.swapControls();
                 transform.GetChild(5).gameObject.SetActive(false);
+                transform.GetChild(6).gameObject.SetActive(false);
                 // Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
             }
 
@@ -153,18 +155,21 @@ public class Warrior : MonoBehaviour
 
             GameObject enemyToHit = target;
 
-            float range = 100;//Random.Range(0, 100);
+            float range = Random.Range(0, 100);
 
             if (range < chance)
             {
+                FindObjectOfType<AudioManager>().Player("miss");
                 MP -= 5;
                 dmgTxt.text = "Warrior missed charge swing";
                 turnsystem.setTurn(false);
                 turnsystem.swapControls();
                 transform.GetChild(5).gameObject.SetActive(false);
+                transform.GetChild(6).gameObject.SetActive(false);
             }
             else if (range > chance)
             {
+                FindObjectOfType<AudioManager>().Player("slash");
                 MP -= 5;
                 //Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                 enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 4;
@@ -172,6 +177,7 @@ public class Warrior : MonoBehaviour
                 turnsystem.setTurn(false);
                 turnsystem.swapControls();
                 transform.GetChild(5).gameObject.SetActive(false);
+                transform.GetChild(6).gameObject.SetActive(false);
                 //Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
             }
 

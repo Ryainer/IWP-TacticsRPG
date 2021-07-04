@@ -50,16 +50,20 @@ public class Menu : MonoBehaviour
 
     public void onSkillBtnPress()
     {
-        if(!warriorMenu.activeInHierarchy && character != null)
+        if(character != null)
         {
-            warriorMenu.SetActive(true);
-            warriorMenu.GetComponent<WarriorMenu>().warrior = character;
+            if(character.name == "archerBlue")
+            {
+                archerMenu.SetActive(true);
+                archerMenu.GetComponent<ArcherMenu>().Archer = character;
+            }
+            else if (character.name == "knightBlue")
+            {
+                warriorMenu.SetActive(true);
+                warriorMenu.GetComponent<WarriorMenu>().warrior = character;
+            }
         }
-        else if(!archerMenu.activeInHierarchy && archer != null)
-        {
-            archerMenu.SetActive(true);
-            archerMenu.GetComponent<ArcherMenu>().Archer = archer;
-        }
+        
     }
 
     public void onEndTurnBtnPress()
