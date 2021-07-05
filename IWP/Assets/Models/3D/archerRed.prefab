@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6901830941642875870}
   - component: {fileID: 5076810357103196030}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: collider_archerR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 1725526333260855282}
   - component: {fileID: 6999505809218843430}
   - component: {fileID: 7928053903339207341}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: right_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 2338590500862123620}
   - component: {fileID: 2299296222167935933}
   - component: {fileID: 6484170193614802250}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 4103557618482399300}
   - component: {fileID: 6893535512158914322}
   - component: {fileID: 5060958998411033662}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: knightRed_8angles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 8174990606618434925}
   - component: {fileID: 343758543083841152}
   - component: {fileID: 3722433186710880431}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 6859436088229085102}
   - component: {fileID: 1048169163618898982}
   - component: {fileID: 6125361159182019652}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 6033716699293774521}
   - component: {fileID: 7270276459589224311}
   - component: {fileID: 6822638421562536803}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: head_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 522883306715930366}
   - component: {fileID: 5001010224876101197}
   - component: {fileID: 6815271781023285864}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: left_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 619114986863442916}
   - component: {fileID: 3075762017227547844}
   - component: {fileID: 3708814211204608729}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: archerRed
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -773,7 +773,7 @@ GameObject:
   - component: {fileID: 8547933226818617336}
   - component: {fileID: 2396175309072357381}
   - component: {fileID: 8095841447660516075}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

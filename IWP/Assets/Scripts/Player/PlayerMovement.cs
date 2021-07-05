@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject CancelButton;
 
     public GameObject actionButtons;
+    public Camera camera;
 
     public Joystick joystick;
 
@@ -27,8 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        
-        
+        camera = Camera.main;
     }
 
     private void Start()
@@ -40,9 +40,22 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        float horizontalMov = joystick.Horizontal;
+        float verticalMov = joystick.Vertical;
+
+        Vector3 camForward = camera.transform.forward;
+        Vector3 camRight = camera.transform.right;
+
+        camForward.y = 0.0f;
+        camRight.y = 0.0f;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        Vector3 direction = camForward * verticalMov + camRight * horizontalMov;
+
+
         controller = Player.GetComponent<CharacterController>();
-        controller.Move(new Vector3(joystick.Horizontal * 0.2f, -(gravity * Time.deltaTime), joystick.Vertical * 0.2f));
+        controller.Move(new Vector3(direction.x * 0.2f, -(gravity * Time.deltaTime), direction.z * 0.2f));
         if (controller.velocity != Vector3.zero)
         {
             if (actionButtons.activeInHierarchy)
@@ -72,7 +85,10 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-   
+    private void LateUpdate()
+    {
+        camera.transform.LookAt(Player.transform.position);
+    }
 
     //public void onUpButtonPress()
     //{
@@ -118,5 +134,5 @@ public class PlayerMovement : MonoBehaviour
     //    controller.Move(nxtMove);
     //}
 
-    
+
 }

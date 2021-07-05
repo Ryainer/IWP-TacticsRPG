@@ -562,7 +562,7 @@ MonoBehaviour:
   combatScreen: {fileID: 1601585553}
   ignore:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   cameraRig: {fileID: 963194225}
   menuselection: {fileID: 0}
 --- !u!4 &62441151
@@ -8763,6 +8763,7 @@ MonoBehaviour:
   SkillButton: {fileID: 418309368}
   CancelButton: {fileID: 1228597027}
   actionButtons: {fileID: 753840886}
+  camera: {fileID: 0}
   joystick: {fileID: 1637614939}
 --- !u!4 &1002014868
 Transform:
@@ -10936,9 +10937,9 @@ RectTransform:
   m_Father: {fileID: 1458097093}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -189, y: -144}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 64, y: -144}
   m_SizeDelta: {x: 140, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1213062349
@@ -14676,7 +14677,7 @@ MonoBehaviour:
   chooseNewEnemyControl: 0
   ignore:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
 --- !u!4 &1630753428
 Transform:
   m_ObjectHideFlags: 0
