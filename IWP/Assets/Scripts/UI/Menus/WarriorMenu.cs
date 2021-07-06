@@ -8,6 +8,7 @@ public class WarriorMenu : MonoBehaviour
     public GameObject atkConfirmation;
     public GameObject combatControlButtons;
     public GameObject actionButtons;
+    public GameObject pauseButton;
     public GameObject joycon;
 
     // Start is called before the first frame update
@@ -22,6 +23,7 @@ public class WarriorMenu : MonoBehaviour
 
         actionButtons.SetActive(false);
         joycon.SetActive(false);
+        pauseButton.SetActive(false);
 
         combatControlButtons.SetActive(true);
         atkConfirmation.SetActive(true);
@@ -35,6 +37,7 @@ public class WarriorMenu : MonoBehaviour
         //warrior.GetComponent<Warrior>().ChargeSmash();
         actionButtons.SetActive(false);
         joycon.SetActive(false);
+        pauseButton.SetActive(false);
 
         combatControlButtons.SetActive(true);
         atkConfirmation.SetActive(true);

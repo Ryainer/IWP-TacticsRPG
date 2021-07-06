@@ -10,11 +10,13 @@ public class ArcherMenu : MonoBehaviour
     public GameObject combatControlButtons;
     public GameObject actionButtons;
     public GameObject joycon;
+    public GameObject pausebutton;
     public void chargedShotBtnPress()
     {
         //Archer.GetComponent<Archer>().chargedShotAtk();
         actionButtons.SetActive(false);
         joycon.SetActive(false);
+        pausebutton.SetActive(false);
 
         combatControlButtons.SetActive(true);
         atkConfirmation.SetActive(true);
@@ -28,6 +30,7 @@ public class ArcherMenu : MonoBehaviour
         //Archer.GetComponent<Archer>().repeatedShotAtk();
         actionButtons.SetActive(false);
         joycon.SetActive(false);
+        pausebutton.SetActive(false);
 
         combatControlButtons.SetActive(true);
         atkConfirmation.SetActive(true);

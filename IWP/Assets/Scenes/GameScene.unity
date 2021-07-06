@@ -9137,11 +9137,11 @@ MonoBehaviour:
   archerMenu: {fileID: 1497963720}
   atkConfirmation: {fileID: 1601585553}
   character: {fileID: 0}
-  archer: {fileID: 0}
   turns: {fileID: 419231224}
   combatControlButtons: {fileID: 576038825}
   actionButtons: {fileID: 753840886}
   joycon: {fileID: 93857080}
+  pauseButton: {fileID: 2040322042}
 --- !u!1 &1063874085
 GameObject:
   m_ObjectHideFlags: 0
@@ -10534,7 +10534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -140}
+  m_AnchoredPosition: {x: 0, y: -86}
   m_SizeDelta: {x: 160, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1201919183
@@ -13658,6 +13658,7 @@ MonoBehaviour:
   combatControlButtons: {fileID: 576038825}
   actionButtons: {fileID: 753840886}
   joycon: {fileID: 93857080}
+  pausebutton: {fileID: 2040322042}
 --- !u!114 &1497963723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14285,7 +14286,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 147, y: -121.17999}
+  m_AnchoredPosition: {x: 159, y: -121.17999}
   m_SizeDelta: {x: 314, y: 227}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1601585555
@@ -14340,6 +14341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   user: {fileID: 0}
   camerarig: {fileID: 963194225}
+  cancel: {fileID: 1755421638}
   combatControls: {fileID: 576038825}
   joycon: {fileID: 93857080}
   enemy: {fileID: 635775682}
@@ -15999,7 +16001,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Cancel
+  m_Text: 
 --- !u!222 &1731506322
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16322,10 +16324,10 @@ RectTransform:
   m_Father: {fileID: 576038826}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 206}
-  m_SizeDelta: {x: 160, y: 100}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 190, y: 78}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1755421638
 MonoBehaviour:
@@ -16402,8 +16404,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 079bb84ec339dbf44916f1bd191d756b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -18888,7 +18890,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2040322042}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -18898,7 +18900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -101, y: -49}
+  m_AnchoredPosition: {x: -101.31149, y: -48.838013}
   m_SizeDelta: {x: 130, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2040322044
@@ -19854,6 +19856,7 @@ MonoBehaviour:
   atkConfirmation: {fileID: 1601585553}
   combatControlButtons: {fileID: 576038825}
   actionButtons: {fileID: 753840886}
+  pauseButton: {fileID: 2040322042}
   joycon: {fileID: 93857080}
 --- !u!1 &2095001040
 GameObject:

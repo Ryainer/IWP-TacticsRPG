@@ -9,7 +9,7 @@ public class PlayerChooseTarget : MonoBehaviour
     public GameObject user;
 
     public GameObject camerarig;
-
+    public Button cancel;
     private Vector3 OGCameraPOS;
     public GameObject combatControls;
     public GameObject joycon;
@@ -24,6 +24,7 @@ public class PlayerChooseTarget : MonoBehaviour
     void Start()
     {
         OGCameraPOS = camerarig.transform.position;
+        cancel.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.2f;
     }
 
     public void nxtTarget()

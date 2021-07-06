@@ -9,12 +9,12 @@ public class Menu : MonoBehaviour
     public GameObject archerMenu;
     public GameObject atkConfirmation;
     public GameObject character;
-    public GameObject archer;
     public GameObject turns;
 
     public GameObject combatControlButtons;
     public GameObject actionButtons;
     public GameObject joycon;
+    public GameObject pauseButton;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +42,7 @@ public class Menu : MonoBehaviour
 
         actionButtons.SetActive(false);
         joycon.SetActive(false);
+        pauseButton.SetActive(false);
 
         combatControlButtons.SetActive(true);
         atkConfirmation.SetActive(true);
@@ -77,11 +78,7 @@ public class Menu : MonoBehaviour
                 character.transform.GetChild(5).gameObject.SetActive(false);
                 character = null;
             }
-            else if(archer != null)
-            {
-                archer.transform.GetChild(5).gameObject.SetActive(false);
-                archer = null;
-            }
+            
         }
     }
 
