@@ -268,17 +268,24 @@ public class EnemyBehaviour : MonoBehaviour
             newPosition = hitinfo.point;
         }
 
+        var hitColliders = Physics.OverlapSphere(newPosition, 2);
+
+        if(hitColliders.Length > 0.1)
+        {
+            moveAround();
+        }
+
         //newPosition.y += 0.5f;
 
         //transform.position = newPosition;
         //Debug.Log(controller.enabled);
 
-        //Vector3 travellingpos = transform.position;
-        //travellingpos.y += 30;
-        //transform.position = travellingpos;
+        Vector3 travellingpos = transform.position;
+        travellingpos.y += 30;
+        transform.position = travellingpos;
 
         // rigidbody.MovePosition(newPosition * Time.deltaTime * 5f);
-        transform.position = newPosition;
+        transform.Translate(newPosition);
 
         Debug.Log(gameObject.name + " New Position: " + newPosition);
         turns.GetComponent<TurnsManager>().setTurn(true);
@@ -289,5 +296,12 @@ public class EnemyBehaviour : MonoBehaviour
     public void setSwitch(bool enableSwitch )
     {
         this.switchOn = enableSwitch;
+    }
+
+    IEnumerator movingtoNewLocation(Vector3 Target)
+    {
+
+
+        yield return new WaitForSeconds(3); 
     }
 }

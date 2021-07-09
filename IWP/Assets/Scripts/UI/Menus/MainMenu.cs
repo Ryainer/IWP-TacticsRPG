@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
         if(!OptionsMenu.activeInHierarchy)
         {
             OptionsMenu.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 
