@@ -18,6 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
     UnitTilePos pos;
     private bool switchOn;
     private List<GameObject> playersinRange = new List<GameObject>();
+    private List<GameObject> tilesinRange = new List<GameObject>();
     private Rigidbody rigidbody;
 
     public bool moving = false;
@@ -25,6 +26,8 @@ public class EnemyBehaviour : MonoBehaviour
     public bool attacking = false;
 
     public LayerMask ignoreself;
+
+    private enemyRange ene_range;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +40,7 @@ public class EnemyBehaviour : MonoBehaviour
         eneskill = Random.Range(10, 20);
         switchOn = false;
         gameObject.GetComponentInChildren<healthbar>().setMaxHealth(eneHealth);
+        ene_range = FindObjectOfType<enemyRange>();
     }
 
     
@@ -78,8 +82,11 @@ public class EnemyBehaviour : MonoBehaviour
         turns = GameObject.Find("TurnManager");
         //players = GameObject.FindGameObjectsWithTag("Player");
         dmgindicator = GameObject.Find("EnemyDmg");
-        gameObject.GetComponent<enemyRange>().GetPlayersInCollider();
-        playersinRange = gameObject.GetComponent<enemyRange>().playersInRange;
+        ene_range.GetPlayersInCollider();
+        ene_range.GetTilesInCollider();
+        playersinRange = ene_range.playersInRange;
+        tilesinRange = ene_range.TilesInrange;
+       
         if (switchOn && !turns.GetComponent<TurnsManager>().getTurn())
         {
             Debug.Log(switchOn);
@@ -236,26 +243,11 @@ public class EnemyBehaviour : MonoBehaviour
     public void moveAround()
     {
         
-        GameObject[] Tiles = GameObject.FindGameObjectsWithTag("Tiles");
-        
-        //Debug.Log(gameObject.name + " OG Position: " + transform.position);
-        List<GameObject> TilesinRange = new List<GameObject>();
-
-        foreach(GameObject tile in Tiles)
-        {
-            if(Vector3.Distance(transform.position, tile.transform.position) <= 55.0f)
-            {
-                TilesinRange.Add(tile);
-                
-            }
-            //Debug.Log(Vector3.Distance(transform.position, tile.transform.position));
-        }
-
-        int randomLocation = Random.Range(0, (TilesinRange.Count - 1));
+        int randomLocation = Random.Range(0, (tilesinRange.Count - 1));
         //Debug.Log("tilesinrange count: " + TilesinRange.Count);
         //Debug.Log(randomLocation);
 
-        Vector3 newPosition = TilesinRange[randomLocation].GetComponent<Tiles>().center;
+        Vector3 newPosition = tilesinRange[randomLocation].GetComponent<Tiles>().center;
 
         newPosition.y += 50;
 
@@ -268,12 +260,12 @@ public class EnemyBehaviour : MonoBehaviour
             newPosition = hitinfo.point;
         }
 
-        var hitColliders = Physics.OverlapSphere(newPosition, 2);
+        //var hitColliders = Physics.OverlapSphere(newPosition, 2);
 
-        if(hitColliders.Length > 0.1)
-        {
-            moveAround();
-        }
+        //if (hitColliders.Length > 0.1)
+        //{
+        //    newPosition += Vector3.forward;
+        //}
 
         //newPosition.y += 0.5f;
 
@@ -281,7 +273,7 @@ public class EnemyBehaviour : MonoBehaviour
         //Debug.Log(controller.enabled);
 
         Vector3 travellingpos = transform.position;
-        travellingpos.y += 30;
+        travellingpos.y += 10;
         transform.position = travellingpos;
 
         // rigidbody.MovePosition(newPosition * Time.deltaTime * 5f);

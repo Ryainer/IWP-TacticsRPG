@@ -5,6 +5,8 @@ using UnityEngine;
 public class enemyRange : MonoBehaviour
 {
     public List<GameObject> playersInRange = new List<GameObject>();
+
+    public List<GameObject> TilesInrange = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,20 @@ public class enemyRange : MonoBehaviour
             {
                 playersInRange.Add(collider.gameObject);
                 Debug.Log("target added");
+            }
+        }
+    }
+
+    public void GetTilesInCollider()
+    {
+        Collider[] collidersdetected = Physics.OverlapSphere(transform.position, 5f);
+
+        foreach (Collider collider in collidersdetected)
+        {
+            if (collider.gameObject.tag == "Tiles")
+            {
+                TilesInrange.Add(collider.gameObject);
+                Debug.Log("tile added");
             }
         }
     }
