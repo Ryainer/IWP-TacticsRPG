@@ -243,22 +243,22 @@ public class EnemyBehaviour : MonoBehaviour
     public void moveAround()
     {
         
-        int randomLocation = Random.Range(0, (tilesinRange.Count - 1));
+        int randomLocation = Random.Range(0, tilesinRange.Count );
         //Debug.Log("tilesinrange count: " + TilesinRange.Count);
         //Debug.Log(randomLocation);
 
         Vector3 newPosition = tilesinRange[randomLocation].GetComponent<Tiles>().center;
 
-        newPosition.y += 50;
+        newPosition.y += 0.5f;
 
-        Ray ray = new Ray(newPosition, Vector3.down);
+        //Ray ray = new Ray(newPosition, Vector3.down);
 
-        RaycastHit hitinfo;
+        //RaycastHit hitinfo;
 
-        if (Physics.Raycast(ray, out hitinfo, 150f, ~ignoreself))
-        {
-            newPosition = hitinfo.point;
-        }
+        //if (Physics.Raycast(ray, out hitinfo, 150f, ~ignoreself))
+        //{
+        //    newPosition = hitinfo.point;
+        //}
 
         //var hitColliders = Physics.OverlapSphere(newPosition, 2);
 
@@ -273,13 +273,13 @@ public class EnemyBehaviour : MonoBehaviour
         //Debug.Log(controller.enabled);
 
         Vector3 travellingpos = transform.position;
-        travellingpos.y += 10;
+        travellingpos.y += 5;
         transform.position = travellingpos;
 
         // rigidbody.MovePosition(newPosition * Time.deltaTime * 5f);
         transform.Translate(newPosition);
 
-        Debug.Log(gameObject.name + " New Position: " + newPosition);
+        Debug.Log(gameObject.name + " New Position: " + gameObject.transform.position);
         turns.GetComponent<TurnsManager>().setTurn(true);
         turns.GetComponent<TurnsManager>().swapControls();
         moving = false;

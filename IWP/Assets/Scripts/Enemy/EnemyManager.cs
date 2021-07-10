@@ -46,36 +46,74 @@ public class EnemyManager : MonoBehaviour
     {
         Debug.Log("Creating enemies");
         int num = 1;
-        for(int i = 0; i < 3; ++i)
-        {
+        //for(int i = 0; i < 3; ++i)
+        //{
            
+        //    Vector3 spawnPos = getSpawnPos();
+
+        //    spawnPos.y += 100f;
+
+        //    Ray ray = new Ray(spawnPos, Vector3.down);
+
+        //    RaycastHit hitinfo;
+
+        //    if (Physics.Raycast(ray, out hitinfo, 350f, ~ignore))
+        //    {
+        //        spawnPos = hitinfo.point;
+        //    }
+        //    int choice = Random.Range(0, 1);
+        //    if(choice == 0)
+        //    {
+        //        enemytype = Instantiate(soldierEnemy, spawnPos, Quaternion.identity);
+        //        //Debug.Log(enemytype.transform.position);
+        //        enemytype.name = "Soldier " + num;
+        //    }
+        //    else if(choice == 1)
+        //    {
+        //        enemytype = Instantiate(archerEnemy, spawnPos, Quaternion.identity);
+        //        //Debug.Log(enemytype.transform.position);
+        //        enemytype.name = "Archer " + num;
+        //    }
+        //    num++;
+        //    enemies.Add(enemytype);
+        //}
+
+        while(num != 4)
+        {
             Vector3 spawnPos = getSpawnPos();
 
-            spawnPos.y += 100f;
-
-            Ray ray = new Ray(spawnPos, Vector3.down);
-
-            RaycastHit hitinfo;
-
-            if (Physics.Raycast(ray, out hitinfo, 350f, ~ignore))
+            if(Physics.CheckSphere(spawnPos, 0.5f, 10))
             {
-                spawnPos = hitinfo.point;
+                Debug.Log("inside someone");
             }
-            int choice = Random.Range(0, 1);
-            if(choice == 0)
+            else
             {
-                enemytype = Instantiate(soldierEnemy, spawnPos, Quaternion.identity);
-                //Debug.Log(enemytype.transform.position);
-                enemytype.name = "Soldier " + num;
+                spawnPos.y += 20f;
+
+                Ray ray = new Ray(spawnPos, Vector3.down);
+
+                RaycastHit hitinfo;
+
+                if (Physics.Raycast(ray, out hitinfo, 350f, ~ignore))
+                {
+                    spawnPos = hitinfo.point;
+                }
+                int choice = Random.Range(0, 1);
+                if (choice == 0)
+                {
+                    enemytype = Instantiate(soldierEnemy, spawnPos, Quaternion.identity);
+                    //Debug.Log(enemytype.transform.position);
+                    enemytype.name = "Soldier " + num;
+                }
+                else if (choice == 1)
+                {
+                    enemytype = Instantiate(archerEnemy, spawnPos, Quaternion.identity);
+                    //Debug.Log(enemytype.transform.position);
+                    enemytype.name = "Archer " + num;
+                }
+                num++;
+                enemies.Add(enemytype);
             }
-            else if(choice == 1)
-            {
-                enemytype = Instantiate(archerEnemy, spawnPos, Quaternion.identity);
-                //Debug.Log(enemytype.transform.position);
-                enemytype.name = "Archer " + num;
-            }
-            num++;
-            enemies.Add(enemytype);
         }
     }
 
@@ -83,7 +121,7 @@ public class EnemyManager : MonoBehaviour
     {
        
         GameObject[] Players;
-        Players = GameObject.FindGameObjectsWithTag("Player");
+        
         //Debug.Log("Tiles count" + Tiles.Length);
         int randomTile = Random.Range(0, (Tiles.Length - maximum));
        // Debug.Log("chosen tile" + randomTile);

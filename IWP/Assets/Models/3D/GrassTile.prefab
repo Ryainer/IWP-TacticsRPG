@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7168066449100619435}
   - component: {fileID: 4059108945417339466}
   - component: {fileID: 1618262906054453382}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GrassTile
   m_TagString: Tiles
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 877118987026222088}
   - component: {fileID: 2664732735961101634}
   - component: {fileID: 1575893109486899670}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
