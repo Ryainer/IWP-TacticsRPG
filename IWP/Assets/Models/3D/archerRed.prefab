@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersInRange: []
+  TilesInrange: []
 --- !u!1 &785031539004802438
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,8 +709,8 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 32
   m_CollisionDetection: 0
@@ -739,6 +740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersInRange: []
+  TilesInrange: []
 --- !u!114 &3708814211204608729
 MonoBehaviour:
   m_ObjectHideFlags: 0

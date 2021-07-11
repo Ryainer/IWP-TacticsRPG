@@ -35,14 +35,20 @@ public class enemyRange : MonoBehaviour
 
     public void GetTilesInCollider()
     {
-        Collider[] collidersdetected = Physics.OverlapSphere(transform.position, 4f);
+        Collider[] collidersdetected = Physics.OverlapSphere(transform.position, 10f);
 
         foreach (Collider collider in collidersdetected)
         {
             if (collider.gameObject.tag == "Tiles")
             {
-                TilesInrange.Add(collider.gameObject);
-                Debug.Log("tile added");
+                var results = TilesInrange.Exists(s => s.Equals(s.transform.position));
+                if(!results)
+                {
+                    TilesInrange.Add(collider.gameObject);
+                    Debug.Log("tile added");
+                }
+
+                
             }
         }
     }
@@ -50,6 +56,6 @@ public class enemyRange : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, 0.5f);
+        Gizmos.DrawWireSphere(transform.position, 7f);
     }
 }

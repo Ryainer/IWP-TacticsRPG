@@ -244,6 +244,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         
         int randomLocation = Random.Range(0, tilesinRange.Count );
+        Debug.Log("chosen number location" + randomLocation);
         //Debug.Log("tilesinrange count: " + TilesinRange.Count);
         //Debug.Log(randomLocation);
 
@@ -273,11 +274,13 @@ public class EnemyBehaviour : MonoBehaviour
         //Debug.Log(controller.enabled);
 
         Vector3 travellingpos = transform.position;
-        travellingpos.y += 5;
+        travellingpos.y += 2;
         transform.position = travellingpos;
 
         // rigidbody.MovePosition(newPosition * Time.deltaTime * 5f);
         transform.Translate(newPosition);
+        //StartCoroutine("movingtoNewLocation", newPosition);
+        //transform.position = Vector3.Lerp(transform.position, newPosition, 2f * Time.deltaTime);
 
         Debug.Log(gameObject.name + " New Position: " + gameObject.transform.position);
         turns.GetComponent<TurnsManager>().setTurn(true);
@@ -292,7 +295,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     IEnumerator movingtoNewLocation(Vector3 Target)
     {
+        while(Vector3.Distance(transform.position, Target) > 0.05f)
+        {
+            transform.position = Vector3.Lerp(transform.position, Target, 2f * Time.deltaTime);
 
+            yield return null;
+        }
 
         yield return new WaitForSeconds(3); 
     }
