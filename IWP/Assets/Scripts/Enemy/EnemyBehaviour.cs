@@ -250,16 +250,16 @@ public class EnemyBehaviour : MonoBehaviour
 
         Vector3 newPosition = tilesinRange[randomLocation].GetComponent<Tiles>().center;
 
-        newPosition.y += 0.5f;
+        newPosition.y += 10f;
 
-        //Ray ray = new Ray(newPosition, Vector3.down);
+        Ray ray = new Ray(newPosition, Vector3.down);
 
-        //RaycastHit hitinfo;
+        RaycastHit hitinfo;
 
-        //if (Physics.Raycast(ray, out hitinfo, 150f, ~ignoreself))
-        //{
-        //    newPosition = hitinfo.point;
-        //}
+        if (Physics.Raycast(ray, out hitinfo, 150f, ~ignoreself))
+        {
+            newPosition = hitinfo.point;
+        }
 
         //var hitColliders = Physics.OverlapSphere(newPosition, 2);
 
@@ -274,13 +274,14 @@ public class EnemyBehaviour : MonoBehaviour
         //Debug.Log(controller.enabled);
 
         Vector3 travellingpos = transform.position;
-        travellingpos.y += 2;
+        travellingpos.y += 10;
         transform.position = travellingpos;
 
         // rigidbody.MovePosition(newPosition * Time.deltaTime * 5f);
-        transform.Translate(newPosition);
-        //StartCoroutine("movingtoNewLocation", newPosition);
+        //transform.Translate(newPosition);
+        StartCoroutine("movingtoNewLocation", newPosition);
         //transform.position = Vector3.Lerp(transform.position, newPosition, 2f * Time.deltaTime);
+        //rigidbody.MovePosition(newPosition);
 
         Debug.Log(gameObject.name + " New Position: " + gameObject.transform.position);
         turns.GetComponent<TurnsManager>().setTurn(true);
