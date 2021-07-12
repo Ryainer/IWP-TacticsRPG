@@ -19,6 +19,8 @@ public class CreateField : MonoBehaviour
     //to contain the tiles made to see if the tile exists at a certain coord
     Dictionary<Point, Tiles> tiles = new Dictionary<Point, Tiles>();
 
+    public int number = 1;
+
     //lazy loading, checks if object exists. If it doesnt then create it
     Transform marker
     {
@@ -198,13 +200,16 @@ public class CreateField : MonoBehaviour
         {
             board.tiles.Add(new Vector3(t.pos.x, t.height, t.pos.y));
         }
-        int number = 1;
+        
+        string currentfilename = levelData.ToString();
         string nameOfFile = "Level " + number;
         Debug.Log(levelData.ToString());
-        if(levelData.ToString() == nameOfFile)
+        if(levelData.ToString() == nameOfFile + " (LevelData)")
         {
-            number++;
-            nameOfFile = "Level " + number;
+            int newnum = ++number;
+            nameOfFile = "Level " + newnum;
+            number = newnum;
+            Debug.Log(nameOfFile);
         }
 
         string fileName = string.Format("Assets/Resources/Levels/{1}.asset", filePath, nameOfFile);

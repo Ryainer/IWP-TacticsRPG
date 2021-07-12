@@ -12,6 +12,7 @@ public class TurnsManager : MonoBehaviour
     public GameObject Plamanage;
     public GameObject Enemanage;
     public bool whostarts;
+    public Board boardLoad;
 
     public List<GameObject> currentPlayers = new List<GameObject>();
     public List<GameObject> currentEnemy = new List<GameObject>();
@@ -19,6 +20,7 @@ public class TurnsManager : MonoBehaviour
     private void Awake()
     {
         turnCounter = true;
+        boardLoad.Load(FindObjectOfType<LevelList>().levels[0]);
     }
 
     // Start is called before the first frame update
@@ -31,8 +33,6 @@ public class TurnsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-
         //Debug.Log(turnCounter);
         if (whostarts)
         {
@@ -43,9 +43,9 @@ public class TurnsManager : MonoBehaviour
             {
                 turnCounter = true;
                 swapControls();
-                whostarts =false;
+                whostarts = false;
             }
-            else if(range > 5)
+            else if (range > 5)
             {
                 turnCounter = false;
                 swapControls();
@@ -57,7 +57,7 @@ public class TurnsManager : MonoBehaviour
         {
             turns.text = "Turn: Player";
         }
-        else if(!turnCounter && Enemanage.GetComponent<EnemyManager>().enemies.Count > 0)
+        else if (!turnCounter && Enemanage.GetComponent<EnemyManager>().enemies.Count > 0)
         {
             turns.text = "Turn: Enemy";
         }

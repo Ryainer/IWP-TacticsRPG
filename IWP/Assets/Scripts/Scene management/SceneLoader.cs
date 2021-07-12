@@ -6,6 +6,8 @@ public class SceneLoader : MonoBehaviour
 {
     public Animator sceneTransition;
 
+   
+
     // Update is called once per frame
     void Update()
     {
@@ -23,6 +25,8 @@ public class SceneLoader : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
+        
         SceneManager.LoadScene(lvlIndex);
+        
     }
 }

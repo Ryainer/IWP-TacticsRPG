@@ -113,6 +113,7 @@ public class EnemyManager : MonoBehaviour
                 }
                 num++;
                 enemies.Add(enemytype);
+                Debug.Log("created enemies");
             }
         }
     }
@@ -120,7 +121,7 @@ public class EnemyManager : MonoBehaviour
     Vector3 getSpawnPos()
     {
        
-        GameObject[] Players;
+        //GameObject[] Players;
         
         //Debug.Log("Tiles count" + Tiles.Length);
         int randomTile = Random.Range(0, (Tiles.Length - maximum));

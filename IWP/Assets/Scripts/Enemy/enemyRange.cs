@@ -27,8 +27,13 @@ public class enemyRange : MonoBehaviour
         {
             if (collider.gameObject.tag == "Player")
             {
-                playersInRange.Add(collider.gameObject);
-                Debug.Log("target added");
+                var results = playersInRange.Exists(s => s.Equals(s.gameObject.name));
+
+                if(!results)
+                {
+                    playersInRange.Add(collider.gameObject);
+                    Debug.Log("target added");
+                }           
             }
         }
     }
