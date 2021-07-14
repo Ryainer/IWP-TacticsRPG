@@ -273,9 +273,9 @@ public class EnemyBehaviour : MonoBehaviour
         //transform.position = newPosition;
         //Debug.Log(controller.enabled);
 
-        Vector3 travellingpos = transform.position;
-        travellingpos.y += 10;
-        transform.position = travellingpos;
+        //Vector3 travellingpos = transform.position;
+        //travellingpos.y += 10;
+        //transform.position = travellingpos;
 
         // rigidbody.MovePosition(newPosition * Time.deltaTime * 5f);
         //transform.Translate(newPosition);
@@ -298,7 +298,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         while(Vector3.Distance(transform.position, Target) > 0.05f)
         {
-            transform.position = Vector3.Lerp(transform.position, Target, 2f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, Target, 1f * Time.deltaTime);
 
             yield return null;
         }

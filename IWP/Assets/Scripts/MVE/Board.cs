@@ -8,6 +8,8 @@ public class Board : MonoBehaviour
     [SerializeField]
     GameObject tiles;
 
+   
+
     public Dictionary<Point, Tiles> tileSet = new Dictionary<Point, Tiles>();
 
     Point[] dir;
@@ -83,6 +85,7 @@ public class Board : MonoBehaviour
             Tiles t = instance.GetComponent<Tiles>();
             t.Load(data.tiles[i]);
             tileSet.Add(t.pos, t);
+            Debug.Log("tile pos: " + t.pos + "tiles: " + t);
         }
     }
 

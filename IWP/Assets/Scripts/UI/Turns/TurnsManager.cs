@@ -16,11 +16,14 @@ public class TurnsManager : MonoBehaviour
 
     public List<GameObject> currentPlayers = new List<GameObject>();
     public List<GameObject> currentEnemy = new List<GameObject>();
-  
+    private LevelList listoflvls;
+
+
     private void Awake()
     {
+       // listoflvls = FindObjectOfType<LevelList>();
         turnCounter = true;
-        boardLoad.Load(FindObjectOfType<LevelList>().levels[0]);
+       // boardLoad.Load(listoflvls.levels[listoflvls.levelChosen]);
     }
 
     // Start is called before the first frame update
@@ -44,12 +47,14 @@ public class TurnsManager : MonoBehaviour
                 turnCounter = true;
                 swapControls();
                 whostarts = false;
+                Debug.Log("player goes first");
             }
             else if (range > 5)
             {
                 turnCounter = false;
                 swapControls();
                 whostarts = false;
+                Debug.Log("enemy goes first");
             }
         }
 
