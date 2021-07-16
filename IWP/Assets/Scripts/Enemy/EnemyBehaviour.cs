@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.AI;
 public class EnemyBehaviour : MonoBehaviour
 {
     public int eneHealth;
@@ -20,6 +20,7 @@ public class EnemyBehaviour : MonoBehaviour
     private List<GameObject> playersinRange = new List<GameObject>();
     private List<GameObject> tilesinRange = new List<GameObject>();
     private Rigidbody rigidbody;
+    private NavMeshAgent agent;
 
     public bool moving = false;
    
@@ -41,6 +42,7 @@ public class EnemyBehaviour : MonoBehaviour
         switchOn = false;
         gameObject.GetComponentInChildren<healthbar>().setMaxHealth(eneHealth);
         ene_range = FindObjectOfType<enemyRange>();
+        agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
     
@@ -260,7 +262,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             newPosition = hitinfo.point;
         }
-
+        Debug.Log("target: " + newPosition);
         //var hitColliders = Physics.OverlapSphere(newPosition, 2);
 
         //if (hitColliders.Length > 0.1)
@@ -279,7 +281,9 @@ public class EnemyBehaviour : MonoBehaviour
 
         // rigidbody.MovePosition(newPosition * Time.deltaTime * 5f);
         //transform.Translate(newPosition);
-        StartCoroutine("movingtoNewLocation", newPosition);
+        Debug.Log(gameObject.name + " Old Position: " + gameObject.transform.position);
+        // StartCoroutine("movingtoNewLocation", newPosition);
+        agent.SetDestination(newPosition);
         //transform.position = Vector3.Lerp(transform.position, newPosition, 2f * Time.deltaTime);
         //rigidbody.MovePosition(newPosition);
 
@@ -298,9 +302,25 @@ public class EnemyBehaviour : MonoBehaviour
     {
         while(Vector3.Distance(transform.position, Target) > 0.05f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, Target, 1f * Time.deltaTime);
+            //transform.position = Vector3.MoveTowards(transform.position, Target, 1f * Time.deltaTime);
+            Vector3 tempGO = gameObject.transform.position;
+            tempGO+= Vector3.forward;
 
-            yield return null;
+            Ray ray = new Ray(tempGO, Vector3.down);
+
+            RaycastHit hitinfo;
+
+            if(Physics.Raycast(ray, out hitinfo, 20f))
+            {
+                transform.position = tempGO;
+            }
+            else
+            {
+                Debug.Log("Nothing");
+            }
+
+            
+            yield return new WaitForSeconds(2);
         }
 
         yield return new WaitForSeconds(3); 

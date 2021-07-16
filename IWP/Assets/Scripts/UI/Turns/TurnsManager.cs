@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.AI;
 public class TurnsManager : MonoBehaviour
 {
+    public NavMeshSurface surface;
+
     public Text turns;
     public bool turnCounter/* { get; set; }*/ ;
     public GameObject[] players;
@@ -21,9 +23,11 @@ public class TurnsManager : MonoBehaviour
 
     private void Awake()
     {
-       // listoflvls = FindObjectOfType<LevelList>();
+       listoflvls = FindObjectOfType<LevelList>();
         turnCounter = true;
-       // boardLoad.Load(listoflvls.levels[listoflvls.levelChosen]);
+         boardLoad.Load(listoflvls.levels[listoflvls.levelChosen]);
+
+        surface.BuildNavMesh();
     }
 
     // Start is called before the first frame update
