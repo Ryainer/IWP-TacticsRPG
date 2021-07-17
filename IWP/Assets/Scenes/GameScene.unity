@@ -109,7 +109,7 @@ NavMeshSettings:
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.4
+    agentClimb: 0.75
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -3153,14 +3153,14 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 1079
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.033333335
+  m_VoxelSize: 0.06666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: aed4bb3d4f433984194b5d7865679bc3, type: 2}
 --- !u!4 &1167897891
@@ -5423,16 +5423,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d244208d49ae594499fd351b6e089ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileViewPrefab: {fileID: 1087552842762266602, guid: 2f724ebf1995a4f4793745044f344f5f, type: 3}
+  tileViewPrefab: {fileID: 4385285233616766102, guid: 42ad4c2a629cf0249931ab98b53672f8, type: 3}
   tileSelectionIndicatorPrefab: {fileID: 6777025495940857781, guid: 107c34cd67838924d97baaf19b2746ab, type: 3}
-  width: 10
-  depth: 10
-  height: 8
+  width: 12
+  depth: 12
+  height: 6
   pos:
     x: 0
     y: 0
   levelData: {fileID: 11400000, guid: 4d3a1d1491f9ff04aa48b84ad1021f79, type: 2}
-  number: 1
+  number: 3
 --- !u!4 &1726842718
 Transform:
   m_ObjectHideFlags: 0
@@ -6947,8 +6947,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Size: {x: 16.831747, y: 5.301672, z: 16.31315}
-  m_Center: {x: -0.8435402, y: 0.4679556, z: 2.3158739}
+  m_Size: {x: 22.974953, y: 12.770046, z: 17.417542}
+  m_Center: {x: 2.2280617, y: 4.2021427, z: 2.8680687}
   m_Area: 0
   m_AffectedAgents: ffffffff
 --- !u!1001 &5112478353853886900

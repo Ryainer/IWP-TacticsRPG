@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     public GameObject OptionsMenu;
+    public Text helptxt;
     
     public void onStartGamePressed()
     {
@@ -20,6 +21,12 @@ public class MainMenu : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public void ControlButtonPress()
+    {
+
+    }
+
 
     public void onQuitButton()
     {
