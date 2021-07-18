@@ -76,6 +76,7 @@ public class Menu : MonoBehaviour
             if(character != null)
             {
                 character.transform.GetChild(5).gameObject.SetActive(false);
+                character.transform.GetChild(6).gameObject.SetActive(false);
                 character = null;
             }
             

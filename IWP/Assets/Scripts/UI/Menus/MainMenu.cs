@@ -22,12 +22,6 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void ControlButtonPress()
-    {
-
-    }
-
-
     public void onQuitButton()
     {
         Application.Quit();

@@ -23,11 +23,11 @@ public class TurnsManager : MonoBehaviour
 
     private void Awake()
     {
-       listoflvls = FindObjectOfType<LevelList>();
+       //listoflvls = FindObjectOfType<LevelList>();
         turnCounter = true;
-         boardLoad.Load(listoflvls.levels[listoflvls.levelChosen]);
+        // boardLoad.Load(listoflvls.levels[listoflvls.levelChosen]);
 
-        surface.BuildNavMesh();
+        //surface.BuildNavMesh();
     }
 
     // Start is called before the first frame update
