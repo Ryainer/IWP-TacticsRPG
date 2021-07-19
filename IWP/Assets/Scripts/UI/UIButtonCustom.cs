@@ -48,7 +48,10 @@ public class UIButtonCustom : MonoBehaviour
         //    camRotation, Time.deltaTime * movementTime);
     }
 
-   
+   public void onSliderChange(float vol)
+    {
+        FindObjectOfType<AudioManager>().adjustVolume(vol);
+    }
 }
    
 
