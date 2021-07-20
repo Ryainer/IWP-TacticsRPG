@@ -69,7 +69,7 @@ public class Warrior : MonoBehaviour
 
                     if (range < chance) // if the range is below the hit chance number, miss
                     {
-                        FindObjectOfType<AudioManager>().Player("miss");
+                        //FindObjectOfType<AudioManager>().Player("miss");
                         dmgTxt.text = "Warrior Missed";
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
@@ -78,7 +78,7 @@ public class Warrior : MonoBehaviour
                     }
                     else if (range > chance) //if higher, hits
                     {
-                        FindObjectOfType<AudioManager>().Player("slash");
+                        //FindObjectOfType<AudioManager>().Player("slash");
                         //Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
                         dmgTxt.text = "Warrior dealt " + atkstat + " to " + enemyToHit.name;

@@ -14,12 +14,12 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject dmgindicator;
     private GameObject healthBar;
     public SameAbilityRange range;
-    GameObject board;
-    UnitTilePos pos;
+    public Text enemydmgtxt;
+    
     private bool switchOn;
     private List<GameObject> playersinRange = new List<GameObject>();
     private List<GameObject> tilesinRange = new List<GameObject>();
-    private Rigidbody rigidbody;
+    
     private NavMeshAgent agent;
 
     public bool moving = false;
@@ -33,8 +33,8 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        board = GameObject.Find("Board");
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+    
+        
         eneHealth = 50;
         eneMP = 10;
         eneAtk = 5;
@@ -43,6 +43,7 @@ public class EnemyBehaviour : MonoBehaviour
         gameObject.GetComponentInChildren<healthbar>().setMaxHealth(eneHealth);
         ene_range = FindObjectOfType<enemyRange>();
         agent = gameObject.GetComponent<NavMeshAgent>();
+        enemydmgtxt = GameObject.Find("EnemyDmg").GetComponent<Text>();
     }
 
     
@@ -134,12 +135,12 @@ public class EnemyBehaviour : MonoBehaviour
 
             if(range < hitchance)
             {
-                FindObjectOfType<AudioManager>().Player("miss");
-                dmgindicator.GetComponent<Text>().text = "Enemy warrior Missed";
+                //FindObjectOfType<AudioManager>().Player("miss");
+                enemydmgtxt.text = "Enemy warrior Missed";
             }
             else if(range > hitchance)
             {
-                FindObjectOfType<AudioManager>().Player("slash");
+                //FindObjectOfType<AudioManager>().Player("slash");
                 if (playerToHit.gameObject.name == "archerBlue")
                 {
                     playerToHit.GetComponent<Archer>().health -= eneAtk;
@@ -149,7 +150,7 @@ public class EnemyBehaviour : MonoBehaviour
                     playerToHit.GetComponent<Warrior>().health -= eneAtk;
                 }
 
-                dmgindicator.GetComponent<Text>().text = "Enemy warrior dealt " + eneAtk + " to " + playerToHit.name;
+                enemydmgtxt.text = "Enemy warrior dealt " + eneAtk + " to " + playerToHit.name;
             }
             turns.GetComponent<TurnsManager>().setTurn(true);
             turns.GetComponent<TurnsManager>().swapControls();
@@ -173,7 +174,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (range < hitchance)
             {
                 FindObjectOfType<AudioManager>().Player("miss");
-                dmgindicator.GetComponent<Text>().text = "Enemy archer Missed";
+                enemydmgtxt.text = "Enemy archer Missed";
             }
             else if (range > hitchance)
             {
@@ -186,7 +187,7 @@ public class EnemyBehaviour : MonoBehaviour
                 {
                     playerToHit.GetComponent<Warrior>().health -= eneAtk;
                 }
-                dmgindicator.GetComponent<Text>().text = "Enemy archer dealt " + eneAtk + " to " + playerToHit.name;
+                enemydmgtxt.text = "Enemy archer dealt " + eneAtk + " to " + playerToHit.name;
             }
             turns.GetComponent<TurnsManager>().setTurn(true);
             turns.GetComponent<TurnsManager>().swapControls();

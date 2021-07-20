@@ -10,7 +10,7 @@ public class WarriorMenu : MonoBehaviour
     public GameObject actionButtons;
     public GameObject pauseButton;
     public GameObject joycon;
-
+    public GameObject dmgmenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +29,7 @@ public class WarriorMenu : MonoBehaviour
         atkConfirmation.SetActive(true);
         warrior.GetComponent<Warrior>().state = "attack";
         atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("DoubleSwing");
+        dmgmenu.SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -43,6 +44,7 @@ public class WarriorMenu : MonoBehaviour
         atkConfirmation.SetActive(true);
         atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("ChargeSmash");
         warrior.GetComponent<Warrior>().state = "attack";
+        dmgmenu.SetActive(false);
         gameObject.SetActive(false);
     }
 

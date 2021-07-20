@@ -18,6 +18,7 @@ public class PlayerChooseTarget : MonoBehaviour
     private List<GameObject> choices = new List<GameObject>();
     public Text enemy;
     public Text playerMP;
+    public GameObject dmgPanel;
     int num = 0;
 
     // Start is called before the first frame update
@@ -219,6 +220,7 @@ public class PlayerChooseTarget : MonoBehaviour
                 }
                 break;
         }
+        dmgPanel.SetActive(true);
     }
 
     float hitrate()

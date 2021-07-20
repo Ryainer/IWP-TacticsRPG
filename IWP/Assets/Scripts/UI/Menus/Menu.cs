@@ -15,6 +15,7 @@ public class Menu : MonoBehaviour
     public GameObject actionButtons;
     public GameObject joycon;
     public GameObject pauseButton;
+    public GameObject dmgpanel;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,8 @@ public class Menu : MonoBehaviour
         combatControlButtons.SetActive(true);
         atkConfirmation.SetActive(true);
         atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
+        dmgpanel.SetActive(false);
+        FindObjectOfType<cullingMask>().ignoreMask(true);
     }
 
     public void onSkillBtnPress()
