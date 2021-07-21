@@ -264,29 +264,9 @@ public class EnemyBehaviour : MonoBehaviour
             newPosition = hitinfo.point;
         }
         Debug.Log("target: " + newPosition);
-        //var hitColliders = Physics.OverlapSphere(newPosition, 2);
-
-        //if (hitColliders.Length > 0.1)
-        //{
-        //    newPosition += Vector3.forward;
-        //}
-
-        //newPosition.y += 0.5f;
-
-        //transform.position = newPosition;
-        //Debug.Log(controller.enabled);
-
-        //Vector3 travellingpos = transform.position;
-        //travellingpos.y += 10;
-        //transform.position = travellingpos;
-
-        // rigidbody.MovePosition(newPosition * Time.deltaTime * 5f);
-        //transform.Translate(newPosition);
         Debug.Log(gameObject.name + " Old Position: " + gameObject.transform.position);
-        // StartCoroutine("movingtoNewLocation", newPosition);
-        agent.SetDestination(newPosition);
-        //transform.position = Vector3.Lerp(transform.position, newPosition, 2f * Time.deltaTime);
-        //rigidbody.MovePosition(newPosition);
+        // agent.SetDestination(newPosition);
+        StartCoroutine(movingtoNewLocation(newPosition));
 
         Debug.Log(gameObject.name + " New Position: " + gameObject.transform.position);
         turns.GetComponent<TurnsManager>().setTurn(true);
@@ -303,25 +283,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         while(Vector3.Distance(transform.position, Target) > 0.05f)
         {
-            //transform.position = Vector3.MoveTowards(transform.position, Target, 1f * Time.deltaTime);
-            Vector3 tempGO = gameObject.transform.position;
-            tempGO+= Vector3.forward;
-
-            Ray ray = new Ray(tempGO, Vector3.down);
-
-            RaycastHit hitinfo;
-
-            if(Physics.Raycast(ray, out hitinfo, 20f))
-            {
-                transform.position = tempGO;
-            }
-            else
-            {
-                Debug.Log("Nothing");
-            }
-
-            
-            yield return new WaitForSeconds(2);
+            agent.SetDestination(Target);
+            yield return new WaitForSeconds(1);
         }
 
         yield return new WaitForSeconds(3); 
