@@ -104,6 +104,7 @@ public class Player : MonoBehaviour
         Debug.Log("Selecting player");
         int range = Random.Range(0, crewmembers.Count);
         movements.GetComponent<PlayerMovement>().Player = crewmembers[range];
+        movements.GetComponent<PlayerMovement>().origin = crewmembers[range].transform.position;
         joystick.GetComponent<LockPlayerPos>().Player = crewmembers[range];
         combatScreen.GetComponent<PlayerChooseTarget>().user = crewmembers[range];
         crewmembers[range].transform.GetChild(5).gameObject.SetActive(true);

@@ -12,6 +12,7 @@ public class LockPlayerPos : MonoBehaviour, IPointerUpHandler, IPointerDownHandl
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("down bad");
+        
     }
 
     //Do this when the mouse click on this selectable UI object is released.

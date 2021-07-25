@@ -17,7 +17,7 @@ public class EnemyBehaviour : MonoBehaviour
     public Text enemydmgtxt;
     
     private bool switchOn;
-    private List<GameObject> playersinRange = new List<GameObject>();
+    public List<GameObject> playersinRange = new List<GameObject>();
     private List<GameObject> tilesinRange = new List<GameObject>();
     
     private NavMeshAgent agent;
@@ -281,12 +281,16 @@ public class EnemyBehaviour : MonoBehaviour
 
     IEnumerator movingtoNewLocation(Vector3 Target)
     {
-        while(Vector3.Distance(transform.position, Target) > 0.05f)
+        while(Vector3.Distance(transform.position, Target) > 0.1f)
         {
             agent.SetDestination(Target);
-            yield return new WaitForSeconds(1);
+            Debug.Log("oh no");
+            yield return new WaitForSeconds(3);
         }
+        ene_range.GetPlayersInCollider();
+        playersinRange = ene_range.playersInRange;
 
+        Debug.Log("Oh boi" + playersinRange.Count);
         yield return new WaitForSeconds(3); 
     }
 }

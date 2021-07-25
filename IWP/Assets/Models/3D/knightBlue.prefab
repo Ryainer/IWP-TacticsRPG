@@ -424,6 +424,7 @@ GameObject:
   - component: {fileID: 4042543933720038337}
   - component: {fileID: 4919568577424752846}
   - component: {fileID: 2666842108725885455}
+  - component: {fileID: 5056628587458306355}
   m_Layer: 8
   m_Name: knightBlue
   m_TagString: Player
@@ -492,6 +493,22 @@ MonoBehaviour:
   atkstat: 0
   MP: 0
   skillstat: 0
+--- !u!208 &5056628587458306355
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3697966457674223995}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.5, y: 3, z: 1.5}
+  m_MoveThreshold: 0.05
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 2.5, z: 0}
+  m_TimeToStationary: 0.1
 --- !u!1 &3970324918941637332
 GameObject:
   m_ObjectHideFlags: 0

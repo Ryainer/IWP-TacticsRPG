@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 4179481055925377889}
   - component: {fileID: 9124587737686551972}
   - component: {fileID: 1738452097172645914}
+  - component: {fileID: 6759278516451028005}
   m_Layer: 8
   m_Name: archerBlue
   m_TagString: Player
@@ -322,6 +323,22 @@ MonoBehaviour:
   dmgTxt: {fileID: 0}
   MP: 0
   turnsystem: {fileID: 0}
+--- !u!208 &6759278516451028005
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3552125476247454171}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.5, y: 3, z: 1.5}
+  m_MoveThreshold: 0.05
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 2.5, z: 0}
+  m_TimeToStationary: 0.1
 --- !u!1 &4405231055597750300
 GameObject:
   m_ObjectHideFlags: 0

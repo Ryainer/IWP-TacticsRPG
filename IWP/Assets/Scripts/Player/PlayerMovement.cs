@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    private Touch theTouch;
     private CharacterController controller;
 
     public GameObject Player;
@@ -19,12 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Joystick joystick;
 
-    private Vector2 touchStart, touchEnd, touchNew, joystickDir;
-    private bool stop = false;
-    private bool foward, backward, right, left;
-    private float speed = 0.2f;
     private float gravity = 9.8f;
-    private Vector3 move;
+    public Vector3 origin;
 
     private void Awake()
     {
@@ -53,9 +48,12 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 direction = camForward * verticalMov + camRight * horizontalMov;
 
-
         controller = Player.GetComponent<CharacterController>();
-        controller.Move(new Vector3(direction.x * 0.2f, -(gravity * Time.deltaTime), direction.z * 0.2f));
+        controller.Move(new Vector3(direction.x * 0.05f, -(gravity * Time.deltaTime), direction.z * 0.05f));
+        if (Player.transform.position.y < 0)
+        {
+            Player.transform.position = new Vector3(5, 5, 5);
+        }
         if (controller.velocity != Vector3.zero)
         {
             if (actionButtons.activeInHierarchy)
