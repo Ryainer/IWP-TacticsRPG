@@ -669,7 +669,6 @@ GameObject:
   - component: {fileID: 8875089267017320560}
   - component: {fileID: 1155179773944753708}
   - component: {fileID: 619114986863442916}
-  - component: {fileID: 3075762017227547844}
   - component: {fileID: 3708814211204608729}
   - component: {fileID: 2298949001383622949}
   m_Layer: 9
@@ -728,20 +727,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.5, y: 5.5, z: 4}
   m_Center: {x: 0, y: 2.6, z: 0}
---- !u!114 &3075762017227547844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8097883373613306570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 540441665bf20864d9f56a8397f2ad77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playersInRange: []
-  TilesInrange: []
 --- !u!114 &3708814211204608729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,6 +745,8 @@ MonoBehaviour:
   eneskill: 0
   namechck: 
   range: {fileID: 0}
+  enemydmgtxt: {fileID: 0}
+  playersinRange: []
   moving: 0
   attacking: 0
   ignoreself:

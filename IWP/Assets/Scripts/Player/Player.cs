@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
        {
             for(int i = 0; i < 3; ++i)
             {
+                int num = i;
                 int range = Random.Range(0, Tiles.Length);
 
                 Vector3 spawnPos = new Vector3(Tiles[range].transform.position.x,
@@ -84,12 +85,12 @@ public class Player : MonoBehaviour
                 if(chosenUnit == 0)
                 {
                     clone = Instantiate(warrior, spawnPos, Quaternion.identity);
-                    clone.name = warrior.name;
+                    clone.name = warrior.name + " " +num;
                 }
                 else if(chosenUnit == 1)
                 {
                     clone = Instantiate(archer, spawnPos, Quaternion.identity);
-                    clone.name = archer.name;
+                    clone.name = archer.name + " " + num;
                 }
 
                 crewmembers.Add(clone);

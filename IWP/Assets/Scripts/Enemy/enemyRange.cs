@@ -19,9 +19,11 @@ public class enemyRange : MonoBehaviour
         
     }
 
+   
+
     public void GetPlayersInCollider()
     {
-        Collider[] collidersdetected = Physics.OverlapSphere(transform.position, 3f);
+        Collider[] collidersdetected = Physics.OverlapSphere(transform.position, 5f);
 
         foreach (Collider collider in collidersdetected)
         {
@@ -61,6 +63,6 @@ public class enemyRange : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, 7f);
+        Gizmos.DrawWireSphere(transform.position, 5f);
     }
 }
