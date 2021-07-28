@@ -181,7 +181,7 @@ public class Archer : MonoBehaviour
                         }
                         else if (range > chance)
                         {
-                            FindObjectOfType<AudioManager>().Player("thwack");
+                            //FindObjectOfType<AudioManager>().Player("thwack");
                             Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                             enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
                             dmgTxt.text = "Archer dealt " + atkstat + " to " + enemyToHit.name;

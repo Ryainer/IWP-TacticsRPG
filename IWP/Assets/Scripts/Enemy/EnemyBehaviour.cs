@@ -85,9 +85,9 @@ public class EnemyBehaviour : MonoBehaviour
         turns = GameObject.Find("TurnManager");
         //players = GameObject.FindGameObjectsWithTag("Player");
         dmgindicator = GameObject.Find("EnemyDmg");
-        ene_range.GetPlayersInCollider();
+        //ene_range.GetPlayersInCollider();
         ene_range.GetTilesInCollider();
-        playersinRange = ene_range.playersInRange;
+        playersinRange = ene_range.GetPlayersInCollider(transform.position);
         tilesinRange = ene_range.TilesInrange;
        
         if (switchOn && !turns.GetComponent<TurnsManager>().getTurn())
@@ -140,12 +140,14 @@ public class EnemyBehaviour : MonoBehaviour
             }
             else if(range > hitchance)
             {
+                string[] target = playerToHit.gameObject.name.Split(' ');
+
                 //FindObjectOfType<AudioManager>().Player("slash");
-                if (playerToHit.gameObject.name == "archerBlue")
+                if (target[0] == "archerBlue")
                 {
                     playerToHit.GetComponent<Archer>().health -= eneAtk;
                 }
-                else if(playerToHit.gameObject.name == "knightBlue")
+                else if(target[0] == "knightBlue")
                 {
                     playerToHit.GetComponent<Warrior>().health -= eneAtk;
                 }
@@ -178,12 +180,14 @@ public class EnemyBehaviour : MonoBehaviour
             }
             else if (range > hitchance)
             {
+                string[] target = playerToHit.gameObject.name.Split(' ');
+
                 FindObjectOfType<AudioManager>().Player("thwack");
-                if (playerToHit.gameObject.name == "archerBlue")
+                if (target[0] == "archerBlue")
                 {
                     playerToHit.GetComponent<Archer>().health -= eneAtk;
                 }
-                else if (playerToHit.gameObject.name == "knightBlue")
+                else if (target[0] == "knightBlue")
                 {
                     playerToHit.GetComponent<Warrior>().health -= eneAtk;
                 }
@@ -287,8 +291,8 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("oh no");
             yield return new WaitForSeconds(3);
         }
-        ene_range.GetPlayersInCollider();
-        playersinRange = ene_range.playersInRange;
+       // ene_range.GetPlayersInCollider();
+        playersinRange = ene_range.GetPlayersInCollider(transform.position);
 
         Debug.Log("Oh boi" + playersinRange.Count);
         yield return new WaitForSeconds(3); 

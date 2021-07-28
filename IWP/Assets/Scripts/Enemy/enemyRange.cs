@@ -21,23 +21,27 @@ public class enemyRange : MonoBehaviour
 
    
 
-    public void GetPlayersInCollider()
+    public List<GameObject> GetPlayersInCollider(Vector3 position)
     {
-        Collider[] collidersdetected = Physics.OverlapSphere(transform.position, 5f);
+        List<GameObject> playersdetected = new List<GameObject>();
+
+        Collider[] collidersdetected = Physics.OverlapSphere(position, 5f);
 
         foreach (Collider collider in collidersdetected)
         {
             if (collider.gameObject.tag == "Player")
             {
-                var results = playersInRange.Exists(s => s.Equals(s.gameObject.name));
+                var results = playersdetected.FindAll(s => s.Equals(collider.gameObject.name));
 
-                if(!results)
+                if (results.Count <= 0)
                 {
-                    playersInRange.Add(collider.gameObject);
+                    playersdetected.Add(collider.gameObject);
                     Debug.Log("target added");
                 }           
             }
         }
+
+        return playersdetected;
     }
 
     public void GetTilesInCollider()

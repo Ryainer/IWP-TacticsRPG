@@ -69,7 +69,7 @@ public class Warrior : MonoBehaviour
 
                     if (range < chance) // if the range is below the hit chance number, miss
                     {
-                        //FindObjectOfType<AudioManager>().Player("miss");
+                       // FindObjectOfType<AudioManager>().Player("miss");
                         dmgTxt.text = "Warrior Missed";
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();

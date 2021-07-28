@@ -23,9 +23,9 @@ public class TurnsManager : MonoBehaviour
 
     private void Awake()
     {
-       //listoflvls = FindObjectOfType<LevelList>();
+        //listoflvls = FindObjectOfType<LevelList>();
         turnCounter = true;
-        // boardLoad.Load(listoflvls.levels[listoflvls.levelChosen]);
+        //boardLoad.Load(listoflvls.levels[listoflvls.levelChosen]);
 
         //surface.BuildNavMesh();
     }
