@@ -21,31 +21,39 @@ public class WarriorMenu : MonoBehaviour
     {
         //warrior.GetComponent<Warrior>().DoubleSwing();
 
-        actionButtons.SetActive(false);
-        joycon.SetActive(false);
-        pauseButton.SetActive(false);
+        if(warrior.GetComponentInChildren<PlayerRanges>().enemies.Count > 0)
+        {
+            actionButtons.SetActive(false);
+            joycon.SetActive(false);
+            pauseButton.SetActive(false);
 
-        combatControlButtons.SetActive(true);
-        atkConfirmation.SetActive(true);
-        warrior.GetComponent<Warrior>().state = "attack";
-        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("DoubleSwing");
-        dmgmenu.SetActive(false);
-        gameObject.SetActive(false);
+            combatControlButtons.SetActive(true);
+            atkConfirmation.SetActive(true);
+            warrior.GetComponent<Warrior>().state = "attack";
+            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("DoubleSwing");
+            dmgmenu.SetActive(false);
+            gameObject.SetActive(false);
+        }
+
     }
 
     public void DblSwing()
     {
         //warrior.GetComponent<Warrior>().ChargeSmash();
-        actionButtons.SetActive(false);
-        joycon.SetActive(false);
-        pauseButton.SetActive(false);
+        if (warrior.GetComponentInChildren<PlayerRanges>().enemies.Count > 0)
+        {
+            actionButtons.SetActive(false);
+            joycon.SetActive(false);
+            pauseButton.SetActive(false);
 
-        combatControlButtons.SetActive(true);
-        atkConfirmation.SetActive(true);
-        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("ChargeSmash");
-        warrior.GetComponent<Warrior>().state = "attack";
-        dmgmenu.SetActive(false);
-        gameObject.SetActive(false);
+            combatControlButtons.SetActive(true);
+            atkConfirmation.SetActive(true);
+            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("ChargeSmash");
+            warrior.GetComponent<Warrior>().state = "attack";
+            dmgmenu.SetActive(false);
+            gameObject.SetActive(false);
+        }
+       
     }
 
     public void Cancel()

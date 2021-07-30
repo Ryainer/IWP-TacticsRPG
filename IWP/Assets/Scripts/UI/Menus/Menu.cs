@@ -31,25 +31,31 @@ public class Menu : MonoBehaviour
 
     public void onAtkBtnPress()
     {
-        
-        if(character.name == "archerBlue")
+        if(character.GetComponentInChildren<PlayerRanges>().enemies.Count > 0)
         {
-            character.GetComponent<Archer>().state = "attack";
+            if (character.name == "archerBlue")
+            {
+                character.GetComponent<Archer>().state = "attack";
+            }
+            else if (character.name == "knightBlue")
+            {
+                character.GetComponent<Warrior>().state = "attack";
+            }
+
+            actionButtons.SetActive(false);
+            joycon.SetActive(false);
+            pauseButton.SetActive(false);
+
+            combatControlButtons.SetActive(true);
+            atkConfirmation.SetActive(true);
+            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
+            dmgpanel.SetActive(false);
+            FindObjectOfType<cullingMask>().ignoreMask(true);
         }
-        else if(character.name == "knightBlue")
+        else
         {
-            character.GetComponent<Warrior>().state = "attack";
+            Debug.Log("Error no enemies");
         }
-
-        actionButtons.SetActive(false);
-        joycon.SetActive(false);
-        pauseButton.SetActive(false);
-
-        combatControlButtons.SetActive(true);
-        atkConfirmation.SetActive(true);
-        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
-        dmgpanel.SetActive(false);
-        FindObjectOfType<cullingMask>().ignoreMask(true);
     }
 
     public void onSkillBtnPress()

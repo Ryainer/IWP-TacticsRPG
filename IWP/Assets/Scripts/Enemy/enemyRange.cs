@@ -21,11 +21,11 @@ public class enemyRange : MonoBehaviour
 
    
 
-    public List<GameObject> GetPlayersInCollider(Vector3 position)
+    public List<GameObject> GetPlayersInCollider(/*Vector3 position*/)
     {
         List<GameObject> playersdetected = new List<GameObject>();
 
-        Collider[] collidersdetected = Physics.OverlapSphere(position, 5f);
+        Collider[] collidersdetected = Physics.OverlapSphere(transform.position, 5f);
 
         foreach (Collider collider in collidersdetected)
         {

@@ -41,7 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
         eneskill = Random.Range(10, 20);
         switchOn = false;
         gameObject.GetComponentInChildren<healthbar>().setMaxHealth(eneHealth);
-        ene_range = FindObjectOfType<enemyRange>();
+        //ene_range = FindObjectOfType<enemyRange>();
         agent = gameObject.GetComponent<NavMeshAgent>();
         enemydmgtxt = GameObject.Find("EnemyDmg").GetComponent<Text>();
     }
@@ -85,9 +85,10 @@ public class EnemyBehaviour : MonoBehaviour
         turns = GameObject.Find("TurnManager");
         //players = GameObject.FindGameObjectsWithTag("Player");
         dmgindicator = GameObject.Find("EnemyDmg");
+        ene_range = GetComponentInChildren<enemyRange>();
         //ene_range.GetPlayersInCollider();
         ene_range.GetTilesInCollider();
-        playersinRange = ene_range.GetPlayersInCollider(transform.position);
+        playersinRange = ene_range.GetPlayersInCollider(/*transform.position*/);
         tilesinRange = ene_range.TilesInrange;
        
         if (switchOn && !turns.GetComponent<TurnsManager>().getTurn())
@@ -292,7 +293,12 @@ public class EnemyBehaviour : MonoBehaviour
             yield return new WaitForSeconds(3);
         }
        // ene_range.GetPlayersInCollider();
-        playersinRange = ene_range.GetPlayersInCollider(transform.position);
+        playersinRange = ene_range.GetPlayersInCollider(/*transform.position*/);
+
+        if(playersinRange.Count > 0)
+        {
+
+        }
 
         Debug.Log("Oh boi" + playersinRange.Count);
         yield return new WaitForSeconds(3); 

@@ -14,32 +14,41 @@ public class ArcherMenu : MonoBehaviour
     public GameObject dmgPanel;
     public void chargedShotBtnPress()
     {
-        //Archer.GetComponent<Archer>().chargedShotAtk();
-        actionButtons.SetActive(false);
-        joycon.SetActive(false);
-        pausebutton.SetActive(false);
+        if(Archer.GetComponentInChildren<PlayerRanges>().enemies.Count > 0)
+        {
+            actionButtons.SetActive(false);
+            joycon.SetActive(false);
+            pausebutton.SetActive(false);
 
-        combatControlButtons.SetActive(true);
-        atkConfirmation.SetActive(true);
-        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("chargedshot");
-        Archer.GetComponent<Archer>().state = "attack";
-        dmgPanel.SetActive(false);
-        gameObject.SetActive(false);
+            combatControlButtons.SetActive(true);
+            atkConfirmation.SetActive(true);
+            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("chargedshot");
+            Archer.GetComponent<Archer>().state = "attack";
+            dmgPanel.SetActive(false);
+            gameObject.SetActive(false);
+        }
+        //Archer.GetComponent<Archer>().chargedShotAtk();
+       
     }
 
     public void repeatedShot()
     {
-        //Archer.GetComponent<Archer>().repeatedShotAtk();
-        actionButtons.SetActive(false);
-        joycon.SetActive(false);
-        pausebutton.SetActive(false);
+        if (Archer.GetComponentInChildren<PlayerRanges>().enemies.Count > 0)
+        {
+            actionButtons.SetActive(false);
+            joycon.SetActive(false);
+            pausebutton.SetActive(false);
 
-        combatControlButtons.SetActive(true);
-        atkConfirmation.SetActive(true);
-        atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("repeatedshot");
-        Archer.GetComponent<Archer>().state = "attack";
-        dmgPanel.SetActive(false);
-        gameObject.SetActive(false);
+            combatControlButtons.SetActive(true);
+            atkConfirmation.SetActive(true);
+            atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("repeatedshot");
+            Archer.GetComponent<Archer>().state = "attack";
+            dmgPanel.SetActive(false);
+            gameObject.SetActive(false);
+        }
+
+            //Archer.GetComponent<Archer>().repeatedShotAtk();
+        
     }
 
     public void Cancel()
