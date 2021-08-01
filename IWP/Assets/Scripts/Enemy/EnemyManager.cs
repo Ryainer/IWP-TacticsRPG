@@ -98,17 +98,17 @@ public class EnemyManager : MonoBehaviour
                 {
                     spawnPos = hitinfo.point;
                 }
-                int choice = Random.Range(0, 1);
+                int choice = Random.Range(0, 2);
                 if (choice == 0)
                 {
                     enemytype = Instantiate(soldierEnemy, spawnPos, Quaternion.identity);
-                    //Debug.Log(enemytype.transform.position);
+                    Debug.Log("its a soldier");
                     enemytype.name = "Soldier " + num;
                 }
                 else if (choice == 1)
                 {
                     enemytype = Instantiate(archerEnemy, spawnPos, Quaternion.identity);
-                    //Debug.Log(enemytype.transform.position);
+                    Debug.Log("its a archer");
                     enemytype.name = "Archer " + num;
                 }
                 num++;

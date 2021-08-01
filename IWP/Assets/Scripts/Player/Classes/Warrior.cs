@@ -12,8 +12,6 @@ public class Warrior : MonoBehaviour
     public Player playerStats;
     public int health ;
 
-    private GameObject healthbar;
-
     public TurnsManager turnsystem;
     public Text dmgTxt;
 
@@ -24,6 +22,7 @@ public class Warrior : MonoBehaviour
     int timer;
     public float skillstat;
 
+    public ParticleSystem particles;
     private void Awake()
     {
        // turns = new TurnsManager();
@@ -75,6 +74,8 @@ public class Warrior : MonoBehaviour
                         turnsystem.swapControls();
                         transform.GetChild(5).gameObject.SetActive(false);
                         transform.GetChild(6).gameObject.SetActive(false);
+                        particles = enemyToHit.transform.GetChild(7).GetComponent<ParticleSystem>();
+                        particles.Play();
                     }
                     else if (range > chance) //if higher, hits
                     {
@@ -87,6 +88,8 @@ public class Warrior : MonoBehaviour
                         turnsystem.swapControls();
                         transform.GetChild(5).gameObject.SetActive(false);
                         transform.GetChild(6).gameObject.SetActive(false);
+                        particles = enemyToHit.transform.GetChild(6).GetComponent<ParticleSystem>();
+                        particles.Play();
                         // Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                     }
                 }
@@ -122,6 +125,8 @@ public class Warrior : MonoBehaviour
                 turnsystem.swapControls();
                 transform.GetChild(5).gameObject.SetActive(false);
                 transform.GetChild(6).gameObject.SetActive(false);
+                particles = enemyToHit.transform.GetChild(7).GetComponent<ParticleSystem>();
+                particles.Play();
             }
             else if (range > chance)
             {
@@ -134,6 +139,8 @@ public class Warrior : MonoBehaviour
                 turnsystem.swapControls();
                 transform.GetChild(5).gameObject.SetActive(false);
                 transform.GetChild(6).gameObject.SetActive(false);
+                particles = enemyToHit.transform.GetChild(6).GetComponent<ParticleSystem>();
+                particles.Play();
                 // Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
             }
 
@@ -166,6 +173,8 @@ public class Warrior : MonoBehaviour
                 turnsystem.swapControls();
                 transform.GetChild(5).gameObject.SetActive(false);
                 transform.GetChild(6).gameObject.SetActive(false);
+                particles = enemyToHit.transform.GetChild(7).GetComponent<ParticleSystem>();
+                particles.Play();
             }
             else if (range > chance)
             {
@@ -178,6 +187,8 @@ public class Warrior : MonoBehaviour
                 turnsystem.swapControls();
                 transform.GetChild(5).gameObject.SetActive(false);
                 transform.GetChild(6).gameObject.SetActive(false);
+                particles = enemyToHit.transform.GetChild(6).GetComponent<ParticleSystem>();
+                particles.Play();
                 //Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
             }
 

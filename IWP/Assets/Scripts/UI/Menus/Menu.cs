@@ -31,8 +31,8 @@ public class Menu : MonoBehaviour
 
     public void onAtkBtnPress()
     {
-        if(character.GetComponentInChildren<PlayerRanges>().enemies.Count > 0)
-        {
+        //if(character.GetComponentInChildren<PlayerRanges>().enemies.Count > 0)
+        //{
             if (character.name == "archerBlue")
             {
                 character.GetComponent<Archer>().state = "attack";
@@ -42,20 +42,16 @@ public class Menu : MonoBehaviour
                 character.GetComponent<Warrior>().state = "attack";
             }
 
-            actionButtons.SetActive(false);
-            joycon.SetActive(false);
-            pauseButton.SetActive(false);
-
             combatControlButtons.SetActive(true);
             atkConfirmation.SetActive(true);
             atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
-            dmgpanel.SetActive(false);
+            
             FindObjectOfType<cullingMask>().ignoreMask(true);
-        }
-        else
-        {
-            Debug.Log("Error no enemies");
-        }
+        //}
+        //else
+        //{
+        //    Debug.Log("Error no enemies");
+        //}
     }
 
     public void onSkillBtnPress()

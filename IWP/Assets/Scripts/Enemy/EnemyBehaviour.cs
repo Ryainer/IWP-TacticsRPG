@@ -19,6 +19,9 @@ public class EnemyBehaviour : MonoBehaviour
     private bool switchOn;
     public List<GameObject> playersinRange = new List<GameObject>();
     private List<GameObject> tilesinRange = new List<GameObject>();
+
+    public Warrior playerWarrior;
+    public Archer playerArcher;
     
     private NavMeshAgent agent;
 
@@ -27,6 +30,8 @@ public class EnemyBehaviour : MonoBehaviour
     public bool attacking = false;
 
     public LayerMask ignoreself;
+
+    public ParticleSystem particles;
 
     private enemyRange ene_range;
 
@@ -83,10 +88,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         int range = Random.Range(0, 10);
         turns = GameObject.Find("TurnManager");
-        //players = GameObject.FindGameObjectsWithTag("Player");
         dmgindicator = GameObject.Find("EnemyDmg");
         ene_range = GetComponentInChildren<enemyRange>();
-        //ene_range.GetPlayersInCollider();
         ene_range.GetTilesInCollider();
         playersinRange = ene_range.GetPlayersInCollider(/*transform.position*/);
         tilesinRange = ene_range.TilesInrange;
@@ -127,10 +130,23 @@ public class EnemyBehaviour : MonoBehaviour
         //attacking = false;
         if(!turns.GetComponent<TurnsManager>().getTurn())
         {
-            //players = turns.GetComponent<TurnsManager>().existingPlayers();
-            GameObject playerToHit = searchNearestplayerinRange();
+            int rand = Random.Range(0, playersinRange.Count);
 
-            float hitchance = 100 / heightCheck(transform.position.y, playerToHit.transform.position.y);
+            //players = turns.GetComponent<TurnsManager>().existingPlayers();
+            GameObject playerToHit = playersinRange[rand];
+            string[] target = playerToHit.gameObject.name.Split(' ');
+            float hitchance = (eneAtk + eneskill);
+            if (target[0] == "archerBlue")
+            {
+                playerArcher = playerToHit.GetComponent<Archer>();
+                hitchance -= playerArcher.skillstat;
+            }
+            else if (target[0] == "knightBlue")
+            {
+                playerWarrior = playerToHit.GetComponent<Warrior>();
+                hitchance -= playerWarrior.skillstat;
+            }
+
 
             float range = Random.Range(0, 100);
 
@@ -138,22 +154,23 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 //FindObjectOfType<AudioManager>().Player("miss");
                 enemydmgtxt.text = "Enemy warrior Missed";
+                particles = playerToHit.transform.GetChild(9).GetComponent<ParticleSystem>();
+                particles.Play();
             }
             else if(range > hitchance)
             {
-                string[] target = playerToHit.gameObject.name.Split(' ');
-
                 //FindObjectOfType<AudioManager>().Player("slash");
                 if (target[0] == "archerBlue")
                 {
-                    playerToHit.GetComponent<Archer>().health -= eneAtk;
+                    playerArcher.health -= eneAtk;
                 }
                 else if(target[0] == "knightBlue")
                 {
-                    playerToHit.GetComponent<Warrior>().health -= eneAtk;
+                    playerWarrior.health -= eneAtk;
                 }
-
-                enemydmgtxt.text = "Enemy warrior dealt " + eneAtk + " to " + playerToHit.name;
+                particles = playerToHit.transform.GetChild(8).GetComponent<ParticleSystem>();
+                particles.Play();
+                enemydmgtxt.text = "Enemy dealt " + eneAtk + " to " + playerToHit.name;
             }
             turns.GetComponent<TurnsManager>().setTurn(true);
             turns.GetComponent<TurnsManager>().swapControls();
@@ -167,32 +184,49 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (!turns.GetComponent<TurnsManager>().getTurn())
         {
+            int rand = Random.Range(0, playersinRange.Count);
             //players = turns.GetComponent<TurnsManager>().existingPlayers();
-            GameObject playerToHit = searchNearestplayerinRange();
+            GameObject playerToHit = playersinRange[rand];
 
-            float hitchance = 75 / heightCheck(transform.position.y, playerToHit.transform.position.y);
+            string[] target = playerToHit.gameObject.name.Split(' ');
+            float hitchance = (eneAtk + eneskill);
+            if (target[0] == "archerBlue")
+            {
+                playerArcher = playerToHit.GetComponent<Archer>();
+                hitchance -= playerArcher.skillstat;
+            }
+            else if (target[0] == "knightBlue")
+            {
+                playerWarrior = playerToHit.GetComponent<Warrior>();
+                hitchance -= playerWarrior.skillstat;
+            }
+
 
             float range = Random.Range(0, 100);
 
             if (range < hitchance)
             {
-                FindObjectOfType<AudioManager>().Player("miss");
+                particles = playerToHit.transform.GetChild(9).GetComponent<ParticleSystem>();
+                particles.Play();
+                //FindObjectOfType<AudioManager>().Player("miss");
                 enemydmgtxt.text = "Enemy archer Missed";
             }
             else if (range > hitchance)
             {
-                string[] target = playerToHit.gameObject.name.Split(' ');
+                
 
-                FindObjectOfType<AudioManager>().Player("thwack");
+                //FindObjectOfType<AudioManager>().Player("thwack");
                 if (target[0] == "archerBlue")
                 {
-                    playerToHit.GetComponent<Archer>().health -= eneAtk;
+                    playerArcher.health -= eneAtk;
                 }
                 else if (target[0] == "knightBlue")
                 {
-                    playerToHit.GetComponent<Warrior>().health -= eneAtk;
+                    playerWarrior.health -= eneAtk;
                 }
                 enemydmgtxt.text = "Enemy archer dealt " + eneAtk + " to " + playerToHit.name;
+                particles = playerToHit.transform.GetChild(8).GetComponent<ParticleSystem>();
+                particles.Play();
             }
             turns.GetComponent<TurnsManager>().setTurn(true);
             turns.GetComponent<TurnsManager>().swapControls();
@@ -202,35 +236,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
-    private GameObject searchNearestplayerinRange()
-    {
-        //List<GameObject> playersinRange = new List<GameObject>();
-        GameObject closestPlayer;
-        closestPlayer = null;
-
-        float distance = Mathf.Infinity;
-        Vector3 EnemyPos = transform.position;
-
-        foreach (GameObject player in playersinRange)
-        {
-            Vector3 diff = player.transform.position - EnemyPos;
-            float currentDist = diff.sqrMagnitude;
-
-            if (currentDist < distance)
-            {
-                closestPlayer = player;
-                distance = currentDist;
-            }
-        }
-
-        if(closestPlayer == null)
-        {
-            Debug.Log("player is not detected");
-        }
-
-        return closestPlayer;
-    }
-
+    
     float heightCheck(float a, float b)
     {
         float heightFound = 0;
@@ -297,7 +303,16 @@ public class EnemyBehaviour : MonoBehaviour
 
         if(playersinRange.Count > 0)
         {
+            string[] chck = gameObject.name.Split(' ');
 
+            if(chck[0] == "Soldier")
+            {
+                enemyAttack();
+            }
+            else if(chck[0] == "Archer")
+            {
+                enemyShoot();
+            }
         }
 
         Debug.Log("Oh boi" + playersinRange.Count);

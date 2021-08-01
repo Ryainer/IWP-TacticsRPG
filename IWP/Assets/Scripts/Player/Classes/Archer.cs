@@ -19,6 +19,7 @@ public class Archer : MonoBehaviour
 
     public TurnsManager turnsystem;
 
+    public ParticleSystem particles;
     private void Awake()
     {
         health = 35;
@@ -56,9 +57,7 @@ public class Archer : MonoBehaviour
                 GameObject enemyToHit = target;
                 if (enemyToHit != null)
                 {
-                    Debug.Log("CLOSEST ENEMY" + enemyToHit.name);
-
-
+                    
                     float range = Random.Range(0, 100);
 
                     if (range < chance)
@@ -69,18 +68,20 @@ public class Archer : MonoBehaviour
                         turnsystem.swapControls();
                         transform.GetChild(6).gameObject.SetActive(false);
                         transform.GetChild(5).gameObject.SetActive(false);
+                        particles = enemyToHit.transform.GetChild(7).GetComponent<ParticleSystem>();
+                        particles.Play();
                     }
                     else if (range > chance)
                     {
                         //FindObjectOfType<AudioManager>().Player("thwack");
-                        Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
                         dmgTxt.text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
                         transform.GetChild(5).gameObject.SetActive(false);
                         transform.GetChild(6).gameObject.SetActive(false);
-                        Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
+                        particles = enemyToHit.transform.GetChild(6).GetComponent<ParticleSystem>();
+                        particles.Play();
                     }
                 }
                 else
@@ -123,19 +124,21 @@ public class Archer : MonoBehaviour
                         turnsystem.swapControls();
                         transform.GetChild(6).gameObject.SetActive(false);
                         transform.GetChild(5).gameObject.SetActive(false);
+                        particles = enemyToHit.transform.GetChild(7).GetComponent<ParticleSystem>();
+                        particles.Play();
                     }
                     else if (range > chance)
                     {
                         FindObjectOfType<AudioManager>().Player("thwack");
                         MP -= 5;
-                        Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 2;
                         dmgTxt.text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
                         turnsystem.setTurn(false);
                         turnsystem.swapControls();
                         transform.GetChild(6).gameObject.SetActive(false);
                         transform.GetChild(5).gameObject.SetActive(false);
-                        Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
+                        particles = enemyToHit.transform.GetChild(6).GetComponent<ParticleSystem>();
+                        particles.Play();
                     }
                 }
                 else if(MP <= 0)
@@ -177,16 +180,18 @@ public class Archer : MonoBehaviour
                         if (range < chance)
                         {
                             dmgTxt.text = "Archer Missed";
+                            particles = enemyToHit.transform.GetChild(7).GetComponent<ParticleSystem>();
+                            particles.Play();
                             shots++;
                         }
                         else if (range > chance)
                         {
                             //FindObjectOfType<AudioManager>().Player("thwack");
-                            Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                             enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat;
                             dmgTxt.text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
+                            particles = enemyToHit.transform.GetChild(6).GetComponent<ParticleSystem>();
+                            particles.Play();
                             shots++;
-                            Debug.Log("after attack: " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                         }
                     }
                     MP -= 6;
