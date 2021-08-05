@@ -48,41 +48,56 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 direction = camForward * verticalMov + camRight * horizontalMov;
 
-        controller = Player.GetComponent<CharacterController>();
-        controller.Move(new Vector3(direction.x * 0.05f, -(gravity * Time.deltaTime), direction.z * 0.05f));
-        if (Player.transform.position.y < 0)
+        if(Player != null)
         {
-            Player.transform.position = new Vector3(5, 5, 5);
-        }
-        if (controller.velocity != Vector3.zero)
-        {
-            if (actionButtons.activeInHierarchy)
+            controller = Player.GetComponent<CharacterController>();
+            controller.Move(new Vector3(direction.x * 0.05f, -(gravity * Time.deltaTime), direction.z * 0.05f));
+            if (Player.transform.position.y < 0)
             {
-                actionButtons.SetActive(false);
+                Player.transform.position = new Vector3(5, 5, 5);
             }
-          
-        }
-        else if (controller.velocity == Vector3.zero )
-        {
-            if (!actionButtons.activeInHierarchy)
+            if (controller.velocity != Vector3.zero)
             {
-               // actionButtons.SetActive(true);
+                if (actionButtons.activeInHierarchy)
+                {
+                    actionButtons.SetActive(false);
+                }
 
-                if (Player.GetComponent<Warrior>() != null && Player.GetComponent<Warrior>().state != "attack")
+            }
+            else if (controller.velocity == Vector3.zero)
+            {
+                if (!actionButtons.activeInHierarchy)
                 {
-                    actionButtons.SetActive(true);
+                    // actionButtons.SetActive(true);
+
+                    if (Player.GetComponent<Warrior>() != null && Player.GetComponent<Warrior>().state != "attack")
+                    {
+                        actionButtons.SetActive(true);
+                    }
+                    else if (Player.GetComponent<Archer>() != null && Player.GetComponent<Archer>().state != "attack")
+                    {
+                        actionButtons.SetActive(true);
+                    }
                 }
-                else if (Player.GetComponent<Archer>() != null && Player.GetComponent<Archer>().state != "attack")
-                {
-                    actionButtons.SetActive(true);
-                }
+            }
+        }
+
+        if (Player != null)
+        {
+            if (Player.GetComponent<Warrior>() != null && Player.GetComponent<Warrior>().state != "attack")
+            {
+                camera.transform.LookAt(Player.transform.position);
+            }
+            else if (Player.GetComponent<Archer>() != null && Player.GetComponent<Archer>().state != "attack")
+            {
+                camera.transform.LookAt(Player.transform.position);
             }
         }
     }
 
     private void LateUpdate()
     {
-        camera.transform.LookAt(Player.transform.position);
+        
     }
 
 }

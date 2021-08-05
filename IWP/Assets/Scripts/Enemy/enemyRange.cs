@@ -44,24 +44,28 @@ public class enemyRange : MonoBehaviour
         return playersdetected;
     }
 
-    public void GetTilesInCollider()
+    public List<GameObject> GetTilesInCollider()
     {
+        List<GameObject> TilesDetected = new List<GameObject>();
+
         Collider[] collidersdetected = Physics.OverlapSphere(transform.position, 10f);
 
         foreach (Collider collider in collidersdetected)
         {
             if (collider.gameObject.tag == "Tiles")
             {
-                var results = TilesInrange.Exists(s => s.Equals(s.transform.position));
+                var results = TilesDetected.Exists(s => s.Equals(s.transform.position));
                 if(!results)
                 {
-                    TilesInrange.Add(collider.gameObject);
-                    Debug.Log("tile added");
+                    TilesDetected.Add(collider.gameObject);
+                    
                 }
 
                 
             }
         }
+
+        return TilesDetected;
     }
 
     void OnDrawGizmosSelected()

@@ -55,8 +55,7 @@ public class PlayerChooseTarget : MonoBehaviour
     {
         gameObject.SetActive(false);
         combatControls.SetActive(false);
-        joycon.SetActive(true);
-
+        
         string[] tokens = user.name.Split(' ');
 
         if (tokens[0] == "archerBlue")
@@ -165,8 +164,8 @@ public class PlayerChooseTarget : MonoBehaviour
                         if (gameObject.activeInHierarchy)
                         {
                             gameObject.SetActive(false);
-                            combatControls.SetActive(false);
-                            joycon.SetActive(true);
+                            
+                            //joycon.SetActive(true);
                             user.GetComponent<Archer>().state = "";
                         }
                     }
@@ -176,8 +175,8 @@ public class PlayerChooseTarget : MonoBehaviour
                         if (gameObject.activeInHierarchy)
                         {
                             gameObject.SetActive(false);
-                            combatControls.SetActive(false);
-                            joycon.SetActive(true);
+                            
+                            //joycon.SetActive(true);
                             user.GetComponent<Warrior>().state = "";
                         }
                     }
@@ -189,8 +188,8 @@ public class PlayerChooseTarget : MonoBehaviour
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
-                        combatControls.SetActive(false);
-                        joycon.SetActive(true);
+                        
+                        //joycon.SetActive(true);
                         user.GetComponent<Warrior>().state = "";
                     }
                 }
@@ -201,8 +200,8 @@ public class PlayerChooseTarget : MonoBehaviour
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
-                        combatControls.SetActive(false);
-                        joycon.SetActive(true);
+                        
+                        //joycon.SetActive(true);
                         user.GetComponent<Warrior>().state = "";
                     }
                 }
@@ -213,8 +212,8 @@ public class PlayerChooseTarget : MonoBehaviour
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
-                        combatControls.SetActive(false);
-                        joycon.SetActive(true);
+                        
+                        //joycon.SetActive(true);
                         user.GetComponent<Archer>().state = "";
                     }
                 }
@@ -225,14 +224,14 @@ public class PlayerChooseTarget : MonoBehaviour
                     if (gameObject.activeInHierarchy)
                     {
                         gameObject.SetActive(false);
-                        combatControls.SetActive(false);
-                        joycon.SetActive(true);
+                      
+                        //joycon.SetActive(true);
                         user.GetComponent<Archer>().state = "";
                     }
                 }
                 break;
         }
-        dmgPanel.SetActive(true);
+        
     }
 
     float hitrate()

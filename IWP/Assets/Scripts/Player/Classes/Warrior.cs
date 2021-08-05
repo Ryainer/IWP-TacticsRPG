@@ -118,7 +118,7 @@ public class Warrior : MonoBehaviour
 
             if (range < chance)
             {
-                FindObjectOfType<AudioManager>().Player("miss");
+               // FindObjectOfType<AudioManager>().Player("miss");
                 dmgTxt.text = "Warrior missed double swing";
                 MP -= 4;
                 turnsystem.setTurn(false);
@@ -130,7 +130,7 @@ public class Warrior : MonoBehaviour
             }
             else if (range > chance)
             {
-                FindObjectOfType<AudioManager>().Player("slash");
+                //FindObjectOfType<AudioManager>().Player("slash");
                 MP -= 4;
                 //Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                 enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 2;
@@ -166,7 +166,7 @@ public class Warrior : MonoBehaviour
 
             if (range < chance)
             {
-                FindObjectOfType<AudioManager>().Player("miss");
+                //FindObjectOfType<AudioManager>().Player("miss");
                 MP -= 5;
                 dmgTxt.text = "Warrior missed charge swing";
                 turnsystem.setTurn(false);
@@ -178,7 +178,7 @@ public class Warrior : MonoBehaviour
             }
             else if (range > chance)
             {
-                FindObjectOfType<AudioManager>().Player("slash");
+                //FindObjectOfType<AudioManager>().Player("slash");
                 MP -= 5;
                 //Debug.Log("Initial health of " + enemyToHit.name + " " + enemyToHit.GetComponent<EnemyBehaviour>().eneHealth);
                 enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 4;

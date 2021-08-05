@@ -31,39 +31,48 @@ public class Menu : MonoBehaviour
 
     public void onAtkBtnPress()
     {
-        //if(character.GetComponentInChildren<PlayerRanges>().enemies.Count > 0)
-        //{
-            if (character.name == "archerBlue")
+        if (character.GetComponentInChildren<PlayerRanges>().enemies.Count > 0)
+        {
+            string[] chck = character.name.Split(' ');
+
+            if (chck[0] == "archerBlue")
             {
                 character.GetComponent<Archer>().state = "attack";
             }
-            else if (character.name == "knightBlue")
+            else if (chck[0] == "knightBlue")
             {
                 character.GetComponent<Warrior>().state = "attack";
             }
 
+            actionButtons.SetActive(false);
+            dmgpanel.SetActive(false);
+            pauseButton.SetActive(false);
+            joycon.SetActive(false);
+
             combatControlButtons.SetActive(true);
             atkConfirmation.SetActive(true);
             atkConfirmation.GetComponent<PlayerChooseTarget>().targetsSelect("attack");
-            
+
             FindObjectOfType<cullingMask>().ignoreMask(true);
-        //}
-        //else
-        //{
-        //    Debug.Log("Error no enemies");
-        //}
+        }
+        else
+        {
+            Debug.Log("Error no enemies");
+        }
     }
 
     public void onSkillBtnPress()
     {
         if(character != null)
         {
-            if(character.name == "archerBlue")
+            string[] chck = character.name.Split(' ');
+
+            if (chck[0] == "archerBlue")
             {
                 archerMenu.SetActive(true);
                 archerMenu.GetComponent<ArcherMenu>().Archer = character;
             }
-            else if (character.name == "knightBlue")
+            else if (chck[0] == "knightBlue")
             {
                 warriorMenu.SetActive(true);
                 warriorMenu.GetComponent<WarriorMenu>().warrior = character;

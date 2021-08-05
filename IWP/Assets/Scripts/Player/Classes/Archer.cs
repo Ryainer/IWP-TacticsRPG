@@ -117,7 +117,7 @@ public class Archer : MonoBehaviour
 
                     if (range < chance)
                     {
-                        FindObjectOfType<AudioManager>().Player("miss");
+                        //FindObjectOfType<AudioManager>().Player("miss");
                         MP -= 5;
                         dmgTxt.text = "Archer Missed";
                         turnsystem.setTurn(false);
@@ -129,7 +129,7 @@ public class Archer : MonoBehaviour
                     }
                     else if (range > chance)
                     {
-                        FindObjectOfType<AudioManager>().Player("thwack");
+                        //FindObjectOfType<AudioManager>().Player("thwack");
                         MP -= 5;
                         enemyToHit.GetComponent<EnemyBehaviour>().eneHealth -= atkstat * 2;
                         dmgTxt.text = "Archer dealt " + atkstat + " to " + enemyToHit.name;
@@ -179,7 +179,7 @@ public class Archer : MonoBehaviour
 
                         if (range < chance)
                         {
-                            dmgTxt.text = "Archer Missed";
+                            //dmgTxt.text = "Archer Missed";
                             particles = enemyToHit.transform.GetChild(7).GetComponent<ParticleSystem>();
                             particles.Play();
                             shots++;

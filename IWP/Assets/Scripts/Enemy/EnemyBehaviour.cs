@@ -10,7 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
     public int eneAtk;
     public int eneskill;
     public string namechck;
-    private GameObject turns;
+    private TurnsManager turns;
     private GameObject dmgindicator;
     private GameObject healthBar;
     public SameAbilityRange range;
@@ -35,11 +35,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     private enemyRange ene_range;
 
+    public Camera camera;
+
+    private int countdown;
     // Start is called before the first frame update
     void Start()
     {
-    
-        
+        camera = Camera.main;
         eneHealth = 50;
         eneMP = 10;
         eneAtk = 5;
@@ -57,7 +59,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
        // Debug.Log(attacking + "Sweda " + moving);
-       if(attacking == true)
+       if(attacking == true && countdown <= 0)
        {
             Debug.Log("Entering Attack");
             if(namechck == "Soldier")
@@ -76,6 +78,10 @@ public class EnemyBehaviour : MonoBehaviour
             moveAround();
             
        }
+       else if(countdown > 0)
+        {
+            countdown--;
+        }
 
        if(eneHealth > 0)
        {
@@ -84,17 +90,25 @@ public class EnemyBehaviour : MonoBehaviour
        
     }
 
+    private void LateUpdate()
+    {
+        if(turns != null && !turns.getTurn())
+        {
+            camera.transform.LookAt(transform.position);
+        }
+    }
+
     public void chooseAction()
     {
         int range = Random.Range(0, 10);
-        turns = GameObject.Find("TurnManager");
+        turns = GameObject.Find("TurnManager").GetComponent<TurnsManager>();
         dmgindicator = GameObject.Find("EnemyDmg");
         ene_range = GetComponentInChildren<enemyRange>();
-        ene_range.GetTilesInCollider();
-        playersinRange = ene_range.GetPlayersInCollider(/*transform.position*/);
-        tilesinRange = ene_range.TilesInrange;
        
-        if (switchOn && !turns.GetComponent<TurnsManager>().getTurn())
+        playersinRange = ene_range.GetPlayersInCollider(/*transform.position*/);
+        tilesinRange = ene_range.GetTilesInCollider();
+       
+        if (switchOn && !turns.getTurn())
         {
             Debug.Log(switchOn);
             if(playersinRange.Count > 0)
@@ -128,7 +142,7 @@ public class EnemyBehaviour : MonoBehaviour
     void enemyAttack()
     {
         //attacking = false;
-        if(!turns.GetComponent<TurnsManager>().getTurn())
+        if(!turns.getTurn())
         {
             int rand = Random.Range(0, playersinRange.Count);
 
@@ -172,8 +186,8 @@ public class EnemyBehaviour : MonoBehaviour
                 particles.Play();
                 enemydmgtxt.text = "Enemy dealt " + eneAtk + " to " + playerToHit.name;
             }
-            turns.GetComponent<TurnsManager>().setTurn(true);
-            turns.GetComponent<TurnsManager>().swapControls();
+            turns.setTurn(true);
+            turns.swapControls();
             Debug.Log("EnemySAttacked");
         }
         attacking = false;
@@ -182,10 +196,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     void enemyShoot()
     {
-        if (!turns.GetComponent<TurnsManager>().getTurn())
+        if (!turns.getTurn())
         {
             int rand = Random.Range(0, playersinRange.Count);
-            //players = turns.GetComponent<TurnsManager>().existingPlayers();
+            
             GameObject playerToHit = playersinRange[rand];
 
             string[] target = playerToHit.gameObject.name.Split(' ');
@@ -228,39 +242,21 @@ public class EnemyBehaviour : MonoBehaviour
                 particles = playerToHit.transform.GetChild(8).GetComponent<ParticleSystem>();
                 particles.Play();
             }
-            turns.GetComponent<TurnsManager>().setTurn(true);
-            turns.GetComponent<TurnsManager>().swapControls();
+            turns.setTurn(true);
+            turns.swapControls();
             Debug.Log("EnemyAAttacked");
         }
         attacking = false;
 
     }
 
-    
-    float heightCheck(float a, float b)
-    {
-        float heightFound = 0;
-
-        if (a > b)
-        {
-            heightFound = a - b;
-        }
-        else if (a < b)
-        {
-            heightFound = b - a;
-        }
-
-
-        return heightFound;
-    }
-
+   
     public void moveAround()
     {
         
         int randomLocation = Random.Range(0, tilesinRange.Count );
         Debug.Log("chosen number location" + randomLocation);
-        //Debug.Log("tilesinrange count: " + TilesinRange.Count);
-        //Debug.Log(randomLocation);
+      
 
         Vector3 newPosition = tilesinRange[randomLocation].GetComponent<Tiles>().center;
 
@@ -280,8 +276,8 @@ public class EnemyBehaviour : MonoBehaviour
         StartCoroutine(movingtoNewLocation(newPosition));
 
         Debug.Log(gameObject.name + " New Position: " + gameObject.transform.position);
-        turns.GetComponent<TurnsManager>().setTurn(true);
-        turns.GetComponent<TurnsManager>().swapControls();
+
+
         moving = false;
     }
 
@@ -292,30 +288,41 @@ public class EnemyBehaviour : MonoBehaviour
 
     IEnumerator movingtoNewLocation(Vector3 Target)
     {
-        while(Vector3.Distance(transform.position, Target) > 0.1f)
+        while(Vector3.Distance(transform.position, Target) > 0.5f)
         {
             agent.SetDestination(Target);
-            Debug.Log("oh no");
+            Debug.Log("oh no: " + Vector3.Distance(transform.position, Target));
             yield return new WaitForSeconds(3);
         }
-       // ene_range.GetPlayersInCollider();
-        playersinRange = ene_range.GetPlayersInCollider(/*transform.position*/);
+        // ene_range.GetPlayersInCollider();
+        postActions();
+        yield return new WaitForSeconds(3); 
+    }
 
-        if(playersinRange.Count > 0)
+    private void postActions()
+    {
+        playersinRange = ene_range.GetPlayersInCollider();
+        if (playersinRange.Count > 0)
         {
             string[] chck = gameObject.name.Split(' ');
 
-            if(chck[0] == "Soldier")
+            if (chck[0] == "Soldier")
             {
+                Debug.Log("target soldier");
                 enemyAttack();
             }
-            else if(chck[0] == "Archer")
+            else if (chck[0] == "Archer")
             {
+                Debug.Log("target archer");
                 enemyShoot();
             }
+            Debug.Log("Oh boi" + playersinRange.Count);
         }
-
-        Debug.Log("Oh boi" + playersinRange.Count);
-        yield return new WaitForSeconds(3); 
-    }
+        else
+        {
+            Debug.Log("no players to target");
+            turns.GetComponent<TurnsManager>().setTurn(true);
+            turns.GetComponent<TurnsManager>().swapControls();
+        }
+    }    
 }

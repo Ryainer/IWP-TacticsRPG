@@ -15,12 +15,16 @@ public class UIButtonCustom : MonoBehaviour
 
     public Vector3 camPosition;
     public Quaternion camRotation;
+
+    public GameObject board;
+
+    private bool turnRight;
     // Start is called before the first frame update
     void Start()
     {
-        movementTime = 4f;
+        movementTime = 0.5f;
 
-        rotationamt = 7f;
+        rotationamt = 0.5f;
         this.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.2f;
       
 
@@ -32,6 +36,21 @@ public class UIButtonCustom : MonoBehaviour
     {
         //cameraRig.transform.rotation = Quaternion.Lerp(cameraRig.transform.rotation,
         //    camRotation, Time.deltaTime * movementTime);
+
+       
+    }
+
+
+   void LateUpdate()
+    {
+        if (turnRight)
+        {
+            camRotation *= Quaternion.Euler(Vector3.up * -rotationamt);
+            cameraRig.transform.rotation = Quaternion.Lerp(cameraRig.transform.rotation,
+                camRotation, Time.deltaTime * movementTime);
+
+            //cameraRig.transform.RotateAround(board.transform.position, Vector3.down, (movementTime * Time.deltaTime));
+        }
     }
 
     public void onLeftArrow()
@@ -46,6 +65,17 @@ public class UIButtonCustom : MonoBehaviour
         camRotation *= Quaternion.Euler(Vector3.up * -rotationamt);
         cameraRig.transform.rotation = Quaternion.Lerp(cameraRig.transform.rotation,
             camRotation, Time.deltaTime * movementTime);
+    }
+
+    public void onRightPointerDown()
+    {
+        turnRight = true;
+        
+    }
+
+    public void onRightPointerUp()
+    {
+        turnRight = false;
     }
 
    public void onSliderChange(float vol)
