@@ -296,7 +296,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         // ene_range.GetPlayersInCollider();
         postActions();
-        yield return new WaitForSeconds(3); 
+        yield return /*null*/new WaitForSeconds(3); 
     }
 
     private void postActions()

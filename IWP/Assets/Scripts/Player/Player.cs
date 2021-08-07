@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     public LayerMask ignore;
     public GameObject cameraRig;
     public Menu menuselection;
+
+    public Material selectedMaterial;
+
     private GameObject clone;
     GameObject[] Tiles;
     void Start()
@@ -104,6 +107,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Selecting player");
         int range = Random.Range(0, crewmembers.Count);
+        getTilestoMove(crewmembers[range]);
         movements.GetComponent<PlayerMovement>().Player = crewmembers[range];
         movements.GetComponent<PlayerMovement>().origin = crewmembers[range].transform.position;
         joystick.GetComponent<LockPlayerPos>().Player = crewmembers[range];
@@ -112,6 +116,22 @@ public class Player : MonoBehaviour
         crewmembers[range].transform.GetChild(6).gameObject.SetActive(true);
         cameraRig.transform.LookAt(crewmembers[range].transform.position);
         menuselection.character = crewmembers[range];
+    }
+
+    private void getTilestoMove(GameObject players)
+    {
+        Collider[] tilesDetected = Physics.OverlapSphere(players.transform.position, 3f);
+
+        //Material selectedMaterial = Resources.Load<Material>("MoveableTile");
+
+        foreach(Collider tile in tilesDetected)
+        {
+            if(tile.gameObject.tag == "Tiles")
+            {
+                tile.gameObject.GetComponent<MeshRenderer>().material = selectedMaterial;
+                tile.gameObject.tag = "SelectedTiles";
+            }
+        }
     }
 
     public void RemoveGO(GameObject GO2Remove)

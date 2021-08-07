@@ -48,10 +48,28 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 direction = camForward * verticalMov + camRight * horizontalMov;
 
-        if(Player != null)
+        
+
+        if (Player != null)
         {
             controller = Player.GetComponent<CharacterController>();
+            Vector3 nextPosition = new Vector3(direction.x * 0.05f, Player.transform.position.y, direction.z * 0.05f);
+
+            Ray ray = new Ray(nextPosition, Vector3.down);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log("testing: " + hit.transform.gameObject.name);
+                Debug.Log(hit.transform.gameObject.tag);
+            }
+
+
+
+
             controller.Move(new Vector3(direction.x * 0.05f, -(gravity * Time.deltaTime), direction.z * 0.05f));
+            
             if (Player.transform.position.y < 0)
             {
                 Player.transform.position = new Vector3(5, 5, 5);

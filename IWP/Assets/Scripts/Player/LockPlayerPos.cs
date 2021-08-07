@@ -32,7 +32,7 @@ public class LockPlayerPos : MonoBehaviour, IPointerUpHandler, IPointerDownHandl
     {
         GameObject[] closestTiles;
 
-        closestTiles = GameObject.FindGameObjectsWithTag("Tiles");
+        closestTiles = GameObject.FindGameObjectsWithTag("SelectedTiles");
         GameObject theClosest = null;
         float distance = Mathf.Infinity;
         Vector3 position = Player.transform.position;
