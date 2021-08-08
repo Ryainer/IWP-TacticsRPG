@@ -16,6 +16,8 @@ public class TurnsManager : MonoBehaviour
     public bool whostarts;
     public Board boardLoad;
 
+    public Animator objective;
+
     public List<GameObject> currentPlayers = new List<GameObject>();
     public List<GameObject> currentEnemy = new List<GameObject>();
     private LevelList listoflvls;
@@ -133,4 +135,8 @@ public class TurnsManager : MonoBehaviour
         }
     }
    
+    //IEnumerator ObjectiveAnim()
+    //{
+    //    objective.Play();
+    //}
 }

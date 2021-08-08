@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float gravity = 9.8f;
     public Vector3 origin;
-
+    private string tag;
     private void Awake()
     {
         camera = Camera.main;
@@ -53,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
         if (Player != null)
         {
             controller = Player.GetComponent<CharacterController>();
-            Vector3 nextPosition = new Vector3(direction.x * 0.05f, Player.transform.position.y, direction.z * 0.05f);
+            Vector3 nextPosition = new Vector3((Player.transform.position.x + direction.x * 0.05f), Player.transform.position.y, 
+                (Player.transform.position.z + direction.z * 0.05f));
 
             Ray ray = new Ray(nextPosition, Vector3.down);
 
@@ -61,43 +62,51 @@ public class PlayerMovement : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("testing: " + hit.transform.gameObject.name);
-                Debug.Log(hit.transform.gameObject.tag);
+                tag = hit.transform.gameObject.tag;
+                
             }
 
 
-
-
-            controller.Move(new Vector3(direction.x * 0.05f, -(gravity * Time.deltaTime), direction.z * 0.05f));
-            
-            if (Player.transform.position.y < 0)
+            if(tag != "Tiles")
             {
-                Player.transform.position = new Vector3(5, 5, 5);
-            }
-            if (controller.velocity != Vector3.zero)
-            {
-                if (actionButtons.activeInHierarchy)
+                controller.Move(new Vector3(direction.x * 0.05f, -(gravity * Time.deltaTime), direction.z * 0.05f));
+
+                if (Player.transform.position.y < 0)
                 {
-                    actionButtons.SetActive(false);
-                }
+                    GameObject respawnLocation = closestTile();
 
-            }
-            else if (controller.velocity == Vector3.zero)
-            {
-                if (!actionButtons.activeInHierarchy)
+                    Vector3 respawn = Player.transform.position;
+                    respawn.x = respawnLocation.transform.position.x;
+                    respawn.z = respawnLocation.transform.position.z;
+
+                    Player.transform.position = respawn;
+                }
+                if (controller.velocity != Vector3.zero)
                 {
-                    // actionButtons.SetActive(true);
-
-                    if (Player.GetComponent<Warrior>() != null && Player.GetComponent<Warrior>().state != "attack")
+                    if (actionButtons.activeInHierarchy)
                     {
-                        actionButtons.SetActive(true);
+                        actionButtons.SetActive(false);
                     }
-                    else if (Player.GetComponent<Archer>() != null && Player.GetComponent<Archer>().state != "attack")
+
+                }
+                else if (controller.velocity == Vector3.zero)
+                {
+                    if (!actionButtons.activeInHierarchy)
                     {
-                        actionButtons.SetActive(true);
+                        // actionButtons.SetActive(true);
+
+                        if (Player.GetComponent<Warrior>() != null && Player.GetComponent<Warrior>().state != "attack")
+                        {
+                            actionButtons.SetActive(true);
+                        }
+                        else if (Player.GetComponent<Archer>() != null && Player.GetComponent<Archer>().state != "attack")
+                        {
+                            actionButtons.SetActive(true);
+                        }
                     }
                 }
             }
+
         }
 
         if (Player != null)
@@ -116,6 +125,30 @@ public class PlayerMovement : MonoBehaviour
     private void LateUpdate()
     {
         
+    }
+
+    GameObject closestTile()
+    {
+        GameObject[] closestTiles;
+
+        closestTiles = GameObject.FindGameObjectsWithTag("SelectedTiles");
+        GameObject theClosest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = Player.transform.position;
+
+        foreach (GameObject indiviTile in closestTiles)
+        {
+            Vector3 diff = indiviTile.transform.position - position;
+            float currentDist = diff.sqrMagnitude;
+
+            if (currentDist < distance)
+            {
+                theClosest = indiviTile;
+                distance = currentDist;
+            }
+        }
+
+        return theClosest;
     }
 
 }
