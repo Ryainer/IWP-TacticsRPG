@@ -85,6 +85,19 @@ public class Menu : MonoBehaviour
     {
         if(turns.GetComponent<TurnsManager>().getTurn())
         {
+            GameObject[] Tiles;
+
+            Tiles = GameObject.FindGameObjectsWithTag("SelectedTiles");
+
+            foreach(GameObject tile in Tiles)
+            {
+                Material OGMaterial = Resources.Load<Material>("Materials/grass");
+
+                tile.GetComponent<MeshRenderer>().material = OGMaterial;
+                tile.tag = "Tiles";
+            }
+
+
             turns.GetComponent<TurnsManager>().setTurn(false);
             turns.GetComponent<TurnsManager>().swapControls();
             if(character != null)

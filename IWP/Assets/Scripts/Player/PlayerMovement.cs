@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float gravity = 9.8f;
     public Vector3 origin;
-    private string tag;
+    private string tileTag;
     private void Awake()
     {
         camera = Camera.main;
@@ -48,26 +48,30 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 direction = camForward * verticalMov + camRight * horizontalMov;
 
-        
+
 
         if (Player != null)
         {
             controller = Player.GetComponent<CharacterController>();
-            Vector3 nextPosition = new Vector3((Player.transform.position.x + direction.x * 0.05f), Player.transform.position.y, 
+            Vector3 nextPosition = new Vector3((Player.transform.position.x + direction.x * 0.05f), Player.transform.position.y + 1,
                 (Player.transform.position.z + direction.z * 0.05f));
-
+            // Debug.Log("Position of player is: " + nextPosition + "\n The direction is: " + direction);
             Ray ray = new Ray(nextPosition, Vector3.down);
 
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 100f))
             {
-                tag = hit.transform.gameObject.tag;
-                
+                tileTag = hit.collider.gameObject.tag;
+               
+            }
+            else
+            {
+                Debug.Log("nothing hit");
             }
 
 
-            if(tag != "Tiles")
+            if (tileTag != "Tiles")
             {
                 controller.Move(new Vector3(direction.x * 0.05f, -(gravity * Time.deltaTime), direction.z * 0.05f));
 
@@ -81,32 +85,34 @@ public class PlayerMovement : MonoBehaviour
 
                     Player.transform.position = respawn;
                 }
-                if (controller.velocity != Vector3.zero)
-                {
-                    if (actionButtons.activeInHierarchy)
-                    {
-                        actionButtons.SetActive(false);
-                    }
 
+            }
+            
+
+            if (controller.velocity != Vector3.zero)
+            {
+                if (actionButtons.activeInHierarchy)
+                {
+                    actionButtons.SetActive(false);
                 }
-                else if (controller.velocity == Vector3.zero)
-                {
-                    if (!actionButtons.activeInHierarchy)
-                    {
-                        // actionButtons.SetActive(true);
 
-                        if (Player.GetComponent<Warrior>() != null && Player.GetComponent<Warrior>().state != "attack")
-                        {
-                            actionButtons.SetActive(true);
-                        }
-                        else if (Player.GetComponent<Archer>() != null && Player.GetComponent<Archer>().state != "attack")
-                        {
-                            actionButtons.SetActive(true);
-                        }
+            }
+            else if (controller.velocity == Vector3.zero)
+            {
+                if (!actionButtons.activeInHierarchy)
+                {
+                    // actionButtons.SetActive(true);
+
+                    if (Player.GetComponent<Warrior>() != null && Player.GetComponent<Warrior>().state != "attack")
+                    {
+                        actionButtons.SetActive(true);
+                    }
+                    else if (Player.GetComponent<Archer>() != null && Player.GetComponent<Archer>().state != "attack")
+                    {
+                        actionButtons.SetActive(true);
                     }
                 }
             }
-
         }
 
         if (Player != null)
@@ -122,10 +128,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
-    {
-        
-    }
 
     GameObject closestTile()
     {

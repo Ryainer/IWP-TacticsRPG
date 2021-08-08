@@ -48,6 +48,8 @@ public class PlayerChooseTarget : MonoBehaviour
 
     public void confirmButton()
     {
+        changeTiles();
+
         executeCommand(choices[num], skill);
     }
 
@@ -252,5 +254,20 @@ public class PlayerChooseTarget : MonoBehaviour
         }
 
         return rate;
+    }
+
+    private void changeTiles()
+    {
+        GameObject[] Tiles;
+
+        Tiles = GameObject.FindGameObjectsWithTag("SelectedTiles");
+
+        foreach (GameObject tile in Tiles)
+        {
+            Material OGMaterial = Resources.Load<Material>("Materials/grass");
+
+            tile.GetComponent<MeshRenderer>().material = OGMaterial;
+            tile.tag = "Tiles";
+        }
     }
 }
