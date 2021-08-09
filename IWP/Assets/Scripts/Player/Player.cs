@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     public LayerMask ignore;
     public GameObject cameraRig;
     public Menu menuselection;
-
+    public TurnsManager turns;
     public Material selectedMaterial;
 
     private GameObject clone;
@@ -41,13 +41,13 @@ public class Player : MonoBehaviour
         {
             for(int i = 0; i < crewmembers.Count; ++i)
             {
-                if(crewmembers[i].name == "knightBlue" && crewmembers[i].GetComponent<Warrior>().health <= 0)
+                if(crewmembers[i].name == "AllyknightBlue" && crewmembers[i].GetComponent<Warrior>().health <= 0)
                 {
                     GameObject playertodestroy = crewmembers[i];
                     crewmembers.Remove(crewmembers[i]);
                     Destroy(playertodestroy);
                 }
-                else if(crewmembers[i].name == "archerBlue" && crewmembers[i].GetComponent<Archer>().health <= 0)
+                else if(crewmembers[i].name == "AllyarcherBlue" && crewmembers[i].GetComponent<Archer>().health <= 0)
                 {
                     GameObject playertodestroy = crewmembers[i];
                     crewmembers.Remove(crewmembers[i]);
@@ -88,12 +88,12 @@ public class Player : MonoBehaviour
                 if(chosenUnit == 0)
                 {
                     clone = Instantiate(warrior, spawnPos, Quaternion.identity);
-                    clone.name = warrior.name + " " +num;
+                    clone.name = "Ally" + warrior.name + " " +num;
                 }
                 else if(chosenUnit == 1)
                 {
                     clone = Instantiate(archer, spawnPos, Quaternion.identity);
-                    clone.name = archer.name + " " + num;
+                    clone.name = "Ally" + archer.name + " " + num;
                 }
 
                 crewmembers.Add(clone);
@@ -116,6 +116,7 @@ public class Player : MonoBehaviour
         crewmembers[range].transform.GetChild(6).gameObject.SetActive(true);
         cameraRig.transform.LookAt(crewmembers[range].transform.position);
         menuselection.character = crewmembers[range];
+        turns.turns.text = "Turn: " + crewmembers[range].name;
     }
 
     private void getTilestoMove(GameObject players)

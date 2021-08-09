@@ -37,7 +37,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     public Camera camera;
 
-    private int countdown;
+    private float countdown;
+
+    private bool targetlookat;
+
+    public Text enemytargettxt;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +55,7 @@ public class EnemyBehaviour : MonoBehaviour
         //ene_range = FindObjectOfType<enemyRange>();
         agent = gameObject.GetComponent<NavMeshAgent>();
         enemydmgtxt = GameObject.Find("EnemyDmg").GetComponent<Text>();
+        
     }
 
     
@@ -59,29 +64,33 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
        // Debug.Log(attacking + "Sweda " + moving);
-       if(attacking == true && countdown <= 0)
+       if(countdown <= 0)
        {
-            Debug.Log("Entering Attack");
-            if(namechck == "Soldier")
+            if(attacking == true && playersinRange.Count > 0)
             {
-                enemyAttack();
+                Debug.Log("Entering Attack");
+                int rand = Random.Range(0, playersinRange.Count);
+
+                GameObject playerToHit = playersinRange[rand];
+                
+
+                StartCoroutine(targetLook(playerToHit));
+                attacking = false;
             }
-            else if(namechck == "Archer")
+            else if (moving == true)
             {
-                enemyShoot();
+                Debug.Log("Entering Moving");
+                moveAround();
+
             }
             
-       }
-       else if(moving == true)
-       {
-            Debug.Log("Entering Moving");
-            moveAround();
-            
-       }
-       else if(countdown > 0)
-        {
-            countdown--;
         }
+       
+       else if(countdown > 0)
+       {
+            countdown -= Time.deltaTime;
+            Debug.Log(countdown);
+       }
 
        if(eneHealth > 0)
        {
@@ -92,7 +101,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(turns != null && !turns.getTurn())
+        if(turns != null && !turns.getTurn() && !targetlookat)
         {
             camera.transform.LookAt(transform.position);
         }
@@ -104,10 +113,11 @@ public class EnemyBehaviour : MonoBehaviour
         turns = GameObject.Find("TurnManager").GetComponent<TurnsManager>();
         dmgindicator = GameObject.Find("EnemyDmg");
         ene_range = GetComponentInChildren<enemyRange>();
-       
+        targetlookat = false;
+        //enemytargettxt = GameObject.Find("EnemyCombatScreen").transform.GetChild(0).GetComponent<Text>();
         playersinRange = ene_range.GetPlayersInCollider(/*transform.position*/);
         tilesinRange = ene_range.GetTilesInCollider();
-       
+        countdown = 5;
         if (switchOn && !turns.getTurn())
         {
             Debug.Log(switchOn);
@@ -139,25 +149,23 @@ public class EnemyBehaviour : MonoBehaviour
         //Debug.Log("moving bool"+moving);
     }
 
-    void enemyAttack()
+    void enemyAttack(GameObject targettohit)
     {
         //attacking = false;
         if(!turns.getTurn())
         {
-            int rand = Random.Range(0, playersinRange.Count);
+            camera.transform.LookAt(targettohit.transform.position);
 
-            //players = turns.GetComponent<TurnsManager>().existingPlayers();
-            GameObject playerToHit = playersinRange[rand];
-            string[] target = playerToHit.gameObject.name.Split(' ');
+            string[] target = targettohit.gameObject.name.Split(' ');
             float hitchance = (eneAtk + eneskill);
-            if (target[0] == "archerBlue")
+            if (target[0] == "AllyarcherBlue")
             {
-                playerArcher = playerToHit.GetComponent<Archer>();
+                playerArcher = targettohit.GetComponent<Archer>();
                 hitchance -= playerArcher.skillstat;
             }
-            else if (target[0] == "knightBlue")
+            else if (target[0] == "AllyknightBlue")
             {
-                playerWarrior = playerToHit.GetComponent<Warrior>();
+                playerWarrior = targettohit.GetComponent<Warrior>();
                 hitchance -= playerWarrior.skillstat;
             }
 
@@ -168,50 +176,46 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 //FindObjectOfType<AudioManager>().Player("miss");
                 enemydmgtxt.text = "Enemy warrior Missed";
-                particles = playerToHit.transform.GetChild(9).GetComponent<ParticleSystem>();
+                particles = targettohit.transform.GetChild(9).GetComponent<ParticleSystem>();
                 particles.Play();
             }
             else if(range > hitchance)
             {
                 //FindObjectOfType<AudioManager>().Player("slash");
-                if (target[0] == "archerBlue")
+                if (target[0] == "AllyarcherBlue")
                 {
                     playerArcher.health -= eneAtk;
                 }
-                else if(target[0] == "knightBlue")
+                else if(target[0] == "AllyknightBlue")
                 {
                     playerWarrior.health -= eneAtk;
                 }
-                particles = playerToHit.transform.GetChild(8).GetComponent<ParticleSystem>();
+                particles = targettohit.transform.GetChild(8).GetComponent<ParticleSystem>();
                 particles.Play();
-                enemydmgtxt.text = "Enemy dealt " + eneAtk + " to " + playerToHit.name;
+                enemydmgtxt.text = "Enemy dealt " + eneAtk + " to " + targettohit.name;
             }
             turns.setTurn(true);
             turns.swapControls();
             Debug.Log("EnemySAttacked");
         }
-        attacking = false;
-       
+        
     }
 
-    void enemyShoot()
+    void enemyShoot(GameObject targettohit)
     {
         if (!turns.getTurn())
         {
-            int rand = Random.Range(0, playersinRange.Count);
             
-            GameObject playerToHit = playersinRange[rand];
-
-            string[] target = playerToHit.gameObject.name.Split(' ');
+            string[] target = targettohit.gameObject.name.Split(' ');
             float hitchance = (eneAtk + eneskill);
-            if (target[0] == "archerBlue")
+            if (target[0] == "AllyarcherBlue")
             {
-                playerArcher = playerToHit.GetComponent<Archer>();
+                playerArcher = targettohit.GetComponent<Archer>();
                 hitchance -= playerArcher.skillstat;
             }
-            else if (target[0] == "knightBlue")
+            else if (target[0] == "AllyknightBlue")
             {
-                playerWarrior = playerToHit.GetComponent<Warrior>();
+                playerWarrior = targettohit.GetComponent<Warrior>();
                 hitchance -= playerWarrior.skillstat;
             }
 
@@ -220,34 +224,31 @@ public class EnemyBehaviour : MonoBehaviour
 
             if (range < hitchance)
             {
-                particles = playerToHit.transform.GetChild(9).GetComponent<ParticleSystem>();
+                particles = targettohit.transform.GetChild(9).GetComponent<ParticleSystem>();
                 particles.Play();
                 //FindObjectOfType<AudioManager>().Player("miss");
                 enemydmgtxt.text = "Enemy archer Missed";
             }
             else if (range > hitchance)
             {
-                
-
                 //FindObjectOfType<AudioManager>().Player("thwack");
-                if (target[0] == "archerBlue")
+                if (target[0] == "AllyarcherBlue")
                 {
                     playerArcher.health -= eneAtk;
                 }
-                else if (target[0] == "knightBlue")
+                else if (target[0] == "AllyknightBlue")
                 {
                     playerWarrior.health -= eneAtk;
                 }
-                enemydmgtxt.text = "Enemy archer dealt " + eneAtk + " to " + playerToHit.name;
-                particles = playerToHit.transform.GetChild(8).GetComponent<ParticleSystem>();
+                enemydmgtxt.text = "Enemy archer dealt " + eneAtk + " to " + targettohit.name;
+                particles = targettohit.transform.GetChild(8).GetComponent<ParticleSystem>();
                 particles.Play();
             }
             turns.setTurn(true);
             turns.swapControls();
             Debug.Log("EnemyAAttacked");
         }
-        attacking = false;
-
+       
     }
 
    
@@ -299,23 +300,35 @@ public class EnemyBehaviour : MonoBehaviour
         yield return /*null*/new WaitForSeconds(3); 
     }
 
+    IEnumerator targetLook(GameObject target)
+    {
+        targetlookat = true;
+        yield return new WaitForSeconds(4);
+        camera.transform.LookAt(target.transform.position);
+        Debug.Log("looking at target");
+        yield return new WaitForSeconds(4);
+        string[] enemy = namechck.Split(' ');
+        //enemytargettxt.text = "target: " + target.name;
+        if (namechck== "EneSoldier")
+        {
+            enemyAttack(target);
+        }
+        else if (namechck == "EneArcher")
+        {
+            enemyShoot(target);
+        }
+    }
+
     private void postActions()
     {
         playersinRange = ene_range.GetPlayersInCollider();
         if (playersinRange.Count > 0)
         {
             string[] chck = gameObject.name.Split(' ');
+            int rand = Random.Range(0, playersinRange.Count);
 
-            if (chck[0] == "Soldier")
-            {
-                Debug.Log("target soldier");
-                enemyAttack();
-            }
-            else if (chck[0] == "Archer")
-            {
-                Debug.Log("target archer");
-                enemyShoot();
-            }
+            GameObject playerToHit = playersinRange[rand];
+            StartCoroutine(targetLook(playerToHit));
             Debug.Log("Oh boi" + playersinRange.Count);
         }
         else

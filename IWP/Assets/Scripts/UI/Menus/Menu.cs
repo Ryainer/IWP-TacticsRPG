@@ -35,11 +35,11 @@ public class Menu : MonoBehaviour
         {
             string[] chck = character.name.Split(' ');
 
-            if (chck[0] == "archerBlue")
+            if (chck[0] == "AllyarcherBlue")
             {
                 character.GetComponent<Archer>().state = "attack";
             }
-            else if (chck[0] == "knightBlue")
+            else if (chck[0] == "AllyknightBlue")
             {
                 character.GetComponent<Warrior>().state = "attack";
             }
@@ -67,12 +67,12 @@ public class Menu : MonoBehaviour
         {
             string[] chck = character.name.Split(' ');
 
-            if (chck[0] == "archerBlue")
+            if (chck[0] == "AllyarcherBlue")
             {
                 archerMenu.SetActive(true);
                 archerMenu.GetComponent<ArcherMenu>().Archer = character;
             }
-            else if (chck[0] == "knightBlue")
+            else if (chck[0] == "AllyknightBlue")
             {
                 warriorMenu.SetActive(true);
                 warriorMenu.GetComponent<WarriorMenu>().warrior = character;

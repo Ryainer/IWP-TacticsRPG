@@ -63,14 +63,7 @@ public class TurnsManager : MonoBehaviour
             }
         }
 
-        if (turnCounter && Plamanage.GetComponent<Player>().crewmembers.Count > 0)
-        {
-            turns.text = "Turn: Player";
-        }
-        else if (!turnCounter && Enemanage.GetComponent<EnemyManager>().enemies.Count > 0)
-        {
-            turns.text = "Turn: Enemy";
-        }
+        
     }
 
     public bool getTurn()

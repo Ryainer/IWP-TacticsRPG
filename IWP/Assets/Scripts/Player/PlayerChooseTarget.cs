@@ -60,11 +60,11 @@ public class PlayerChooseTarget : MonoBehaviour
         
         string[] tokens = user.name.Split(' ');
 
-        if (tokens[0] == "archerBlue")
+        if (tokens[0] == "AllyarcherBlue")
         {
             user.GetComponent<Archer>().state = "";
         }
-        else if (tokens[0] == "knightBlue")
+        else if (tokens[0] == "AllyknightBlue")
         {
             user.GetComponent<Warrior>().state = "";
         }
@@ -91,11 +91,11 @@ public class PlayerChooseTarget : MonoBehaviour
             {
                 string[] tokens = user.name.Split(' ');
 
-                if (tokens[0] == "archerBlue")
+                if (tokens[0] == "AllyarcherBlue")
                 {
                     playerMP.text = "Player MP: " + user.GetComponent<Archer>().MP;
                 }
-                else if (tokens[0] == "knightBlue")
+                else if (tokens[0] == "AllyknightBlue")
                 {
                     playerMP.text = "Player MP: " + user.GetComponent<Warrior>().MP;
                 }
@@ -110,11 +110,11 @@ public class PlayerChooseTarget : MonoBehaviour
 
             string[] tokens = user.name.Split(' ');
 
-            if (tokens[0] == "archerBlue")
+            if (tokens[0] == "AllyarcherBlue")
             {
                 user.GetComponent<Archer>().state = "";
             }
-            else if (tokens[0] == "knightBlue")
+            else if (tokens[0] == "AllyknightBlue")
             {
                 user.GetComponent<Warrior>().state = "";
             }
@@ -139,11 +139,11 @@ public class PlayerChooseTarget : MonoBehaviour
         {
             string[] tokens = user.name.Split(' ');
 
-            if (tokens[0] == "archerBlue")
+            if (tokens[0] == "AllyarcherBlue")
             {
                 playerMP.text = "Player MP: " + user.GetComponent<Archer>().MP;
             }
-            else if (tokens[0] == "knightBlue")
+            else if (tokens[0] == "AllyknightBlue")
             {
                 playerMP.text = "Player MP: " + user.GetComponent<Warrior>().MP;
             }
@@ -160,7 +160,7 @@ public class PlayerChooseTarget : MonoBehaviour
                 {
                     string[] tokens = user.name.Split(' ');
 
-                    if (tokens[0] == "archerBlue")
+                    if (tokens[0] == "AllyarcherBlue")
                     {
                         user.GetComponent<Archer>().Attack(enemy, hitchance);
                         if (gameObject.activeInHierarchy)
@@ -171,7 +171,7 @@ public class PlayerChooseTarget : MonoBehaviour
                             user.GetComponent<Archer>().state = "";
                         }
                     }
-                    else if (tokens[0] == "knightBlue")
+                    else if (tokens[0] == "AllyknightBlue")
                     {
                         user.GetComponent<Warrior>().Attack(enemy, hitchance);
                         if (gameObject.activeInHierarchy)
@@ -242,12 +242,12 @@ public class PlayerChooseTarget : MonoBehaviour
 
         string[] tokens = user.name.Split(' ');
 
-        if (tokens[0] == "archerBlue")
+        if (tokens[0] == "AllyarcherBlue")
         {
             rate = (user.GetComponent<Archer>().atkstat + user.GetComponent<Archer>().skillstat)
                 - choices[num].GetComponent<EnemyBehaviour>().eneskill;
         }
-        else if (tokens[0] == "knightBlue")
+        else if (tokens[0] == "AllyknightBlue")
         {
             rate = (user.GetComponent<Warrior>().atkstat + user.GetComponent<Warrior>().skillstat)
                 - choices[num].GetComponent<EnemyBehaviour>().eneskill;

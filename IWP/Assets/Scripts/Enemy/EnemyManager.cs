@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject archerEnemy;
     private GameObject enemytype;
     GameObject[] Tiles;
-    public GameObject turns;
+    public TurnsManager turns;
     int maximum = 0;
     public bool chooseNewEnemyControl;
     public LayerMask ignore;
@@ -46,37 +46,7 @@ public class EnemyManager : MonoBehaviour
     {
         Debug.Log("Creating enemies");
         int num = 1;
-        //for(int i = 0; i < 3; ++i)
-        //{
-           
-        //    Vector3 spawnPos = getSpawnPos();
-
-        //    spawnPos.y += 100f;
-
-        //    Ray ray = new Ray(spawnPos, Vector3.down);
-
-        //    RaycastHit hitinfo;
-
-        //    if (Physics.Raycast(ray, out hitinfo, 350f, ~ignore))
-        //    {
-        //        spawnPos = hitinfo.point;
-        //    }
-        //    int choice = Random.Range(0, 1);
-        //    if(choice == 0)
-        //    {
-        //        enemytype = Instantiate(soldierEnemy, spawnPos, Quaternion.identity);
-        //        //Debug.Log(enemytype.transform.position);
-        //        enemytype.name = "Soldier " + num;
-        //    }
-        //    else if(choice == 1)
-        //    {
-        //        enemytype = Instantiate(archerEnemy, spawnPos, Quaternion.identity);
-        //        //Debug.Log(enemytype.transform.position);
-        //        enemytype.name = "Archer " + num;
-        //    }
-        //    num++;
-        //    enemies.Add(enemytype);
-        //}
+        
 
         while(num != 4)
         {
@@ -103,13 +73,13 @@ public class EnemyManager : MonoBehaviour
                 {
                     enemytype = Instantiate(soldierEnemy, spawnPos, Quaternion.identity);
                     Debug.Log("its a soldier");
-                    enemytype.name = "Soldier " + num;
+                    enemytype.name = "EneSoldier " + num;
                 }
                 else if (choice == 1)
                 {
                     enemytype = Instantiate(archerEnemy, spawnPos, Quaternion.identity);
                     Debug.Log("its a archer");
-                    enemytype.name = "Archer " + num;
+                    enemytype.name = "EneArcher " + num;
                 }
                 num++;
                 enemies.Add(enemytype);
@@ -120,24 +90,10 @@ public class EnemyManager : MonoBehaviour
 
     Vector3 getSpawnPos()
     {
-       
-        //GameObject[] Players;
-        
-        //Debug.Log("Tiles count" + Tiles.Length);
         int randomTile = Random.Range(0, (Tiles.Length - maximum));
        // Debug.Log("chosen tile" + randomTile);
         Vector3 spawnPos = new Vector3(Tiles[randomTile].transform.position.x,
             Tiles[randomTile].transform.position.y, Tiles[randomTile].transform.position.z);
-
-        //foreach (GameObject player in Players)
-        //{
-        //    if(spawnPos.sqrMagnitude <= player.transform.position.sqrMagnitude)
-        //    {
-        //        maximum++;
-        //        getSpawnPos();
-        //    }
-        //}
-
 
         return spawnPos;
     }
@@ -154,20 +110,18 @@ public class EnemyManager : MonoBehaviour
             enemies[range].GetComponent<EnemyBehaviour>().ignoreself = ignore;
             string name = enemies[range].name.Split(' ')[0];
 
-            if (name == "Archer")
+            if (name == "EneArcher")
             {
                 enemies[range].GetComponent<EnemyBehaviour>().namechck = name;
                 Debug.Log("its an archer");
             }
-            else if (name == "Soldier")
+            else if (name == "EneSoldier")
             {
                 enemies[range].GetComponent<EnemyBehaviour>().namechck = name;
                 Debug.Log("its a soldier" + enemies[range].name);
             }
+            turns.turns.text = "Turn: " + enemies[range].name;
         }
-        //else if(enemies.Count == 0)
-        //{
-        //    GameObject.Find("TurnManager").GetComponent<TurnsManager>().endgame("enemy loss");
-        //}
+        
     }
 }
